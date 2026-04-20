@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ToDoApp.Application/ToDoApp.Application.csproj" />
+  <Project Path="ToDoApp.Domain/ToDoApp.Domain.csproj" />
+  <Project Path="ToDoApp.Infrastructure/ToDoApp.Infrastructure.csproj" />
+  <Project Path="ToDoApp.WebApi/ToDoApp.WebApi.csproj" />
+</Solution>
