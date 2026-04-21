@@ -2,7 +2,7 @@
 
 namespace ToDoApp.Domain.Entities
 {
-    internal class User
+    public class User
     {
         public int Id { get; }
         public required string Username { get; set; }

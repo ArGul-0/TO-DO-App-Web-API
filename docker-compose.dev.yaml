@@ -1,0 +1,17 @@
+﻿services:
+  postgres:
+    image: postgres:18.3 # Use The Official PostgreSQL Image From Docker Hub
+    restart: always # Always Restart The Container If It Stops
+    environment:
+      POSTGRES_DB: AppDb # Set The Default Database Name
+      POSTGRES_USER: Admin # Set The Default Database User
+      POSTGRES_PASSWORD: 1234 # Set The Default Database Password
+    volumes:
+      - pgdata:/var/lib/postgresql # Persist Data In A Docker Volume
+    ports:
+      - "5432:5432" # Map PostgreSQL Port To The Host
+
+
+
+volumes:
+  pgdata: # Define A Named Volume For PostgreSQL Data Persistence

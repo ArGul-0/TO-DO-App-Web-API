@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Элементы решения/">
+    <File Path="docker-compose.dev.yaml" />
+  </Folder>
   <Project Path="ToDoApp.Application/ToDoApp.Application.csproj" />
   <Project Path="ToDoApp.Domain/ToDoApp.Domain.csproj" />
   <Project Path="ToDoApp.Infrastructure/ToDoApp.Infrastructure.csproj" />

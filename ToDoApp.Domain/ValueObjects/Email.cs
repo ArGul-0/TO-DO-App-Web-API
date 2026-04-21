@@ -2,7 +2,7 @@
 
 namespace ToDoApp.Domain.ValueObjects
 {
-    internal class Email
+    public class Email
     {
         public string Value { get; }
         public Email(string value)
