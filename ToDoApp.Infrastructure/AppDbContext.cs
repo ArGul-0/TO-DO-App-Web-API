@@ -15,6 +15,7 @@ namespace ToDoApp.Infrastructure
 
         }
 
+        // Override the OnModelCreating method to configure the model using the ModelBuilder
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

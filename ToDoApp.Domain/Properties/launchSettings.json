@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "ToDoApp.Domain": {
+      "commandName": "Project"
+    }
+  }
+}

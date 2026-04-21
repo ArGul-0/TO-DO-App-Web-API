@@ -1,3 +1,4 @@
+using Microsoft.OpenApi;
 using ToDoApp.Infrastructure.DependencyInjection;
 
 namespace ToDoApp.WebApi
@@ -13,16 +14,36 @@ namespace ToDoApp.WebApi
 
             builder.Services.AddInfrastructure(builder.Configuration);
 
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "TO-DO App Web API",
+                    Description = "An ASP.NET Core Web API for managing TO-DO items",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "ArGul",
+                    }
+                });
+            });
+
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            app.MapOpenApi();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
             {
-                app.MapOpenApi();
-            }
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                options.RoutePrefix = string.Empty;
+            });
 
             app.UseHttpsRedirection();
 
