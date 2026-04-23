@@ -1,4 +1,5 @@
 using Microsoft.OpenApi;
+using Serilog;
 using ToDoApp.Infrastructure.DependencyInjection;
 
 namespace ToDoApp.WebApi
@@ -8,9 +9,6 @@ namespace ToDoApp.WebApi
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-            builder.Services.AddAuthorization();
 
             builder.Services.AddInfrastructure(builder.Configuration);
 
@@ -31,10 +29,16 @@ namespace ToDoApp.WebApi
                 });
             });
 
+            builder.AddSerilogLogging();
+
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            builder.Services.AddAuthorization();
+
             var app = builder.Build();
+
+            app.UseSerilogRequestLogging();
 
             app.MapOpenApi();
 
