@@ -1,5 +1,6 @@
 using Serilog;
 using ToDoApp.Infrastructure.DependencyInjection;
+using ToDoApp.WebApi.Extensions;
 
 namespace ToDoApp.WebApi
 {

@@ -2,9 +2,9 @@
 using Serilog;
 using Serilog.Events;
 
-namespace ToDoApp.WebApi
+namespace ToDoApp.WebApi.Extensions
 {
-    public static class Extensions
+    public static class ApiExtensions
     {
         /// <summary>
         /// Configures Swagger services for the specified web application builder with a custom API documentation setup.
