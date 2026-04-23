@@ -19,6 +19,15 @@ namespace ToDoApp.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Configure the User entity to own the Email value object
+            modelBuilder.Entity<User>(builder =>
+            builder.OwnsOne(u => u.Email, emailBuilder =>
+            {
+                emailBuilder.Property(e => e.Value)
+                    .HasColumnName("Email")
+                    .IsRequired();
+            }));
         }
     }
 }

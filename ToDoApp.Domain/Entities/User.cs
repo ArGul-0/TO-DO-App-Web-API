@@ -4,7 +4,7 @@ namespace ToDoApp.Domain.Entities
 {
     public class User
     {
-        public int Id { get; }
+        public int Id { get; private set; }
         public required string Username { get; set; }
         public required Email Email { get; set; }
         public required string HashedPassword { get; set; }

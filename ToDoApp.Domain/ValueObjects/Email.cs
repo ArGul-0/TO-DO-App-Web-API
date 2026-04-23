@@ -4,7 +4,7 @@ namespace ToDoApp.Domain.ValueObjects
 {
     public class Email
     {
-        public string Value { get; }
+        public string Value { get; private set; }
         public Email(string value)
         {
             if (string.IsNullOrEmpty(value))
@@ -27,5 +27,7 @@ namespace ToDoApp.Domain.ValueObjects
                 return false;
             }
         }
+
+        private Email() { } // For EF Core
     }
 }
