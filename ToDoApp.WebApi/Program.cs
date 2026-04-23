@@ -1,4 +1,3 @@
-using Microsoft.OpenApi;
 using Serilog;
 using ToDoApp.Infrastructure.DependencyInjection;
 
@@ -26,6 +25,8 @@ namespace ToDoApp.WebApi
 
             var app = builder.Build();
 
+            app.UseHttpsRedirection();
+
             app.UseSerilogRequestLogging();
 
             app.MapOpenApi();
@@ -36,8 +37,6 @@ namespace ToDoApp.WebApi
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
                 options.RoutePrefix = string.Empty;
             });
-
-            app.UseHttpsRedirection();
 
             app.UseAuthorization();
 

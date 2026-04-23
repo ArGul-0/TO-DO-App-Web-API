@@ -43,6 +43,8 @@ namespace ToDoApp.WebApi
         /// <returns>The same instance of <see cref="WebApplicationBuilder"/> with Serilog logging configured.</returns>
         public static WebApplicationBuilder AddSerilogLogging(this WebApplicationBuilder builder)
         {
+            var seqUrl = builder.Configuration["Serilog:SeqUrl"] ?? throw new NullReferenceException("Serilog:SeqUrl configuration is missing.");
+
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
@@ -51,7 +53,7 @@ namespace ToDoApp.WebApi
                 .Enrich.WithProcessId()
                 .Enrich.WithThreadId()
                 .WriteTo.Console()
-                .WriteTo.Seq("http://localhost:5341")
+                .WriteTo.Seq(seqUrl)
                 .CreateLogger();
 
             builder.Host.UseSerilog();
