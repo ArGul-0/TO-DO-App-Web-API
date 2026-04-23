@@ -10,8 +10,21 @@
       - pgdata:/var/lib/postgresql # Persist Data In A Docker Volume
     ports:
       - "5432:5432" # Map PostgreSQL Port To The Host
+  seq:
+    image: datalust/seq:2025.2
+    container_name: seq
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+    ports:
+      - "5341:80"
+      - "5342:5341"
+    volumes:
+      - seq_data:/data
+
 
 
 
 volumes:
   pgdata: # Define A Named Volume For PostgreSQL Data Persistence
+  seq_data: # Define A Named Volume For Seq Data Persistence
