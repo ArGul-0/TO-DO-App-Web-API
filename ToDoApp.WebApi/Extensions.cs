@@ -6,6 +6,12 @@ namespace ToDoApp.WebApi
 {
     public static class Extensions
     {
+        /// <summary>
+        /// Configures Swagger services for the specified web application builder with a custom API documentation setup.
+        /// </summary>
+        /// <remarks>This method sets up Swagger to generate API documentation with a title, version, description, and contact information.<remarks>
+        /// <param name="builder">The web application builder to configure with Swagger services. Cannot be null.</param>
+        /// <returns>The same instance of <see cref="WebApplicationBuilder"/> with Swagger services configured.</returns>
         public static WebApplicationBuilder AddSwagger(this WebApplicationBuilder builder)
         {
             builder.Services.AddSwaggerGen(options =>
