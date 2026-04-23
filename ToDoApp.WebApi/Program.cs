@@ -14,20 +14,8 @@ namespace ToDoApp.WebApi
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            builder.Services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "TO-DO App Web API",
-                    Description = "An ASP.NET Core Web API for managing TO-DO items",
-                    Contact = new OpenApiContact
-                    {
-                        Name = "ArGul",
-                    }
-                });
-            });
+
+            builder.AddSwagger();
 
             builder.AddSerilogLogging();
 

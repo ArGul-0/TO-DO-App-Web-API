@@ -1,10 +1,30 @@
-﻿using Serilog;
+﻿using Microsoft.OpenApi;
+using Serilog;
 using Serilog.Events;
 
 namespace ToDoApp.WebApi
 {
     public static class Extensions
     {
+        public static WebApplicationBuilder AddSwagger(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "TO-DO App Web API",
+                    Description = "An ASP.NET Core Web API for managing TO-DO items",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "ArGul",
+                    }
+                });
+            });
+
+            return builder;
+        }
+
         /// <summary>
         /// Configures Serilog as the logging provider for the specified web application builder with default enrichers
         /// and sinks.

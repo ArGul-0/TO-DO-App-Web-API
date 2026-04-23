@@ -16,6 +16,7 @@
     restart: unless-stopped
     environment:
       ACCEPT_EULA: "Y"
+      SEQ_FIRSTRUN_ADMINPASSWORD: "Em8z(S_SuO1+8m)M~–cuQL[op)?>K/xe" # Set The Admin Password For Seq
     ports:
       - "5341:80"
     volumes:
