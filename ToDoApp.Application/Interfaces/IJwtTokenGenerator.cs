@@ -10,6 +10,5 @@ namespace ToDoApp.Application.Interfaces
         /// <param name="user" >The user for whom the token is being generated.</param>
         /// <returns>The generated JWT access token as a string.</returns>
         public string GenerateAccessToken(User user);
-
     }
 }
