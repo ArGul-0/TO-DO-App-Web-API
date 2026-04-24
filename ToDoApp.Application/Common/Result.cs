@@ -1,6 +1,6 @@
 ﻿namespace ToDoApp.Application.Common
 {
-    internal class Result
+    public class Result
     {
         public bool IsSuccess { get; }
         public bool IsFailure => !IsSuccess;

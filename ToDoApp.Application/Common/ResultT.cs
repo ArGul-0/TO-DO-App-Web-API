@@ -1,6 +1,6 @@
 ﻿namespace ToDoApp.Application.Common
 {
-    internal class ResultT<T> : Result
+    public class ResultT<T> : Result
     {
         public T Value { get; }
         protected ResultT(T value, bool isSuccess, Error error) : base(isSuccess, error)
