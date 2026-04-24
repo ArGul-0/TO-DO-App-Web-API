@@ -1,5 +1,6 @@
 using Serilog;
 using ToDoApp.Infrastructure.DependencyInjection;
+using ToDoApp.WebApi.Endpoints;
 using ToDoApp.WebApi.Extensions;
 
 namespace ToDoApp.WebApi
@@ -40,6 +41,8 @@ namespace ToDoApp.WebApi
             });
 
             app.UseAuthorization();
+
+            app.MapAuthEndpoints();
 
             app.Run();
         }
