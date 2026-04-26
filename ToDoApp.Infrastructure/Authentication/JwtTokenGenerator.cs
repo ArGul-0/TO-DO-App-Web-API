@@ -36,7 +36,7 @@ namespace ToDoApp.Infrastructure.Authentication
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim("userID", user.Id.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddHours(options.ExpirationHours),
                 SigningCredentials = credentials,
