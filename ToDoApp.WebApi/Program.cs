@@ -33,7 +33,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // Add Authentication Services With JWT Bearer Scheme
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
             {
-                var jwtOptions = builder.Configuration.GetSection("JwtOptions").Get<JwtOptions>();
+                var jwtOptions = builder.Configuration.GetSection("JwtOptions").Get<JwtOptions>() ?? throw new InvalidOperationException("JwtOptions configuration is missing.");
 
                 options.TokenValidationParameters = new TokenValidationParameters // Configure Token Validation Parameters
                 {
@@ -42,6 +42,7 @@ namespace ToDoApp.WebApi
                     ValidateAudience = true, // Enable Audience Validation To Ensure Token Is Intended For This API
                     ValidAudience = jwtOptions.Audience, // Set The Valid Audience To The Value From Configuration
                     ValidateLifetime = true, // Enable Lifetime Validation To Ensure Tokens Expire
+                    ClockSkew = TimeSpan.Zero, // Set Clock Skew To Zero To Prevent Delayed Expiration Issues
                     ValidateIssuerSigningKey = true, // Enable Issuer Signing Key Validation To Ensure Token Integrity
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
                         jwtOptions.SecretKey!)), // Use A Symmetric Security Key Derived From The Secret Key In Configuration
