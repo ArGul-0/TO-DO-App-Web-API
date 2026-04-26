@@ -4,7 +4,7 @@ using Microsoft.OpenApi;
 using Serilog;
 using Serilog.Events;
 using System.Text;
-using ToDoApp.Infrastructure.Authentication;
+using ToDoApp.Infrastructure.Authentication.Jwt;
 
 namespace ToDoApp.WebApi.Extensions
 {

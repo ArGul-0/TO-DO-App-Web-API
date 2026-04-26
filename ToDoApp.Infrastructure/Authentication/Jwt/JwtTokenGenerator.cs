@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -7,7 +6,7 @@ using System.Text;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Domain.Entities;
 
-namespace ToDoApp.Infrastructure.Authentication
+namespace ToDoApp.Infrastructure.Authentication.Jwt
 {
     public class JwtTokenGenerator : IJwtTokenGenerator
     {

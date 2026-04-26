@@ -1,4 +1,4 @@
-﻿namespace ToDoApp.Infrastructure.Authentication
+﻿namespace ToDoApp.Infrastructure.Authentication.Jwt
 {
     public class JwtOptions
     {

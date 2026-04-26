@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.CookiePolicy;
 using Serilog;
 using ToDoApp.Application.Interfaces;
-using ToDoApp.Infrastructure.Authentication;
+using ToDoApp.Infrastructure.Authentication.Jwt;
 using ToDoApp.Infrastructure.DependencyInjection;
 using ToDoApp.WebApi.Endpoints;
 using ToDoApp.WebApi.Extensions;
