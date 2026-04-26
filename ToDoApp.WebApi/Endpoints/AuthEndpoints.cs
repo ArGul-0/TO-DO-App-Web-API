@@ -10,11 +10,7 @@ namespace ToDoApp.WebApi.Endpoints
 
             return authGroup;
 
-            authGroup.MapGet("/Test", (IJwtTokenGenerator jwtTokenGenerator) =>
-            {
-                // Generate A Test JWT Token For Demonstration Purposes
-                var token = jwtTokenGenerator.GenerateAccessToken();
-            });
+            authGroup.MapGet("/Test", () => "Auth Endpoint Is Working!").WithTags("Auth"); // Example Test Endpoint
         }
     }
 }
