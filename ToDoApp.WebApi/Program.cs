@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Text;
@@ -79,6 +80,14 @@ namespace ToDoApp.WebApi
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
                 options.RoutePrefix = string.Empty;
             });
+
+            app.UseCookiePolicy(
+                new CookiePolicyOptions
+                {
+                    HttpOnly = HttpOnlyPolicy.Always, // Ensure Cookies Are Marked As HttpOnly To Prevent Client-Side Access
+                    Secure = CookieSecurePolicy.Always, // Ensure Cookies Are Only Sent Over HTTPS
+                    MinimumSameSitePolicy = SameSiteMode.Strict // Set SameSite Policy To Strict To Prevent CSRF Attacks
+                });
 
             app.UseAuthentication();
             app.UseAuthorization();
