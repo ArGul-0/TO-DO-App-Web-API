@@ -14,6 +14,6 @@
         /// <param name="password">The plain text password to verify.</param>
         /// <param name="hashedPassword">The hashed password to compare against.</param>
         /// <returns>True if the password matches the hashed password; otherwise, false.</returns>
-        public Task<bool> VerifyPasswordAsync(string password, string hashedPassword)
+        public Task<bool> VerifyPasswordAsync(string password, string hashedPassword);
     }
 }
