@@ -26,6 +26,7 @@ namespace ToDoApp.WebApi
             builder.AddAuth();
 
             builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            builder.Services.AddScoped<IPasswordHasher, IPasswordHasher>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
