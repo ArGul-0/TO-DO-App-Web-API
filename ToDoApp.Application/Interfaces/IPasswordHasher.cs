@@ -7,13 +7,13 @@
         /// </summary>
         /// <param name="password">The plain text password to be hashed.</param>
         /// <returns>The hashed representation of the provided password.</returns>
-        public string HashPassword(string password);
+        public Task<string> HashPasswordAsync(string password);
         /// <summary>
         /// Verifies whether the provided plain text password matches the given hashed password.
         /// </summary>
         /// <param name="password">The plain text password to verify.</param>
         /// <param name="hashedPassword">The hashed password to compare against.</param>
         /// <returns>True if the password matches the hashed password; otherwise, false.</returns>
-        public bool VerifyPassword(string password, string hashedPassword);
+        public Task<bool> VerifyPasswordAsync(string password, string hashedPassword)
     }
 }
