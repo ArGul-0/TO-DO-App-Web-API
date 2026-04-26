@@ -1,6 +1,4 @@
-﻿using ToDoApp.Application.Interfaces;
-
-namespace ToDoApp.WebApi.Endpoints
+﻿namespace ToDoApp.WebApi.Endpoints
 {
     public static class AuthEndpoints
     {
