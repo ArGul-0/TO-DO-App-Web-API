@@ -1,4 +1,5 @@
-﻿using ToDoApp.Application.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ToDoApp.Application.Interfaces;
 using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Infrastructure.Repositories
@@ -13,7 +14,9 @@ namespace ToDoApp.Infrastructure.Repositories
 
         public Task AddUserAsync(User user)
         {
-            throw new NotImplementedException();
+            dbContext.Users.Add(user);
+
+            return Task.CompletedTask;
         }
 
         public Task DeleteUserAsync(int userId)
