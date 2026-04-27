@@ -14,9 +14,12 @@ namespace ToDoApp.Infrastructure.Repositories
 
 
 
-        public async Task<User> GetUserByIdAsync(Guid userId)
+        public async Task<User?> GetUserByIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            if(userId < 0)
+                throw new ArgumentOutOfRangeException(nameof(userId));
+
+            return await dbContext.Users.FindAsync(userId);
         }
 
         public async Task<User> GetUserByUsernameAsync(string username)
