@@ -31,12 +31,6 @@ namespace ToDoApp.Application.Interfaces
         /// <returns>A task that represents the asynchronous add operation.</returns>
         public Task AddUserAsync(User user);
         /// <summary>
-        /// Asynchronously updates the specified user's information in the data store.
-        /// </summary>
-        /// <param name="user">The user entity containing updated information. Cannot be null.</param>
-        /// <returns>A task that represents the asynchronous update operation.</returns>
-        public Task UpdateUserAsync(User user);
-        /// <summary>
         /// Asynchronously deletes the user with the specified identifier.
         /// </summary>
         /// <param name="userId">The unique identifier of the user to delete. Must be a positive integer.</param>

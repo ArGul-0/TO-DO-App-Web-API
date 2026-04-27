@@ -45,11 +45,6 @@ namespace ToDoApp.Infrastructure.Repositories
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateUserAsync(User user)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task DeleteUserAsync(int userId)
         {
             throw new NotImplementedException();
