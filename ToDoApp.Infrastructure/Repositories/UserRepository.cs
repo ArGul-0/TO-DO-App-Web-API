@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Domain.Entities;
 
@@ -29,20 +30,11 @@ namespace ToDoApp.Infrastructure.Repositories
             return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.Value == email);
         }
 
-        public async Task<bool> AddUserAsync(User user)
+        public async Task AddUserAsync(User user)
         {
-            try
-            {
-                await dbContext.Users.AddAsync(user);
+            await dbContext.Users.AddAsync(user);
 
-                await dbContext.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                // Log the exception (ex) here as needed
-                return false;
-            }
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task<bool> DeleteUserAsync(int userId)
