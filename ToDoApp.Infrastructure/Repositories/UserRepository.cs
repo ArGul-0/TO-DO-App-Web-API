@@ -16,33 +16,33 @@ namespace ToDoApp.Infrastructure.Repositories
 
         public async Task<User?> GetUserByIdAsync(int userId)
         {
-            if(userId < 0)
-                throw new ArgumentOutOfRangeException(nameof(userId));
-
             return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == userId);
         }
 
         public async Task<User?> GetUserByUsernameAsync(string username)
-        {
-            if (username is null)
-                throw new ArgumentNullException(nameof(username));
-                
+        { 
             return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username);
         }
 
         public async Task<User?> GetUserByEmailAsync(string email)
         {
-            if (email is null)
-                throw new ArgumentNullException(nameof(email));
-
             return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.Value == email);
         }
 
-        public async Task AddUserAsync(User user)
+        public async Task<bool> AddUserAsync(User user)
         {
-            await dbContext.Users.AddAsync(user);
+            try
+            {
+                await dbContext.Users.AddAsync(user);
 
-            await dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (ex) here as needed
+                return false;
+            }
         }
 
         public async Task<bool> DeleteUserAsync(int userId)

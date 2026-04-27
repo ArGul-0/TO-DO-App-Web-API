@@ -29,7 +29,7 @@ namespace ToDoApp.Application.Interfaces
         /// </summary>
         /// <param name="user">The user to add. Cannot be null. The user's properties must meet any required validation constraints.</param>
         /// <returns>A task that represents the asynchronous add operation.</returns>
-        public Task AddUserAsync(User user);
+        public Task<bool> AddUserAsync(User user);
         /// <summary>
         /// Asynchronously deletes the user with the specified identifier.
         /// </summary>
