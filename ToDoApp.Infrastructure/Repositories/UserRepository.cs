@@ -12,34 +12,36 @@ namespace ToDoApp.Infrastructure.Repositories
             this.dbContext = dbContext;
         }
 
-        public Task AddUserAsync(User user)
-        {
-            dbContext.Users.Add(user);
 
-            return Task.CompletedTask;
-        }
 
-        public Task DeleteUserAsync(int userId)
+        public async Task<User> GetUserByIdAsync(Guid userId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> GetUserByEmailAsync(string email)
+        public async Task<User> GetUserByUsernameAsync(string username)
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> GetUserByIdAsync(Guid userId)
+        public async Task<User> GetUserByEmailAsync(string email)
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> GetUserByUsernameAsync(string username)
+        public async Task AddUserAsync(User user)
+        {
+            await dbContext.Users.AddAsync(user);
+
+            await dbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateUserAsync(User user)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateUserAsync(User user)
+        public async Task DeleteUserAsync(int userId)
         {
             throw new NotImplementedException();
         }
