@@ -1,4 +1,6 @@
-﻿namespace ToDoApp.WebApi.Endpoints
+﻿using ToDoApp.Application.UseCases.Users.CreateUser;
+
+namespace ToDoApp.WebApi.Endpoints
 {
     public static class AuthEndpoints
     {
@@ -6,10 +8,10 @@
         {
             var authGroup = app.MapGroup("/Auth"); // Create A Group For /Auth Endpoints
 
-            authGroup.MapGet("/Test", () =>
+            authGroup.MapPost("/Test", (CreateUserHandler createUserHandler) =>
             {
-                return Results.Ok(new { Message = "Auth Endpoint Is Working!" });
-            });
+
+            }).WithName("TestAuthEndpoint");
 
             return authGroup;
         }

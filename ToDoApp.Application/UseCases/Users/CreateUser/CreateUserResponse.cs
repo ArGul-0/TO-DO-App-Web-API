@@ -2,7 +2,7 @@
 
 namespace ToDoApp.Application.UseCases.Users.CreateUser
 {
-    internal record CreateUserResponse(
+    public record CreateUserResponse(
         [Required] int id,
         [Required] string username,
         [Required][EmailAddress] string email,

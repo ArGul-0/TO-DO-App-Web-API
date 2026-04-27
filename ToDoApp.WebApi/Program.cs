@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.CookiePolicy;
 using Serilog;
 using ToDoApp.Application.Interfaces;
+using ToDoApp.Application.UseCases.Users.CreateUser;
 using ToDoApp.Infrastructure.Authentication.Jwt;
 using ToDoApp.Infrastructure.Authentication.Password;
 using ToDoApp.Infrastructure.DependencyInjection;
@@ -31,6 +32,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             builder.Services.AddScoped<IPasswordHasher, Argon2Hasher>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<CreateUserHandler>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
