@@ -19,7 +19,7 @@ namespace ToDoApp.Infrastructure.Repositories
             if(userId < 0)
                 throw new ArgumentOutOfRangeException(nameof(userId));
 
-            return await dbContext.Users.FindAsync(userId);
+            return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == userId);
         }
 
         public async Task<User?> GetUserByUsernameAsync(string username)
@@ -27,7 +27,7 @@ namespace ToDoApp.Infrastructure.Repositories
             if (username is null)
                 throw new ArgumentNullException(nameof(username));
                 
-            return await dbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
+            return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username);
         }
 
         public async Task<User?> GetUserByEmailAsync(string email)
@@ -35,7 +35,7 @@ namespace ToDoApp.Infrastructure.Repositories
             if (email is null)
                 throw new ArgumentNullException(nameof(email));
 
-            return await dbContext.Users.FirstOrDefaultAsync(u => u.Email.Value == email);
+            return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.Value == email);
         }
 
         public async Task AddUserAsync(User user)
