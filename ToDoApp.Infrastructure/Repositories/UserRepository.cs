@@ -5,6 +5,12 @@ namespace ToDoApp.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
+        private readonly AppDbContext dbContext;
+        public UserRepository(AppDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public Task AddUserAsync(User user)
         {
             throw new NotImplementedException();

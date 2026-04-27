@@ -4,7 +4,7 @@ using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Infrastructure
 {
-    internal class AppDbContext : DbContext, IAppDbContext
+    public class AppDbContext : DbContext, IAppDbContext
     {
         public DbSet<User> Users => Set<User>();
 
