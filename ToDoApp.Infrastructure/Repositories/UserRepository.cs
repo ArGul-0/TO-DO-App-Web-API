@@ -22,14 +22,20 @@ namespace ToDoApp.Infrastructure.Repositories
             return await dbContext.Users.FindAsync(userId);
         }
 
-        public async Task<User> GetUserByUsernameAsync(string username)
+        public async Task<User?> GetUserByUsernameAsync(string username)
         {
-            throw new NotImplementedException();
+            if (username is null)
+                throw new ArgumentNullException(nameof(username));
+                
+            return await dbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
         }
 
-        public async Task<User> GetUserByEmailAsync(string email)
+        public async Task<User?> GetUserByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            if (email is null)
+                throw new ArgumentNullException(nameof(email));
+
+            return await dbContext.Users.FirstOrDefaultAsync(u => u.Email.Value == email);
         }
 
         public async Task AddUserAsync(User user)
