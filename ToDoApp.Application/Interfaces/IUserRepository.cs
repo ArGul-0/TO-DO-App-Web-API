@@ -8,7 +8,7 @@ namespace ToDoApp.Application.Interfaces
         /// Retrieves a user by their unique identifier.
         /// </summary>
         /// <param name="userId">The unique identifier of the user.</param>
-        /// <returns>The user with the specified identifier.</returns>
+        /// <returns>The user with the specified identifier, or null if no such user exists.</returns>
         public Task<User?> GetUserByIdAsync(int userId);
         /// <summary>
         /// Asynchronously retrieves a user by their username.
@@ -34,7 +34,7 @@ namespace ToDoApp.Application.Interfaces
         /// Asynchronously deletes the user with the specified identifier.
         /// </summary>
         /// <param name="userId">The unique identifier of the user to delete. Must be a positive integer.</param>
-        /// <returns>A task that represents the asynchronous delete operation.</returns>
-        public Task DeleteUserAsync(int userId);
+        /// <returns>A task that represents the asynchronous delete operation. The task result contains a boolean indicating whether the user was successfully deleted.</returns>
+        public Task<bool> DeleteUserAsync(int userId);
     }
 }
