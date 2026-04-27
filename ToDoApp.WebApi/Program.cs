@@ -4,9 +4,10 @@ using ToDoApp.Application.Interfaces;
 using ToDoApp.Infrastructure.Authentication.Jwt;
 using ToDoApp.Infrastructure.Authentication.Password;
 using ToDoApp.Infrastructure.DependencyInjection;
+using ToDoApp.Infrastructure.Repositories;
 using ToDoApp.WebApi.Endpoints;
 using ToDoApp.WebApi.Extensions;
-using ToDoApp.Infrastructure.Repositories;
+using ToDoApp.WebApi.Middlewares;
 
 namespace ToDoApp.WebApi
 {
@@ -38,7 +39,7 @@ namespace ToDoApp.WebApi
 
             app.UseHttpsRedirection();
 
-            app.UseSerilogRequestLogging();
+            app.UseSerilogRequestLogging(); // Enable Serilog Request Logging
 
             app.MapOpenApi();
 
@@ -59,6 +60,8 @@ namespace ToDoApp.WebApi
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseMiddleware<ExceptionMiddleware>(); // Global Exception Handling Middleware
 
             app.MapAuthEndpoints();
 
