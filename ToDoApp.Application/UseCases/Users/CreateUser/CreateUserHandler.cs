@@ -28,6 +28,16 @@ namespace ToDoApp.Application.UseCases.Users.CreateUser
 
         public async Task<ResultT<CreateUserResponse>> Handle(CreateUserRequest request)
         {
+            var existingUserByUsername = await userRepository.GetUserByUsernameAsync(request.Username);
+
+            if (existingUserByUsername != null)
+                return ResultT<CreateUserResponse>.Failure(CreateUserErrors.UserAlreadyExists);
+
+            var existingUserByEmail = await userRepository.GetUserByEmailAsync(request.Email);
+
+            if (existingUserByEmail != null)
+                return ResultT<CreateUserResponse>.Failure(CreateUserErrors.UserAlreadyExists);
+
             var newUser = new User
             {
                 Username = request.Username,
