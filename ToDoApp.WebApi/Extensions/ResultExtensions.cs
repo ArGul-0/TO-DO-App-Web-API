@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using ToDoApp.Application.Common;
+﻿using ToDoApp.Application.Common;
 
 namespace ToDoApp.WebApi.Extensions
 {
