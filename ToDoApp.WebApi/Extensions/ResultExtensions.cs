@@ -1,34 +1,36 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
 using ToDoApp.Application.Common;
 
 namespace ToDoApp.WebApi.Extensions
 {
     public static class ResultExtensions
     {
-        public static IActionResult ToActionResult(this Result result)
+        public static IResult ToHttpResult(this Result result)
         {
             if (result.IsSuccess)
-                return new OkResult();
+                return Results.Ok();
 
             return result.Error.Type switch
             {
-                ErrorType.Validation => new BadRequestObjectResult(result.Error),
-                ErrorType.NotFound => new NotFoundObjectResult(result.Error),
-                ErrorType.Unauthorized => new UnauthorizedObjectResult(result.Error),
-                ErrorType.Forbidden => new ObjectResult(result.Error) { StatusCode = 403 },
-                ErrorType.Conflict => new ConflictObjectResult(result.Error),
-                ErrorType.InternalServerError => new ObjectResult(result.Error) { StatusCode = 500 },
+                ErrorType.Validation => Results.BadRequest(result.Error),
+                ErrorType.NotFound => Results.NotFound(result.Error),
+                ErrorType.Unauthorized => Results.Unauthorized(),
+                ErrorType.Forbidden => Results.Json(result.Error, statusCode: 403),
+                ErrorType.Conflict => Results.Conflict(result.Error),
+                ErrorType.InternalServerError => Results.Problem(
+                                                    detail: result.Error.Description,
+                                                    statusCode: 500),
 
-                _ => new ObjectResult(result.Error) { StatusCode = 500 }
+                _ => Results.Problem(detail: result.Error.Description, statusCode: 500)
             };
         }
 
-        public static IActionResult ToActionResult<T>(this ResultT<T> result)
+        public static IResult ToHttpResult<T>(this ResultT<T> result)
         {
             if (result.IsSuccess)
-                return new OkObjectResult(result.Value);
+                return Results.Ok(result.Value);
 
-            return result.ToActionResult();
+            return ((Result)result).ToHttpResult();
         }
     }
 }

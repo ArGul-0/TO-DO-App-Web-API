@@ -14,7 +14,10 @@ namespace ToDoApp.WebApi.Endpoints
 
 
 
-            authGroup.MapPost("/Test", async (CreateUserHandler createUserHandler, HttpContext httpContext, IConfiguration configuration) =>
+            authGroup.MapPost("/Test", async (
+                CreateUserHandler createUserHandler,
+                HttpContext httpContext,
+                IConfiguration configuration) =>
             {
                 var result = await createUserHandler.Handle(new CreateUserRequest(
                     Username: "testuser",
@@ -22,10 +25,13 @@ namespace ToDoApp.WebApi.Endpoints
                     Password: "TestPassword123"
                     ));
 
+                if (result.IsFailure)
+                    return result.ToHttpResult();
+
                 httpContext.Response.Cookies
                 .Append(configuration["JwtOptions:NameInCookies"]!, result.Value.ToString()); // Set The JWT Token In Cookies
 
-                return Results.Ok(result);
+                return Results.Ok(result.Value);
             }).WithName("TestAuthEndpoint");
 
             return authGroup;
