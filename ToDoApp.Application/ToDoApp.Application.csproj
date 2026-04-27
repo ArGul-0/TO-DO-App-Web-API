@@ -10,8 +10,4 @@
     <ProjectReference Include="..\ToDoApp.Domain\ToDoApp.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\Users\CreateUser\" />
-  </ItemGroup>
-
 </Project>
