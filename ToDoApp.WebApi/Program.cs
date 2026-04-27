@@ -6,6 +6,7 @@ using ToDoApp.Infrastructure.Authentication.Password;
 using ToDoApp.Infrastructure.DependencyInjection;
 using ToDoApp.WebApi.Endpoints;
 using ToDoApp.WebApi.Extensions;
+using ToDoApp.Infrastructure.Repositories;
 
 namespace ToDoApp.WebApi
 {
@@ -28,6 +29,7 @@ namespace ToDoApp.WebApi
 
             builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             builder.Services.AddScoped<IPasswordHasher, Argon2Hasher>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
