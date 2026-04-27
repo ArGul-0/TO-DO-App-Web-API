@@ -6,7 +6,10 @@
         {
             var authGroup = app.MapGroup("/Auth"); // Create A Group For /Auth Endpoints
 
-            authGroup.MapGet("/Test", () => "Auth Endpoint Is Working!").WithTags("Auth"); // Example Test Endpoint
+            authGroup.MapGet("/Test", () =>
+            {
+                return Results.Ok(new { Message = "Auth Endpoint Is Working!" });
+            });
 
             return authGroup;
         }
