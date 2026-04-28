@@ -38,12 +38,10 @@ namespace ToDoApp.Application.UseCases.Users.CreateUser
             if (existingUserByEmail != null)
                 return ResultT<CreateUserResponse>.Failure(CreateUserErrors.UserAlreadyExists);
 
-            var newUser = new User
-            {
-                Username = request.Username,
-                Email = new Email(request.Email),
-                HashedPassword = await passwordHasher.HashPasswordAsync(request.Password)
-            };
+            var newUser = new User(
+                request.Username,
+                new Email(request.Email),
+                await passwordHasher.HashPasswordAsync(request.Password));
 
             await userRepository.AddUserAsync(newUser);
 
