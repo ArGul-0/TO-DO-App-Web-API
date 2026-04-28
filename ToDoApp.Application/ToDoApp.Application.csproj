@@ -14,4 +14,8 @@
     <ProjectReference Include="..\ToDoApp.Domain\ToDoApp.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCases\Users\LoginUser\" />
+  </ItemGroup>
+
 </Project>
