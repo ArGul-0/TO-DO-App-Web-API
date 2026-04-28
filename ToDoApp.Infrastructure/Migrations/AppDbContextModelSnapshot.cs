@@ -44,7 +44,7 @@ namespace ToDoApp.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Notes");
+                    b.ToTable("Notes", (string)null);
                 });
 
             modelBuilder.Entity("ToDoApp.Domain.Entities.User", b =>
@@ -65,7 +65,7 @@ namespace ToDoApp.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("ToDoApp.Domain.Entities.Note", b =>
@@ -93,7 +93,7 @@ namespace ToDoApp.Infrastructure.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("Users");
+                            b1.ToTable("Users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
