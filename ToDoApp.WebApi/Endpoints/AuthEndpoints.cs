@@ -14,16 +14,13 @@ namespace ToDoApp.WebApi.Endpoints
 
 
 
-            authGroup.MapPost("/Test", async (
+            authGroup.MapPost("/Register", async (
+                CreateUserRequest request,
                 CreateUserHandler createUserHandler,
                 HttpContext httpContext,
                 IConfiguration configuration) =>
             {
-                var result = await createUserHandler.Handle(new CreateUserRequest(
-                    Username: "testuser",
-                    Email: "testEmail@gmail.com",
-                    Password: "TestPassword123"
-                    ));
+                var result = await createUserHandler.Handle(request);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -32,7 +29,7 @@ namespace ToDoApp.WebApi.Endpoints
                 .Append(configuration["JwtOptions:NameInCookies"]!, result.Value.ToString()); // Set The JWT Token In Cookies
 
                 return Results.Ok(result.Value);
-            }).WithName("TestAuthEndpoint");
+            }).WithName(RegisterEndpointName);
 
             return authGroup;
         }
