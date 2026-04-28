@@ -7,8 +7,10 @@ namespace ToDoApp.Infrastructure
     public class AppDbContext : DbContext, IAppDbContext
     {
         public DbSet<User> Users => Set<User>();
+        public DbSet<Note> Notes => Set<Note>();
 
         IQueryable<User> IAppDbContext.Users => Users;
+        IQueryable<Note> IAppDbContext.Notes => Notes;
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) // Constructor that takes DbContextOptions and passes it to the base DbContext constructor
         {
