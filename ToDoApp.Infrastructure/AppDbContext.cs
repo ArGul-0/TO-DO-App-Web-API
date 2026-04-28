@@ -30,6 +30,12 @@ namespace ToDoApp.Infrastructure
                     .HasColumnName("Email")
                     .IsRequired();
             }));
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Notes)
+                .WithOne(n => n.User)
+                .HasForeignKey(n => n.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -2,9 +2,19 @@
 {
     public class Note
     {
-        public int Id { get; set; }
-        public required string Title { get; set; }
-        public string Content { get; set; } = string.Empty;
+        private Note() { } // Private constructor for EF Core
+        public Note(string title, string content, User user)
+        {
+            Title = title;
+            Content = content;
+            User = user;
+        }
+
+        public int Id { get; private set; }
+        public string Title { get; private set; } = null!;
+        public string Content { get; private set; } = string.Empty;
+        public User User { get; private set; } = null!;
+        public int UserId { get; private set; }
 
         public void UpdateTitle(string title)
         {

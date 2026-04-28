@@ -5,9 +5,19 @@ namespace ToDoApp.Domain.Entities
     public class User
     {
         public int Id { get; private set; }
-        public required string Username { get; set; }
-        public required Email Email { get; set; }
-        public required string HashedPassword { get; set; }
+        public string Username { get; set; } = null!;
+        public Email Email { get; set; } = null!;
+        public string HashedPassword { get; set; } = null!;
+        public List<Note> Notes { get; private set; } = new List<Note>();
+
+        public Note AddNote(string title, string content)
+        {
+            var note = new Note(title, content, this);
+
+            Notes.Add(note);
+
+            return note;
+        }
 
         public void UpdateUsername(string newUsername)
         {
