@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ToDoApp.Application.Interfaces;
@@ -30,6 +31,14 @@ namespace ToDoApp.Infrastructure.DependencyInjection
                 provider.GetRequiredService<AppDbContext>());
 
             return services;
+        }
+
+        public static void MigrateDatabase(this WebApplication app)
+        {
+            using var scope = app.Services.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            dbContext.Database.Migrate();
         }
     }
 }

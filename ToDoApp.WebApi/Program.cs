@@ -67,6 +67,8 @@ namespace ToDoApp.WebApi
 
             app.MapAuthEndpoints();
 
+            app.MigrateDatabase(); // Apply Database Migrations On Startup
+
             app.Run();
         }
     }
