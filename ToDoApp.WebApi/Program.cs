@@ -37,6 +37,8 @@ namespace ToDoApp.WebApi
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            builder.Services.AddValidation(); // Add Validation Services
+
             var app = builder.Build();
 
             app.UseHttpsRedirection();
