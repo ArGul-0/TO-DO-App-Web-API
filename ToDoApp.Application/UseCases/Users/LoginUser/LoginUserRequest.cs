@@ -1,6 +1,9 @@
-﻿namespace ToDoApp.Application.UseCases.Users.LoginUser
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ToDoApp.Application.UseCases.Users.LoginUser
 {
-    internal class LoginUserRequest
-    {
-    }
+    internal record LoginUserRequest(
+        [Required][EmailAddress] string Email,
+        [Required][MinLength(6)] string Password
+        );
 }
