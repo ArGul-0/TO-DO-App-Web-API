@@ -1,6 +1,8 @@
-﻿namespace ToDoApp.Application.UseCases.Users.LoginUser
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ToDoApp.Application.UseCases.Users.LoginUser
 {
-    internal class LoginUserResponse
-    {
-    }
+    public record LoginUserResponse(
+        [Required] string Token
+        );
 }
