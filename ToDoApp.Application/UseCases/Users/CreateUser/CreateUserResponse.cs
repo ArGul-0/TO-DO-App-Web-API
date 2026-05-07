@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ToDoApp.Application.DTOs;
 
 namespace ToDoApp.Application.UseCases.Users.CreateUser
 {
     public record CreateUserResponse(
-        [Required] int id,
-        [Required] string username,
-        [Required][EmailAddress] string email,
-        [Required] string jwtToken
+        [Required] UserDto User,
+        [Required] string JwtToken
         );
 }
