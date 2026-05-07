@@ -7,6 +7,7 @@ namespace ToDoApp.WebApi.Endpoints
     public static class NotesEndpoints
     {
         const string GetAllNotesEndpointName = "GetAllNotes"; // Constant For The GetAllNotes Endpoint Name
+        const string GetNoteByIdEndpointName = "GetNoteById"; // Constant For The GetNoteById Endpoint Name
 
         public static RouteGroupBuilder MapNotesEndpoints(this WebApplication app)
         {
@@ -23,6 +24,12 @@ namespace ToDoApp.WebApi.Endpoints
 
                 return Results.Ok(result.Value);
             }).WithName(GetAllNotesEndpointName).RequireAuthorization();
+
+            notesGroup.MapGet("/{id}", async (int id) =>
+            {
+                // Implementation For GetNoteById Endpoint
+                return Results.Ok(); // Placeholder Response
+            }).WithName(GetNoteByIdEndpointName).RequireAuthorization();
 
             return notesGroup;
         }
