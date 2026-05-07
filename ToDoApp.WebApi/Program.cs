@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.CookiePolicy;
 using Serilog;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.UseCases.Users.CreateUser;
-using ToDoApp.Application.UseCases.Users.LoginUser;
 using ToDoApp.Application.UseCases.Users.GetAllUsers;
+using ToDoApp.Application.UseCases.Users.LoginUser;
+using ToDoApp.Infrastructure;
 using ToDoApp.Infrastructure.Authentication.Jwt;
 using ToDoApp.Infrastructure.Authentication.Password;
 using ToDoApp.Infrastructure.DependencyInjection;
@@ -34,6 +35,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             builder.Services.AddScoped<IPasswordHasher, Argon2Hasher>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<CreateUserHandler>();
             builder.Services.AddScoped<LoginUserHandler>();
             builder.Services.AddScoped<GetAllUsersHandler>();
