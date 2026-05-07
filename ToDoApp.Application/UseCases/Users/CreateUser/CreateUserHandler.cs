@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using ToDoApp.Application.Common;
+using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.ValueObjects;
@@ -50,10 +51,12 @@ namespace ToDoApp.Application.UseCases.Users.CreateUser
             logger.LogInformation("User created successfully: {Username}", newUser.Username);
 
             return ResultT<CreateUserResponse>.Success(new CreateUserResponse(
-                id: newUser.Id,
-                username: newUser.Username,
-                email: newUser.Email.Value,
-                jwtToken: jwtToken
+                User: new UserDto(
+                    Id: newUser.Id,
+                    Username: newUser.Username,
+                    Email: newUser.Email.Value
+                ),
+                JwtToken: jwtToken
             ));
         }
     }
