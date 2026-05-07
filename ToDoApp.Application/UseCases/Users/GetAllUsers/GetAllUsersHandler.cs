@@ -4,7 +4,7 @@ using ToDoApp.Application.Interfaces;
 
 namespace ToDoApp.Application.UseCases.Users.GetAllUsers
 {
-    internal class GetAllUsersHandler
+    public class GetAllUsersHandler
     {
         private readonly IUserRepository userRepository;
 
