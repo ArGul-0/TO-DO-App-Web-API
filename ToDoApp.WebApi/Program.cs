@@ -36,7 +36,10 @@ namespace ToDoApp.WebApi
 
             builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             builder.Services.AddScoped<IPasswordHasher, Argon2Hasher>();
+
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<INotesRepository, NotesRepository>();
+
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<CreateUserHandler>();
             builder.Services.AddScoped<LoginUserHandler>();

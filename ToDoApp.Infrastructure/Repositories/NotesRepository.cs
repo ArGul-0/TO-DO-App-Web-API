@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ToDoApp.Infrastructure.Repositories
 {
-    internal class NotesRepository : INotesRepository
+    public class NotesRepository : INotesRepository
     {
         private readonly AppDbContext dbContext;
 
