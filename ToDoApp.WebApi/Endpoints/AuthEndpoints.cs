@@ -27,7 +27,7 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 httpContext.Response.Cookies
-                .Append(configuration["JwtOptions:NameInCookies"]!, result.Value.ToString()); // Set The JWT Token In Cookies
+                .Append(configuration["JwtOptions:NameInCookies"]!, result.Value.Token); // Set The JWT Token In Cookies
 
                 return Results.Ok(result.Value);
             }).WithName(RegisterEndpointName);
@@ -43,7 +43,7 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 httpContext.Response.Cookies
-                .Append(configuration["JwtOptions:NameInCookies"]!, result.Value.ToString()); // Set The JWT Token In Cookies
+                .Append(configuration["JwtOptions:NameInCookies"]!, result.Value.Token); // Set The JWT Token In Cookies
 
                 return Results.Ok(result.Value);
             }).WithName(LoginEndpointName);
