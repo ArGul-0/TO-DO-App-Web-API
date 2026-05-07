@@ -3,6 +3,7 @@ using Serilog;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.UseCases.Users.CreateUser;
 using ToDoApp.Application.UseCases.Users.GetAllUsers;
+using ToDoApp.Application.UseCases.Users.GetUserById;
 using ToDoApp.Application.UseCases.Users.LoginUser;
 using ToDoApp.Infrastructure;
 using ToDoApp.Infrastructure.Authentication.Jwt;
@@ -39,6 +40,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<CreateUserHandler>();
             builder.Services.AddScoped<LoginUserHandler>();
             builder.Services.AddScoped<GetAllUsersHandler>();
+            builder.Services.AddScoped<GetUserByIdHandler>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
