@@ -26,7 +26,7 @@ namespace ToDoApp.Domain.Entities
 
         public Note AddNote(string title, string content)
         {
-            var note = new Note(title, content, this);
+            var note = new Note(title, content, Id);
 
             Notes.Add(note);
 

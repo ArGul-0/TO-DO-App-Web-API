@@ -3,11 +3,11 @@
     public class Note
     {
         private Note() { } // Private constructor for EF Core
-        public Note(string title, string content, User user)
+        public Note(string title, string content, int userId)
         {
             Title = title;
             Content = content;
-            User = user;
+            UserId = userId;
         }
 
         public int Id { get; private set; }
