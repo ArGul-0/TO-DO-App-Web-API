@@ -12,16 +12,19 @@ namespace ToDoApp.Application.UseCases.Users.CreateUser
         private readonly IUserRepository userRepository;
         private readonly IJwtTokenGenerator jwtTokenGenerator;
         private readonly IPasswordHasher passwordHasher;
+        private readonly IUnitOfWork unitOfWork;
         private readonly ILogger<CreateUserHandler> logger;
 
         public CreateUserHandler(IUserRepository userRepository,
             IJwtTokenGenerator jwtTokenGenerator,
             IPasswordHasher passwordHasher,
+            IUnitOfWork unitOfWork,
             ILogger<CreateUserHandler> logger)
         {
             this.userRepository = userRepository;
             this.jwtTokenGenerator = jwtTokenGenerator;
             this.passwordHasher = passwordHasher;
+            this.unitOfWork = unitOfWork;
             this.logger = logger;
         }
 
@@ -45,6 +48,8 @@ namespace ToDoApp.Application.UseCases.Users.CreateUser
                 await passwordHasher.HashPasswordAsync(request.Password));
 
             await userRepository.AddUserAsync(newUser);
+
+            await unitOfWork.SaveChangesAsync();
 
             var jwtToken = jwtTokenGenerator.GenerateAccessToken(newUser);
 

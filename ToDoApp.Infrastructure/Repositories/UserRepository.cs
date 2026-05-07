@@ -37,17 +37,18 @@ namespace ToDoApp.Infrastructure.Repositories
         public async Task AddUserAsync(User user)
         {
             await dbContext.Users.AddAsync(user);
-
-            await dbContext.SaveChangesAsync();
         }
 
         public async Task<bool> DeleteUserAsync(int userId)
         {
-            var affected = await dbContext.Users
-                .Where(u => u.Id == userId)
-                .ExecuteDeleteAsync();
+            var user = await dbContext.Users.FindAsync(userId);
 
-            return affected > 0;
+            if (user is null)
+                return false;
+
+            dbContext.Users.Remove(user);
+
+            return true;
         }
     }
 }
