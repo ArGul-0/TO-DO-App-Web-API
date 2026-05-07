@@ -70,6 +70,7 @@ namespace ToDoApp.WebApi
             app.UseMiddleware<ExceptionMiddleware>(); // Global Exception Handling Middleware
 
             app.MapAuthEndpoints();
+            app.MapUsersEndpoints();
 
             app.MigrateDatabase(); // Apply Database Migrations On Startup
 
