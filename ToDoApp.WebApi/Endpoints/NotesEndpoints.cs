@@ -1,4 +1,6 @@
-﻿namespace ToDoApp.WebApi.Endpoints
+﻿using ToDoApp.Domain.Entities;
+
+namespace ToDoApp.WebApi.Endpoints
 {
     public static class NotesEndpoints
     {
@@ -7,6 +9,10 @@
         public static RouteGroupBuilder MapNotesEndpoints(this WebApplication app)
         {
             var notesGroup = app.MapGroup("/Notes"); // Create A Group For /Notes Endpoints
+
+            notesGroup.MapGet("/", () =>
+            {
+            }).WithName(GetAllNotesEndpointName).RequireAuthorization();
 
             return notesGroup;
         }
