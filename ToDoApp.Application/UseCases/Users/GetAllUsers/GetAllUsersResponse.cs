@@ -1,8 +1,9 @@
-﻿using ToDoApp.Application.DTOs;
+﻿using System.ComponentModel.DataAnnotations;
+using ToDoApp.Application.DTOs;
 
 namespace ToDoApp.Application.UseCases.Users.GetAllUsers
 {
     public record GetAllUsersResponse(
-        List<UserDto> Users
+        [Required] List<UserDto> Users
         );
 }
