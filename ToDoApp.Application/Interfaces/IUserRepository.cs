@@ -5,6 +5,11 @@ namespace ToDoApp.Application.Interfaces
     public interface IUserRepository
     {
         /// <summary>
+        /// Asynchronously retrieves all users from the data source.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a list of all users.</returns>
+        public Task<List<User?>> GetAllUsersAsync();
+        /// <summary>
         /// Retrieves a user by their unique identifier.
         /// </summary>
         /// <param name="userId">The unique identifier of the user.</param>

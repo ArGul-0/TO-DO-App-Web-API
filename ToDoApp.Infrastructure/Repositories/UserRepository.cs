@@ -12,7 +12,10 @@ namespace ToDoApp.Infrastructure.Repositories
             this.dbContext = dbContext;
         }
 
-
+        public async Task<List<User?>> GetAllUsersAsync()
+        {
+            return await dbContext.Users?.AsNoTracking().ToListAsync();
+        }
 
         public async Task<User?> GetUserByIdAsync(int userId)
         {
@@ -26,7 +29,9 @@ namespace ToDoApp.Infrastructure.Repositories
 
         public async Task<User?> GetUserByEmailAsync(string email)
         {
-            return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.Value == email);
+            return await dbContext.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Email != null && u.Email.Value == email);
         }
 
         public async Task AddUserAsync(User user)
