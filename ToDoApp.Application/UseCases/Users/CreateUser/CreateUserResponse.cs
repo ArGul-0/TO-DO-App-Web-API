@@ -5,6 +5,6 @@ namespace ToDoApp.Application.UseCases.Users.CreateUser
 {
     public record CreateUserResponse(
         [Required] UserDto User,
-        [Required] string JwtToken
+        [Required] string Token
         );
 }

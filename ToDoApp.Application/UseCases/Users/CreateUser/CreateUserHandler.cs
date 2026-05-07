@@ -56,7 +56,7 @@ namespace ToDoApp.Application.UseCases.Users.CreateUser
                     Username: newUser.Username,
                     Email: newUser.Email.Value
                 ),
-                JwtToken: jwtToken
+                Token: jwtToken
             ));
         }
     }

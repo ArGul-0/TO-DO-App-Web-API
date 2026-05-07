@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using ToDoApp.Application.Common;
+using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.UseCases.Users.CreateUser;
 using ToDoApp.Domain.Entities;
@@ -46,7 +47,14 @@ namespace ToDoApp.Application.UseCases.Users.LoginUser
 
                 logger.LogInformation("User logged in successfully with email: {Email}", request.Email);
 
-                return ResultT<LoginUserResponse>.Success(new LoginUserResponse( Token: jwtToken ));
+                return ResultT<LoginUserResponse>.Success(new LoginUserResponse(
+                    User: new UserDto(
+                        Id: isUserExists.Id,
+                        Username: isUserExists.Username,
+                        Email: isUserExists.Email.Value
+                    ),
+                    Token: jwtToken
+                ));
             }
             else
             {
