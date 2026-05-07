@@ -12,9 +12,9 @@ namespace ToDoApp.Infrastructure.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<List<User?>> GetAllUsersAsync()
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            return await dbContext.Users?.AsNoTracking().ToListAsync();
+            return await dbContext.Users.AsNoTracking().ToListAsync();
         }
 
         public async Task<User?> GetUserByIdAsync(int userId)
