@@ -25,6 +25,11 @@
       - "5341:80"
     volumes:
       - seq_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80/api/health || exit 1"] # Check If Seq Is Healthy By Hitting The /api/health Endpoint
+      interval: 10s # Check Every 10 Seconds
+      retries: 5 # Retry Up To 5 Times Before Marking As Unhealthy
+      timeout: 3s # Timeout After 3 Seconds
 
   api:
     image: argul0/simple-game-store:simple-game-store-web-api-2.1.0 # Use The Published Docker Image From Docker Hub For Current Version
