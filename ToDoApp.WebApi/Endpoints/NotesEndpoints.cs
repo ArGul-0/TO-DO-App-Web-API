@@ -11,6 +11,7 @@ namespace ToDoApp.WebApi.Endpoints
     {
         const string GetAllNotesEndpointName = "GetAllNotes"; // Constant For The GetAllNotes Endpoint Name
         const string GetNoteByIdEndpointName = "GetNoteById"; // Constant For The GetNoteById Endpoint Name
+        const string CreateNewNoteEndpointName = "CreateNewNote"; // Constant For The CreateNewNote Endpoint Name
 
         public static RouteGroupBuilder MapNotesEndpoints(this WebApplication app)
         {
@@ -40,23 +41,10 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetNoteByIdEndpointName).RequireAuthorization();
 
-            notesGroup.MapPost("/CreateNewNote", async (HttpContext context, IUserRepository userRepository, IUnitOfWork unitOfWork) => // PLASEHOLDER FOR TESTS
+            notesGroup.MapPost("/CreateNewNote", async () =>
             {
-                int counter = 1;
 
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
-
-                var user = await userRepository.GetUserWithNotesAsync(int.Parse(userId));
-
-                if (user is null)
-                    throw new Exception("User Not Found");
-
-                user.AddNote("Test Note", $"This Is A Test Note {counter}");
-
-                await unitOfWork.SaveChangesAsync();
-
-                counter++;
-            }).RequireAuthorization();
+            }).WithName(CreateNewNoteEndpointName).RequireAuthorization();
 
 
             return notesGroup;
