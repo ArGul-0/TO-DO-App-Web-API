@@ -46,7 +46,7 @@ namespace ToDoApp.WebApi.Endpoints
 
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
-                var user = await userRepository.GetUserByIdAsync(int.Parse(userId));
+                var user = await userRepository.GetUserWithNotesAsync(int.Parse(userId));
 
                 if (user is null)
                     throw new Exception("User Not Found");
