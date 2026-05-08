@@ -91,6 +91,8 @@ namespace ToDoApp.WebApi
 
             app.MigrateDatabase(); // Apply Database Migrations On Startup
 
+            app.MapGet("/health", () => Results.Ok("Healthy")).WithName("HealthCheck"); // Health Check Endpoint
+
             app.Run();
         }
     }
