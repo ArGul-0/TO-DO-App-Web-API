@@ -25,11 +25,6 @@
       - "5341:80"
     volumes:
       - seq_data:/data
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:80/api/health || exit 1"] # Check If Seq Is Healthy By Hitting The /api/health Endpoint
-      interval: 10s # Check Every 10 Seconds
-      retries: 5 # Retry Up To 5 Times Before Marking As Unhealthy
-      timeout: 3s # Timeout After 3 Seconds
 
   api:
     image: argul0/todoapp:1.0.0 # Use The Published Docker Image From Docker Hub For Current Version
@@ -41,9 +36,7 @@
       Serilog__SeqUrl: http://seq # Seq Logging Configuration Pointing To The Seq Container
     depends_on:
       postgres:
-          condition: service_healthy
-      seq:
-          condition: service_healthy # Ensure The API Starts Only After Seq Is Healthy
+          condition: service_healthy # Ensure The API Waits For PostgreSQL To Be Healthy Before Starting
 
     ports:
       - "5000:80" # Map API Port To The Host
