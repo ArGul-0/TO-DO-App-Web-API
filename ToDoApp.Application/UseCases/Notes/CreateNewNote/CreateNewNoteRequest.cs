@@ -2,7 +2,7 @@
 
 namespace ToDoApp.Application.UseCases.Notes.CreateNewNote
 {
-    internal record CreateNewNoteRequest(
+    public record CreateNewNoteRequest(
         [Required]string Title,
         string Content
     );
