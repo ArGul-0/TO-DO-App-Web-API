@@ -8,13 +8,11 @@ namespace ToDoApp.Application.UseCases.Notes.CreateNewNote
 {
     public class CreateNewNoteHandler
     {
-        private readonly INotesRepository notesRepository;
         private readonly IUserRepository userRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public CreateNewNoteHandler(INotesRepository notesRepository, IUserRepository userRepository, IUnitOfWork unitOfWork)
+        public CreateNewNoteHandler(IUserRepository userRepository, IUnitOfWork unitOfWork)
         {
-            this.notesRepository = notesRepository;
             this.userRepository = userRepository;
             this.unitOfWork = unitOfWork;
         }
