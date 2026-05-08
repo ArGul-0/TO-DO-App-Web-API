@@ -25,10 +25,16 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetAllNotesEndpointName).RequireAuthorization();
 
-            notesGroup.MapGet("/{id}", async (int id) =>
+            notesGroup.MapGet("/{id}", async (int id, GetNoteByIdHandler handler, HttpContext context) =>
             {
-                // Implementation For GetNoteById Endpoint
-                return Results.Ok(); // Placeholder Response
+                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+                var result = await handler.Handle(id, int.Parse(userId));
+
+                if(result.IsFailure)
+                    return result.ToHttpResult();
+
+                return Results.Ok(result.Value);
             }).WithName(GetNoteByIdEndpointName).RequireAuthorization();
 
             return notesGroup;

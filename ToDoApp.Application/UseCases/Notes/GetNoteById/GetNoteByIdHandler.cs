@@ -5,7 +5,7 @@ using ToDoApp.Application.Interfaces.Repositoryes;
 
 namespace ToDoApp.Application.UseCases.Notes.GetNoteById
 {
-    internal class GetNoteByIdHandler
+    public class GetNoteByIdHandler
     {
         private readonly INotesRepository notesRepository;
 

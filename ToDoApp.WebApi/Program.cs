@@ -3,6 +3,7 @@ using Serilog;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositoryes;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
+using ToDoApp.Application.UseCases.Notes.GetNoteById;
 using ToDoApp.Application.UseCases.Users.CreateUser;
 using ToDoApp.Application.UseCases.Users.GetAllUsers;
 using ToDoApp.Application.UseCases.Users.GetUserById;
@@ -47,6 +48,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<GetAllUsersHandler>();
             builder.Services.AddScoped<GetUserByIdHandler>();
             builder.Services.AddScoped<GetAllNotesHandler>();
+            builder.Services.AddScoped<GetNoteByIdHandler>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
