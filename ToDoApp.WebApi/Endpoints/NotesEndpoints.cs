@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
+using ToDoApp.Application.UseCases.Notes.GetNoteById;
 using ToDoApp.WebApi.Extensions;
 
 namespace ToDoApp.WebApi.Endpoints
