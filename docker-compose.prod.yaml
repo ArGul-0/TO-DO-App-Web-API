@@ -40,7 +40,10 @@
       ConnectionStrings__DefaultConnection: Host=postgres;Database=SimpleGameStoreDB;Username=Admin;Password=1234 # Database Connection String
     depends_on:
       postgres:
-          condition: service_healthy # Ensure The API Starts Only After PostgreSQL Is Healthy
+          condition: service_healthy
+      seq:
+          condition: service_healthy # Ensure The API Starts Only After Seq Is Healthy
+
     ports:
       - "5000:80" # Map API Port To The Host
     healthcheck:
