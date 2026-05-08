@@ -1,8 +1,10 @@
-﻿namespace ToDoApp.Application.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ToDoApp.Application.DTOs
 {
     public record NoteDto(
-        int Id,
-        string Title,
+        [Required] int Id,
+        [Required] string Title,
         string Content
     );
 }
