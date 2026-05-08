@@ -1,6 +1,6 @@
 ﻿using ToDoApp.Domain.Entities;
 
-namespace ToDoApp.Application.Interfaces.Repositoryes
+namespace ToDoApp.Application.Interfaces.Repositories
 {
     public interface IUserRepository
     {

@@ -1,6 +1,6 @@
 ﻿using ToDoApp.Application.Common;
 using ToDoApp.Application.DTOs;
-using ToDoApp.Application.Interfaces.Repositoryes;
+using ToDoApp.Application.Interfaces.Repositories;
 
 namespace ToDoApp.Application.UseCases.Notes.GetAllNotes
 {

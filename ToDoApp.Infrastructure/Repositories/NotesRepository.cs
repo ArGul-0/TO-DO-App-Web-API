@@ -1,6 +1,6 @@
 ﻿using ToDoApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using ToDoApp.Application.Interfaces.Repositoryes;
+using ToDoApp.Application.Interfaces.Repositories;
 
 namespace ToDoApp.Infrastructure.Repositories
 {
