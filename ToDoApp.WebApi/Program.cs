@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.AspNetCore.HttpOverrides;
 using Serilog;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
@@ -58,6 +59,11 @@ namespace ToDoApp.WebApi
             builder.Services.AddValidation(); // Add Validation Services
 
             var app = builder.Build();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseHttpsRedirection();
 
