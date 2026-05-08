@@ -1,6 +1,6 @@
 ﻿using ToDoApp.Domain.Entities;
 
-namespace ToDoApp.Application.Interfaces
+namespace ToDoApp.Application.Interfaces.Repositoryes
 {
     public interface INotesRepository
     {
@@ -11,5 +11,7 @@ namespace ToDoApp.Application.Interfaces
         /// <returns>A task that represents the asynchronous operation. The task result contains a list of notes belonging to the
         /// specified user. The list will be empty if the user has no notes.</returns>
         public Task<List<Note>> GetAllNotesAsync(int userId);
+
+        public Task<Note?> GetNoteByIdAsync(int id, int userId);
     }
 }

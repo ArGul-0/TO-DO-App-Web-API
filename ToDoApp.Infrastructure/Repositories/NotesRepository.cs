@@ -1,6 +1,6 @@
 ﻿using ToDoApp.Domain.Entities;
-using ToDoApp.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using ToDoApp.Application.Interfaces.Repositoryes;
 
 namespace ToDoApp.Infrastructure.Repositories
 {
@@ -19,6 +19,13 @@ namespace ToDoApp.Infrastructure.Repositories
                 .AsNoTracking()
                 .Where(note => note.UserId == userId)
                 .ToListAsync();
+        }
+
+        public async Task<Note?> GetNoteByIdAsync(int id, int userId)
+        {
+            return await dbContext.Notes
+                .AsNoTracking()
+                .FirstOrDefaultAsync(note => note.Id == id && note.UserId == userId);
         }
     }
 }

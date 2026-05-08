@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.CookiePolicy;
 using Serilog;
 using ToDoApp.Application.Interfaces;
+using ToDoApp.Application.Interfaces.Repositoryes;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
 using ToDoApp.Application.UseCases.Users.CreateUser;
 using ToDoApp.Application.UseCases.Users.GetAllUsers;
