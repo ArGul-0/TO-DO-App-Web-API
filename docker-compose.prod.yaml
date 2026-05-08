@@ -32,12 +32,13 @@
       timeout: 3s # Timeout After 3 Seconds
 
   api:
-    image: argul0/ToDoApp:ToDoApp-web-api-2.1.0 # Use The Published Docker Image From Docker Hub For Current Version
+    image: argul0/todoapp:1.0.0 # Use The Published Docker Image From Docker Hub For Current Version
     restart: always # Always Restart The Container If It Stops
     environment:
       ASPNETCORE_ENVIRONMENT: Production # Set The ASP.NET Core Environment To Production
       ASPNETCORE_URLS: "http://+:80" # Configure The API To Listen On Port 80
       ConnectionStrings__DefaultConnection: Host=postgres;Database=ToDoAppDb;Username=Admin;Password=Admin # Database Connection String
+      Serilog__SeqUrl: http://seq # Seq Logging Configuration Pointing To The Seq Container
     depends_on:
       postgres:
           condition: service_healthy
