@@ -5,7 +5,7 @@
     environment:
       POSTGRES_DB: AppDb # Set The Default Database Name
       POSTGRES_USER: Admin # Set The Default Database User
-      POSTGRES_PASSWORD: 1234 # Set The Default Database Password
+      POSTGRES_PASSWORD: Admin # Set The Default Database Password
     volumes:
       - pgdata:/var/lib/postgresql # Persist Data In A Docker Volume
     ports:
