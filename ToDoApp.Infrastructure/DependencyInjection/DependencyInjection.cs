@@ -22,7 +22,7 @@ namespace ToDoApp.Infrastructure.DependencyInjection
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("Default");
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(connectionString));
