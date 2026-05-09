@@ -27,7 +27,7 @@
       - seq_data:/data
 
   nginx:
-    build: ./nginx
+    image: argul0/todoapp-nginx:1.0.0
     restart: always
     ports:
       - "80:80"
