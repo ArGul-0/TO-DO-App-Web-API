@@ -3,6 +3,7 @@
     <File Path="docker-compose.dev.yaml" />
     <File Path="docker-compose.prod.yaml" />
     <File Path="Dockerfile" />
+    <File Path="nginx/Dockerfile" />
   </Folder>
   <Project Path="ToDoApp.Application/ToDoApp.Application.csproj" />
   <Project Path="ToDoApp.Domain/ToDoApp.Domain.csproj" />

@@ -27,14 +27,11 @@
       - seq_data:/data
 
   nginx:
-    image: nginx:1.27-alpine
+    build: ./nginx
     restart: always
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/ssl:/etc/nginx/ssl
     depends_on:
       api:
         condition: service_healthy
