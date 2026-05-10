@@ -1,6 +1,7 @@
-﻿using ToDoApp.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ToDoApp.Application.Interfaces.Repositories;
+using ToDoApp.Domain.Entities;
+using ToDoApp.Domain.Enums;
 
 namespace ToDoApp.Infrastructure.Repositories
 {
@@ -21,11 +22,19 @@ namespace ToDoApp.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Note?> GetNoteByIdAsync(int id, int userId)
+        public async Task<Note?> GetMyNoteByIdAsync(int id, int userId)
         {
             return await dbContext.Notes
                 .AsNoTracking()
                 .FirstOrDefaultAsync(note => note.Id == id && note.UserId == userId);
+        }
+
+        public async Task<List<Note>> GetAllNotesAsync()
+        {
+            return await dbContext.Notes
+                .AsNoTracking()
+                .Where(note => note.User.Visibility == AccountVisibility.Public)
+                .ToListAsync();
         }
     }
 }
