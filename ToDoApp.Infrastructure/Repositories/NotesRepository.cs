@@ -13,17 +13,19 @@ namespace ToDoApp.Infrastructure.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<List<Note>> GetAllNotesAsync()
+        public async Task<List<Note>> GetAllNotesWithOwnersAsync()
         {
             return await dbContext.Notes
                 .AsNoTracking()
+                .Include(note => note.User)
                 .ToListAsync();
         }
 
-        public async Task<Note?> GetNoteByIdAsync(int id)
+        public async Task<Note?> GetNoteWithOwnerByIdAsync(int id)
         {
             return await dbContext.Notes
                 .AsNoTracking()
+                .Include(note => note.User)
                 .FirstOrDefaultAsync(note => note.Id == id);
         }
 

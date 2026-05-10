@@ -8,14 +8,14 @@ namespace ToDoApp.Application.Interfaces.Repositories
         /// Asynchronously retrieves all notes.
         /// </summary>
         /// <returns>A task that represents the asynchronous operation. The task result contains a list of notes. The list will be empty.</returns>
-        public Task<List<Note>> GetAllNotesAsync();
+        public Task<List<Note>> GetAllNotesWithOwnersAsync();
 
         /// <summary>
         /// Asynchronously retrieves a note by its unique identifier.
         /// </summary>
         /// <param name="id">The unique identifier of the note to be retrieved. Must be a positive integer.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains the note if it exists.</returns>
-        public Task<Note?> GetNoteByIdAsync(int id);
+        public Task<Note?> GetNoteWithOwnerByIdAsync(int id);
 
         public Task<List<Note>> GetAllNotesByUserIdAsync(int userId);
     }

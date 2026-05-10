@@ -52,7 +52,7 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetAllUserNotesEndpointName);
+            }).WithName(GetAllUserNotesEndpointName).RequireAuthorization();
 
             notesGroup.MapPost("/", async (CreateNewNoteRequest request, CreateNewNoteHandler handler, HttpContext context) =>
             {

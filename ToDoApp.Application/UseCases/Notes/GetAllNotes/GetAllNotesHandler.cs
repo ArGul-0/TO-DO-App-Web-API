@@ -22,7 +22,7 @@ namespace ToDoApp.Application.UseCases.Notes.GetAllNotes
 
         public async Task<ResultT<List<NoteDto>>> Handle(int userId)
         {
-            var notes = await notesRepository.GetAllNotesAsync();
+            var notes = await notesRepository.GetAllNotesWithOwnersAsync();
 
             if (notes is null || !notes.Any())
                 return ResultT<List<NoteDto>>.Failure(NotesErrors.NotesNotFound);
