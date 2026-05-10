@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using ToDoApp.Application.Common;
+using ToDoApp.Application.Common.Mappings;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces.Repositories;
 
@@ -21,10 +22,7 @@ namespace ToDoApp.Application.UseCases.Notes.GetNoteById
             if(note is null)
                 return ResultT<NoteDto>.Failure(NotesErrors.NoteNotFound);
 
-            var noteDto = new NoteDto(
-                Id: note.Id,
-                Title: note.Title,
-                Content: note.Content);
+            var noteDto = note.ToDto();
 
             return ResultT<NoteDto>.Success(noteDto);   
         }

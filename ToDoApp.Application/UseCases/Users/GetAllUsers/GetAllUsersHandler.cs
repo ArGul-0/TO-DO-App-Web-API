@@ -1,4 +1,5 @@
 ﻿using ToDoApp.Application.Common;
+using ToDoApp.Application.Common.Mappings;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces.Repositories;
 
@@ -21,7 +22,7 @@ namespace ToDoApp.Application.UseCases.Users.GetAllUsers
                 return ResultT<GetAllUsersResponse>.Failure(GetAllUsersErrors.NoUsersFound);
 
             var userDtos = users
-                .Select(u => new UserDto(u.Id, u.Username, u.Email.Value, u.Visibility))
+                .Select(u => u.ToDto())
                 .ToList();
 
             return ResultT<GetAllUsersResponse>.Success(new GetAllUsersResponse(userDtos));

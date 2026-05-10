@@ -1,4 +1,5 @@
 ﻿using ToDoApp.Application.Common;
+using ToDoApp.Application.Common.Mappings;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces.Repositories;
 
@@ -20,12 +21,7 @@ namespace ToDoApp.Application.UseCases.Notes.GetAllNotes
             if(notes is null || !notes.Any())
                 return ResultT<List<NoteDto>>.Failure(NotesErrors.NotesNotFound);
 
-            var noteDtos = notes.Select(note => new NoteDto
-            (
-                Id:note.Id,
-                Title: note.Title,
-                Content: note.Content
-            )).ToList();
+            var noteDtos = notes.Select(note => note.ToDto()).ToList();
 
             return ResultT<List<NoteDto>>.Success(noteDtos);
         }
