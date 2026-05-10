@@ -8,6 +8,7 @@ namespace ToDoApp.WebApi.Endpoints
     {
         const string GetAllUsersEndpointName = "GetAllUsers"; // Constant For The GetAllUsers Endpoint Name
         const string GetUserByIdEndpointName = "GetUserById"; // Constant For The GetUserById Endpoint Name
+        const string ChangeUserVisibility = "ChangeUserVisibility"; // Constant For The ChangeUserVisibility Endpoint Name
 
         public static RouteGroupBuilder MapUsersEndpoints(this WebApplication app)
         {
