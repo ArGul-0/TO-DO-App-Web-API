@@ -26,5 +26,13 @@ namespace ToDoApp.Infrastructure.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(note => note.Id == id);
         }
+
+        public async Task<List<Note>> GetAllNotesByUserIdAsync(int userId)
+        {
+            return await dbContext.Notes
+                .AsNoTracking()
+                .Where(note => note.UserId == userId)
+                .ToListAsync();
+        }
     }
 }

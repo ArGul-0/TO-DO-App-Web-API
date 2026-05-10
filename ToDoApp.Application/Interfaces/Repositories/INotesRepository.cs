@@ -16,5 +16,7 @@ namespace ToDoApp.Application.Interfaces.Repositories
         /// <param name="id">The unique identifier of the note to be retrieved. Must be a positive integer.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains the note if it exists.</returns>
         public Task<Note?> GetNoteByIdAsync(int id);
+
+        public Task<List<Note>> GetAllNotesByUserIdAsync(int userId);
     }
 }
