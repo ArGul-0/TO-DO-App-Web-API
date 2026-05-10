@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Serilog;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
+using ToDoApp.Application.Security.Notes;
 using ToDoApp.Application.UseCases.Notes.CreateNewNote;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
 using ToDoApp.Application.UseCases.Notes.GetAllOtherPeopleNotes;
@@ -47,6 +48,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<INotesRepository, NotesRepository>();
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             builder.Services.AddScoped<CreateUserHandler>();
             builder.Services.AddScoped<LoginUserHandler>();
             builder.Services.AddScoped<GetAllUsersHandler>();
@@ -56,6 +58,8 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<CreateNewNoteHandler>();
             builder.Services.AddScoped<ChangeUserVisibilityHandler>();
             builder.Services.AddScoped<GetAllOtherPeopleNotesHandler>();
+
+            builder.Services.AddScoped<INotesAuthorizationService, NotesAuthorizationService>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
