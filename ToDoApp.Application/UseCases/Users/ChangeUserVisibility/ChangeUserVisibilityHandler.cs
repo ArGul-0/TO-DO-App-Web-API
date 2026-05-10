@@ -22,7 +22,7 @@ namespace ToDoApp.Application.UseCases.Users.ChangeUserVisibility
             this.logger = logger;
         }
 
-        public async Task<Result> Handler(ChangeUserVisibilityRequest request, int userId)
+        public async Task<Result> Handle(ChangeUserVisibilityRequest request, int userId)
         {
             var user = await userRepository.GetUserByIdWithTrackingAsync(userId);
 
