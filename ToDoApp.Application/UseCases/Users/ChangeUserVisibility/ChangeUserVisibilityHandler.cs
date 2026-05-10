@@ -22,14 +22,18 @@ namespace ToDoApp.Application.UseCases.Users.ChangeUserVisibility
             this.logger = logger;
         }
 
-        public async Task<Result> Handler(int userId)
+        public async Task<Result> Handler(ChangeUserVisibilityRequest request, int userId)
         {
             var user = await userRepository.GetUserByIdWithTrackingAsync(userId);
 
             if (user is null)
                 return Result.Failure(UsersErrors.UserNotFound);
 
-            
+            user.ChangeAccountVisibility(request.newVisibility);
+
+            await unitOfWork.SaveChangesAsync();
+
+            logger.LogInformation("User successfully change visibility to {newVisibility}", request.newVisibility);
 
             return Result.Success();
         }
