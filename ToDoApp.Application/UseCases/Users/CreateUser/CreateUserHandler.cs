@@ -60,7 +60,8 @@ namespace ToDoApp.Application.UseCases.Users.CreateUser
                 User: new UserDto(
                     Id: newUser.Id,
                     Username: newUser.Username,
-                    Email: newUser.Email.Value
+                    Email: newUser.Email.Value,
+                    Visibility: newUser.Visibility
                 ),
                 Token: jwtToken
             ));

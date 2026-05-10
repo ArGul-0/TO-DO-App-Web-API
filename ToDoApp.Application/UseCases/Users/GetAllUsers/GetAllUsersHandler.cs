@@ -21,7 +21,7 @@ namespace ToDoApp.Application.UseCases.Users.GetAllUsers
                 return ResultT<GetAllUsersResponse>.Failure(GetAllUsersErrors.NoUsersFound);
 
             var userDtos = users
-                .Select(u => new UserDto(u.Id, u.Username, u.Email.Value))
+                .Select(u => new UserDto(u.Id, u.Username, u.Email.Value, u.Visibility))
                 .ToList();
 
             return ResultT<GetAllUsersResponse>.Success(new GetAllUsersResponse(userDtos));

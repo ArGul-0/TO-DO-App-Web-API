@@ -20,7 +20,7 @@ namespace ToDoApp.Application.UseCases.Users.GetUserById
             if (user is null)
                 return ResultT<UserDto>.Failure(UsersErrors.UserNotFound);
 
-            var userDto = new UserDto(user.Id, user.Username, user.Email.Value);
+            var userDto = new UserDto(user.Id, user.Username, user.Email.Value, user.Visibility);
 
             return ResultT<UserDto>.Success(userDto);
         }

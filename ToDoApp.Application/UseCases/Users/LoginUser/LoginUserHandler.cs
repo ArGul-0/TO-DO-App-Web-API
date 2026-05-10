@@ -52,7 +52,8 @@ namespace ToDoApp.Application.UseCases.Users.LoginUser
                     User: new UserDto(
                         Id: isUserExists.Id,
                         Username: isUserExists.Username,
-                        Email: isUserExists.Email.Value
+                        Email: isUserExists.Email.Value,
+                        Visibility: isUserExists.Visibility
                     ),
                     Token: jwtToken
                 ));
