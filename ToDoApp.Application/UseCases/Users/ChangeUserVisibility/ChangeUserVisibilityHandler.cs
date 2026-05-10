@@ -24,7 +24,7 @@ namespace ToDoApp.Application.UseCases.Users.ChangeUserVisibility
 
         public async Task<Result> Handler(int userId)
         {
-            var user = await userRepository.GetUserByIdAsync(userId);
+            var user = await userRepository.GetUserByIdWithTrackingAsync(userId);
 
             if (user is null)
                 return Result.Failure(UsersErrors.UserNotFound);
