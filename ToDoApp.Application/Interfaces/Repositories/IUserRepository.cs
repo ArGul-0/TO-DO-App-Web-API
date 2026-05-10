@@ -18,6 +18,13 @@ namespace ToDoApp.Application.Interfaces.Repositories
         public Task<User?> GetUserByIdAsync(int userId);
 
         /// <summary>
+        /// Retrieves a user by their unique identifier.
+        /// </summary>
+        /// <param name="userId">The unique identifier of the user.</param>
+        /// <returns>The user with the specified identifier, or null if no such user exists.</returns>
+        public Task<User?> GetUserByIdWithTrackingAsync(int userId);
+
+        /// <summary>
         /// Asynchronously retrieves a user by identifier, including any associated notes.
         /// </summary>
         /// <param name="userId">The unique identifier of the user to retrieve. Must be a positive integer.</param>

@@ -22,6 +22,11 @@ namespace ToDoApp.Infrastructure.Repositories
             return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == userId);
         }
 
+        public async Task<User?> GetUserByIdWithTrackingAsync(int userId)
+        {
+            return await dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        }
+
         public async Task<User?> GetUserWithNotesAsync(int userId)
         {
             return await dbContext.Users
