@@ -36,5 +36,12 @@ namespace ToDoApp.Infrastructure.Repositories
                 .Where(note => note.User.Visibility == AccountVisibility.Public)
                 .ToListAsync();
         }
+
+        public async Task<Note?> GetNoteByIdAsync(int id)
+        {
+            return await dbContext.Notes
+                .AsNoTracking()
+                .FirstOrDefaultAsync(note => note.Id == id && note.User.Visibility == AccountVisibility.Public);
+        }
     }
 }
