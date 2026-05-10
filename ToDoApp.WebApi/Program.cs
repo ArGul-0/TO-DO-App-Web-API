@@ -57,7 +57,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<GetNoteByIdHandler>();
             builder.Services.AddScoped<CreateNewNoteHandler>();
             builder.Services.AddScoped<ChangeUserVisibilityHandler>();
-            builder.Services.AddScoped<GetAllOtherPeopleNotesHandler>();
+            builder.Services.AddScoped<GetAllUserNotesHandler>();
 
             builder.Services.AddScoped<INotesAuthorizationService, NotesAuthorizationService>();
 

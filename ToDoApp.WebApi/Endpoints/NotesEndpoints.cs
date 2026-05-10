@@ -12,7 +12,6 @@ namespace ToDoApp.WebApi.Endpoints
         const string GetAllNotesEndpointName = "GetAllNotes"; // Constant For The GetAllNotes Endpoint Name
         const string GetNoteByIdEndpointName = "GetNoteById"; // Constant For The GetNoteById Endpoint Name
         const string GetAllUserNotesEndpointName = "GetAllUserNotes"; // Constant For The GetAllUserNotes Endpoint Name
-        const string GetUserNoteByIdEndpointName = "GetUserNoteById"; // Constant For The GetUserNoteById Endpoint Name
         const string CreateNewNoteEndpointName = "CreateNewNote"; // Constant For The CreateNewNote Endpoint Name
 
         public static RouteGroupBuilder MapNotesEndpoints(this WebApplication app)
@@ -43,6 +42,18 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetNoteByIdEndpointName).RequireAuthorization();
 
+            notesGroup.MapGet("/Me/", async (GetAllUserNotesHandler handler, HttpContext context) =>
+            {
+                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+                var result = await handler.Handle(int.Parse(userId));
+
+                if (result.IsFailure)
+                    return result.ToHttpResult();
+
+                return Results.Ok(result.Value);
+            }).WithName(GetAllUserNotesEndpointName);
+
             notesGroup.MapPost("/", async (CreateNewNoteRequest request, CreateNewNoteHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
@@ -54,16 +65,6 @@ namespace ToDoApp.WebApi.Endpoints
 
                 return Results.Ok(result.Value);
             }).WithName(CreateNewNoteEndpointName).RequireAuthorization();
-
-            notesGroup.MapGet("/Public", async (GetAllOtherPeopleNotesHandler handler) =>
-            {
-                var result = await handler.Handle();
-
-                if (result.IsFailure)
-                    return result.ToHttpResult();
-
-                return Results.Ok(result.Value);
-            }).WithName(GetAllOtherPeopleNotesEndpointName);
 
             return notesGroup;
         }
