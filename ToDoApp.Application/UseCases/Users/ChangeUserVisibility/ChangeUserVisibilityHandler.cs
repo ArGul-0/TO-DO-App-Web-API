@@ -3,7 +3,6 @@ using ToDoApp.Application.Common;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.UseCases.Users.CreateUser;
-using ToDoApp.Domain.Enums;
 
 namespace ToDoApp.Application.UseCases.Users.ChangeUserVisibility
 {
