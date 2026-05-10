@@ -1,8 +1,9 @@
 ﻿using System.Security.Claims;
+using ToDoApp.Application.UseCases.Notes.CreateNewNote;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
+using ToDoApp.Application.UseCases.Notes.GetAllOtherPeopleNotes;
 using ToDoApp.Application.UseCases.Notes.GetNoteById;
 using ToDoApp.WebApi.Extensions;
-using ToDoApp.Application.UseCases.Notes.CreateNewNote;
 
 namespace ToDoApp.WebApi.Endpoints
 {
@@ -11,8 +12,8 @@ namespace ToDoApp.WebApi.Endpoints
         const string GetAllMyNotesEndpointName = "GetAllMyNotes"; // Constant For The GetAllNotes Endpoint Name
         const string GetMyNoteByIdEndpointName = "GetMyNoteById"; // Constant For The GetNoteById Endpoint Name
         const string CreateNewNoteEndpointName = "CreateNewNote"; // Constant For The CreateNewNote Endpoint Name
-        const string GetAllOtherPeopleNotes = "GetAllOtherPeopleNotes"; // Constant For The GetAllOtherPeopleNotes Endpoint Name
-        const string GetOtherPeopleNoteById = "GetOtherPeopleNoteById"; // Constant For The GetOtherPeopleNoteById Endpoint Name
+        const string GetAllOtherPeopleNotesEndpointName = "GetAllOtherPeopleNotes"; // Constant For The GetAllOtherPeopleNotes Endpoint Name
+        const string GetOthersPeopleNotesByIdEndpointName = "GetOthersPeopleNotesById"; // Constant For The GetOtherPeopleNoteById Endpoint Name
 
         public static RouteGroupBuilder MapNotesEndpoints(this WebApplication app)
         {
@@ -42,7 +43,7 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetMyNoteByIdEndpointName).RequireAuthorization();
 
-            notesGroup.MapPost("/CreateNewNote", async (CreateNewNoteRequest request, CreateNewNoteHandler handler, HttpContext context) =>
+            notesGroup.MapPost("/", async (CreateNewNoteRequest request, CreateNewNoteHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
@@ -54,6 +55,15 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(CreateNewNoteEndpointName).RequireAuthorization();
 
+            notesGroup.MapGet("/Public", async (GetAllOtherPeopleNotesHandler handler) =>
+            {
+                var result = await handler.Handle();
+
+                if (result.IsFailure)
+                    return result.ToHttpResult();
+
+                return Results.Ok(result.Value);
+            }).WithName(GetAllOtherPeopleNotesEndpointName);
 
             return notesGroup;
         }

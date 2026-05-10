@@ -5,6 +5,7 @@ using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.UseCases.Notes.CreateNewNote;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
+using ToDoApp.Application.UseCases.Notes.GetAllOtherPeopleNotes;
 using ToDoApp.Application.UseCases.Notes.GetNoteById;
 using ToDoApp.Application.UseCases.Users.ChangeUserVisibility;
 using ToDoApp.Application.UseCases.Users.CreateUser;
@@ -54,6 +55,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<GetNoteByIdHandler>();
             builder.Services.AddScoped<CreateNewNoteHandler>();
             builder.Services.AddScoped<ChangeUserVisibilityHandler>();
+            builder.Services.AddScoped<GetAllOtherPeopleNotesHandler>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
