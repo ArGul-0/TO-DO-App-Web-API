@@ -113,6 +113,7 @@ Contains:
 * Argon2 password hashing
 * Repository implementations
 * Dependency Injection configuration
+* Nginx
 
 ---
 
