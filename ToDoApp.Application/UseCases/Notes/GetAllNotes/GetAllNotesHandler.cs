@@ -16,7 +16,7 @@ namespace ToDoApp.Application.UseCases.Notes.GetAllNotes
 
         public async Task<ResultT<List<NoteDto>>> Handle(int userId)
         {
-            var notes = await notesRepository.GetAllMyNotesAsync(userId);
+            var notes = await notesRepository.GetAllUserNotesAsync(userId);
 
             if(notes is null || !notes.Any())
                 return ResultT<List<NoteDto>>.Failure(NotesErrors.NotesNotFound);
