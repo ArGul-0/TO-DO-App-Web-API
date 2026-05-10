@@ -13,7 +13,7 @@ namespace ToDoApp.Infrastructure.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<List<Note>> GetAllNotesAsync(int userId)
+        public async Task<List<Note>> GetAllMyNotesAsync(int userId)
         {
             return await dbContext.Notes
                 .AsNoTracking()

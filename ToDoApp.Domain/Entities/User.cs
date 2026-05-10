@@ -1,4 +1,5 @@
-﻿using ToDoApp.Domain.ValueObjects;
+﻿using ToDoApp.Domain.Enums;
+using ToDoApp.Domain.ValueObjects;
 
 namespace ToDoApp.Domain.Entities
 {
@@ -23,6 +24,7 @@ namespace ToDoApp.Domain.Entities
         public Email Email { get; private set; } = null!;
         public string HashedPassword { get; private set; } = null!;
         public List<Note> Notes { get; private set; } = new List<Note>();
+        public AccountVisibility Visibility { get; private set; } = AccountVisibility.Public;
 
         public Note AddNote(string title, string content)
         {
@@ -43,10 +45,12 @@ namespace ToDoApp.Domain.Entities
 
         public void UpdateEmail(Email newEmail)
         {
-            if(newEmail == null) 
+            if(newEmail is null) 
                 throw new ArgumentNullException(nameof(newEmail), "Email cannot be null.");
 
             Email = newEmail;
         }
+
+        public void ChangeAccountVisibility(AccountVisibility visibility) => Visibility = visibility;
     }
 }
