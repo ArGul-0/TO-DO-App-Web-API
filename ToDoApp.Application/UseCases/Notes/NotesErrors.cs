@@ -11,5 +11,9 @@ namespace ToDoApp.Application.UseCases.Notes
         public static readonly Error NoteNotFound = new Error("NoteNotFound",
             "The specified note was not found.",
             ErrorType.NotFound);
+
+        public static readonly Error Forbidden = new Error("Forbidden",
+            "The specified note is private",
+            ErrorType.Forbidden);
     }
 }

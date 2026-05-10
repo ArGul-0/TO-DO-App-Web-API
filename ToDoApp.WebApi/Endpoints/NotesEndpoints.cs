@@ -9,11 +9,9 @@ namespace ToDoApp.WebApi.Endpoints
 {
     public static class NotesEndpoints
     {
-        const string GetAllMyNotesEndpointName = "GetAllMyNotes"; // Constant For The GetAllNotes Endpoint Name
-        const string GetMyNoteByIdEndpointName = "GetMyNoteById"; // Constant For The GetNoteById Endpoint Name
+        const string GetAllNotesEndpointName = "GetAllMyNotes"; // Constant For The GetAllNotes Endpoint Name
+        const string GetNoteByIdEndpointName = "GetMyNoteById"; // Constant For The GetNoteById Endpoint Name
         const string CreateNewNoteEndpointName = "CreateNewNote"; // Constant For The CreateNewNote Endpoint Name
-        const string GetAllOtherPeopleNotesEndpointName = "GetAllOtherPeopleNotes"; // Constant For The GetAllOtherPeopleNotes Endpoint Name
-        const string GetOthersPeopleNotesByIdEndpointName = "GetOthersPeopleNotesById"; // Constant For The GetOtherPeopleNoteById Endpoint Name
 
         public static RouteGroupBuilder MapNotesEndpoints(this WebApplication app)
         {
@@ -29,7 +27,7 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetAllMyNotesEndpointName).RequireAuthorization();
+            }).WithName(GetAllNotesEndpointName).RequireAuthorization();
 
             notesGroup.MapGet("/{id}", async (int id, GetNoteByIdHandler handler, HttpContext context) =>
             {
@@ -41,7 +39,7 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetMyNoteByIdEndpointName).RequireAuthorization();
+            }).WithName(GetNoteByIdEndpointName).RequireAuthorization();
 
             notesGroup.MapPost("/", async (CreateNewNoteRequest request, CreateNewNoteHandler handler, HttpContext context) =>
             {
