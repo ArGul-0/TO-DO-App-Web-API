@@ -16,6 +16,14 @@ namespace ToDoApp.Application.Security.Notes
             return false;
         }
 
+        public bool IsUserOwnsNote(User currentUser, Note note)
+        {
+            if (note.UserId == currentUser.Id)
+                return true;
+
+            return false;
+        }
+
         public List<Note> FilterVisibleNotes(User currentUser, List<Note> notes)
         {
             return notes

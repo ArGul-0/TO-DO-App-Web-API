@@ -18,5 +18,7 @@ namespace ToDoApp.Application.Interfaces.Repositories
         public Task<Note?> GetNoteWithOwnerByIdAsync(int id);
 
         public Task<List<Note>> GetAllNotesByUserIdAsync(int userId);
+
+        public Task 
     }
 }
