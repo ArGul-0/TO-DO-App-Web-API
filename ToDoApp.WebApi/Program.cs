@@ -5,6 +5,7 @@ using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.Security.Notes;
 using ToDoApp.Application.UseCases.Notes.CreateNewNote;
+using ToDoApp.Application.UseCases.Notes.DeleteUserNote;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
 using ToDoApp.Application.UseCases.Notes.GetAllOtherPeopleNotes;
 using ToDoApp.Application.UseCases.Notes.GetNoteById;
@@ -58,6 +59,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<CreateNewNoteHandler>();
             builder.Services.AddScoped<ChangeUserVisibilityHandler>();
             builder.Services.AddScoped<GetAllUserNotesHandler>();
+            builder.Services.AddScoped<DeleteUserNoteHandler>();
 
             builder.Services.AddScoped<INotesAuthorizationService, NotesAuthorizationService>();
 
