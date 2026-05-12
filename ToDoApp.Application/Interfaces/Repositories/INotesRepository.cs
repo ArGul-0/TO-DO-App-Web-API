@@ -4,6 +4,8 @@ namespace ToDoApp.Application.Interfaces.Repositories
 {
     public interface INotesRepository
     {
+        public Task<Note?> GetNoteById(int id);
+
         /// <summary>
         /// Asynchronously retrieves all notes.
         /// </summary>

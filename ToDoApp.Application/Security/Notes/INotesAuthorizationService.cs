@@ -5,7 +5,7 @@ namespace ToDoApp.Application.Security.Notes
     public interface INotesAuthorizationService
     {
         public bool CanSeeNote(User currentUser, Note note);
-        public bool IsUserOwnsNote(User currentUser, Note note);
+        public bool IsUserOwnsNote(int userId, Note note);
         List<Note> FilterVisibleNotes(User currentUser, List<Note> notes);
     }
 }

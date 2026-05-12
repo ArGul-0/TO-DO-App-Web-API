@@ -1,7 +1,9 @@
-﻿using ToDoApp.Application.Common;
+﻿using Microsoft.Extensions.Logging;
+using ToDoApp.Application.Common;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.Security.Notes;
+using ToDoApp.Application.UseCases.Users;
 
 namespace ToDoApp.Application.UseCases.Notes.DeleteUserNote
 {
@@ -10,22 +12,41 @@ namespace ToDoApp.Application.UseCases.Notes.DeleteUserNote
         private readonly IUserRepository userRepository;
         private readonly INotesRepository notesRepository;
         private readonly IUnitOfWork unitOfWork;
-        private readonly INotesAuthorizationService notesAuthorizationService
+        private readonly INotesAuthorizationService notesAuthorizationService;
+        private readonly ILogger<DeleteUserNoteHandler> logger;
         public DeleteUserNoteHandler(
             IUserRepository userRepository,
             INotesRepository notesRepository,
             IUnitOfWork unitOfWork,
-            INotesAuthorizationService notesAuthorizationService)
+            INotesAuthorizationService notesAuthorizationService,
+            ILogger<DeleteUserNoteHandler> logger)
         {
             this.userRepository = userRepository;
             this.notesRepository = notesRepository;
             this.unitOfWork = unitOfWork;
             this.notesAuthorizationService = notesAuthorizationService;
+            this.logger = logger;
         }
 
-        public Task<Result> Handle(int userId)
+        public async Task<Result> Handle(int userId, int noteId)
         {
+            var note = await notesRepository.GetNoteById(noteId);
 
+            if (note is null)
+                return Result.Failure(NotesErrors.NoteNotFound);
+
+            bool result = notesAuthorizationService.IsUserOwnsNote(userId, note);
+
+            if (!result)
+                return Result.Failure(NotesErrors.Forbidden);
+
+            await notesRepository.DeleteNoteAsync(noteId);
+
+            await unitOfWork.SaveChangesAsync();
+
+            logger.LogInformation("User with id {userId} successfully delete note with id {noteId}", userId, noteId);
+
+            return Result.Success();
         }
     }
 }

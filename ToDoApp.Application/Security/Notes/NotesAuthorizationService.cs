@@ -16,9 +16,9 @@ namespace ToDoApp.Application.Security.Notes
             return false;
         }
 
-        public bool IsUserOwnsNote(User currentUser, Note note)
+        public bool IsUserOwnsNote(int userId, Note note)
         {
-            if (note.UserId == currentUser.Id)
+            if (note.UserId == userId)
                 return true;
 
             return false;

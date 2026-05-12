@@ -68,11 +68,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(CreateNewNoteEndpointName).RequireAuthorization();
 
-            notesGroup.MapPost("/{id}", async (DeleteUserNoteHandler handler, HttpContext context) =>
+            notesGroup.MapDelete("/{noteId}", async (int noteId, DeleteUserNoteHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
-                var result = await handler.Handle(int.Parse(userId));
+                var result = await handler.Handle(int.Parse(userId), noteId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
