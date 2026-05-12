@@ -36,5 +36,17 @@ namespace ToDoApp.Infrastructure.Repositories
                 .Where(note => note.UserId == userId)
                 .ToListAsync();
         }
+
+        public async Task<bool> DeleteNoteAsync(int noteId)
+        {
+            var note = await dbContext.Notes.FindAsync(noteId);
+
+            if (note is null)
+                return false;
+
+            dbContext.Notes.Remove(note);
+
+            return true;
+        }
     }
 }

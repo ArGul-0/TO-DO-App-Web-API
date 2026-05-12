@@ -19,6 +19,6 @@ namespace ToDoApp.Application.Interfaces.Repositories
 
         public Task<List<Note>> GetAllNotesByUserIdAsync(int userId);
 
-        public Task 
+        public Task<bool> DeleteNoteAsync(int noteId);
     }
 }
