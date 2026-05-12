@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using ToDoApp.Application.UseCases.Notes.CreateNewNote;
+using ToDoApp.Application.UseCases.Notes.DeleteUserNote;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
 using ToDoApp.Application.UseCases.Notes.GetAllOtherPeopleNotes;
 using ToDoApp.Application.UseCases.Notes.GetNoteById;
@@ -71,12 +72,12 @@ namespace ToDoApp.WebApi.Endpoints
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
-                var result = await handler.Handle(request, int.Parse(userId));
+                var result = await handler.Handle(int.Parse(userId));
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
 
-                return Results.Ok(result.Value);
+                return Results.Ok();
             }).WithName(DeleteUserNoteEndpointName).RequireAuthorization();
 
             return notesGroup;
