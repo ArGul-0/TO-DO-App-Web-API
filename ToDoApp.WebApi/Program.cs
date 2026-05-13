@@ -9,6 +9,7 @@ using ToDoApp.Application.UseCases.Notes.DeleteUserNote;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
 using ToDoApp.Application.UseCases.Notes.GetAllOtherPeopleNotes;
 using ToDoApp.Application.UseCases.Notes.GetNoteById;
+using ToDoApp.Application.UseCases.Notes.UpdateUserNote;
 using ToDoApp.Application.UseCases.Users.ChangeUserVisibility;
 using ToDoApp.Application.UseCases.Users.CreateUser;
 using ToDoApp.Application.UseCases.Users.GetAllUsers;
@@ -59,6 +60,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<CreateNewNoteHandler>();
             builder.Services.AddScoped<ChangeUserVisibilityHandler>();
             builder.Services.AddScoped<GetAllUserNotesHandler>();
+            builder.Services.AddScoped<UpdateUserNoteHandler>();
             builder.Services.AddScoped<DeleteUserNoteHandler>();
 
             builder.Services.AddScoped<INotesAuthorizationService, NotesAuthorizationService>();
@@ -75,7 +77,10 @@ namespace ToDoApp.WebApi
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            app.UseHttpsRedirection();
+            if(app.Environment.IsDevelopment())
+            {
+                app.UseHttpsRedirection();
+            }
 
             app.UseSerilogRequestLogging(); // Enable Serilog Request Logging
 
