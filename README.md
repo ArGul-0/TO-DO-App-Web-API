@@ -183,8 +183,8 @@ Contains:
 | GET    | `/Notes`               | Get all notes for authorized user |
 | GET    | `/Notes/{id}`          | Get note by ID                    |
 | POST   | `/Notes/`              | Create new note                   |
-| PUT   | `/Notes/{id}`           | Update note                       |
-| DELETE   | `/Notes/{id]`        | Delete note                       |
+| PUT    | `/Notes/{id}`           | Update note                       |
+| DELETE | `/Notes/{id]`        | Delete note                       |
 
 ---
 
