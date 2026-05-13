@@ -47,6 +47,8 @@
     depends_on:
       postgres:
           condition: service_healthy # Ensure The API Waits For PostgreSQL To Be Healthy Before Starting
+    volumes:
+    - dataprotection_keys:/root/.aspnet/DataProtection-Keys
 
     expose:
       - "80"
@@ -61,3 +63,4 @@
 volumes:
   pgdata: # Define A Named Volume For PostgreSQL Data Persistence
   seq_data: # Define A Named Volume For Seq Data Persistence
+  dataprotection_keys:
