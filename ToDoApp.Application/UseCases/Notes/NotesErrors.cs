@@ -13,7 +13,7 @@ namespace ToDoApp.Application.UseCases.Notes
             ErrorType.NotFound);
 
         public static readonly Error Forbidden = new Error("Forbidden",
-            "The specified note is private",
+            "You don't have permission to manage / see this note",
             ErrorType.Forbidden);
     }
 }

@@ -70,16 +70,16 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(CreateNewNoteEndpointName).RequireAuthorization();
 
-            notesGroup.MapPut("/", async (UpdateUserNoteRequest request, UpdateUserNoteHandler handler, HttpContext context) =>
+            notesGroup.MapPut("/{noteId}", async (int noteId,UpdateUserNoteRequest request, UpdateUserNoteHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
-                var result = await handler.Handle(request, int.Parse(userId));
+                var result = await handler.Handle(request, int.Parse(userId), noteId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
 
-                return Results.Ok(result.Value);
+                return Results.NoContent();
             }).WithName(UpdateUserNoteEndpointName).RequireAuthorization();
 
             notesGroup.MapDelete("/{noteId}", async (int noteId, DeleteUserNoteHandler handler, HttpContext context) =>
