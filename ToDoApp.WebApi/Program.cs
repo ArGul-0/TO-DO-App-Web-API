@@ -42,6 +42,7 @@ namespace ToDoApp.WebApi
             builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
 
             builder.AddAuth();
+            builder.AddRateLimiting();
 
             builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             builder.Services.AddScoped<IPasswordHasher, Argon2Hasher>();

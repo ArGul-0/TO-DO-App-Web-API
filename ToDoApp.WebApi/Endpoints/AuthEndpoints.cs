@@ -35,7 +35,7 @@ namespace ToDoApp.WebApi.Endpoints
                 }); // Set The JWT Token In Cookies
 
                 return Results.Ok(result.Value);
-            }).WithName(RegisterEndpointName);
+            }).WithName(RegisterEndpointName).RequireRateLimiting("AuthLimit");
 
             authGroup.MapPost("/Login", async (
                 LoginUserRequest request,
@@ -56,7 +56,7 @@ namespace ToDoApp.WebApi.Endpoints
                 }); // Set The JWT Token In Cookies
 
                 return Results.Ok(result.Value);
-            }).WithName(LoginEndpointName);
+            }).WithName(LoginEndpointName).RequireRateLimiting("AuthLimit");
 
             return authGroup;
         }

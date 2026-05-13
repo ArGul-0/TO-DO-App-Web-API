@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using Serilog;
 using Serilog.Events;
 using System.Text;
+using System.Threading.RateLimiting;
 using ToDoApp.Infrastructure.Authentication.Jwt;
 
 namespace ToDoApp.WebApi.Extensions
@@ -101,6 +103,22 @@ namespace ToDoApp.WebApi.Extensions
                     };
                 });
             builder.Services.AddAuthorization();
+
+            return builder;
+        }
+
+        public static WebApplicationBuilder AddRateLimiting(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddRateLimiter(options =>
+            {
+                options.AddFixedWindowLimiter("AuthLimit", opt =>
+                {
+                    opt.Window = TimeSpan.FromMinutes(1);
+                    opt.PermitLimit = 10;
+                    opt.QueueLimit = 0;
+                    opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                });
+            });
 
             return builder;
         }
