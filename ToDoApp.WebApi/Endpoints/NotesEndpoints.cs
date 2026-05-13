@@ -14,7 +14,7 @@ namespace ToDoApp.WebApi.Endpoints
         const string GetNoteByIdEndpointName = "GetNoteById"; // Constant For The GetNoteById Endpoint Name
         const string GetAllUserNotesEndpointName = "GetAllUserNotes"; // Constant For The GetAllUserNotes Endpoint Name
         const string CreateNewNoteEndpointName = "CreateNewNote"; // Constant For The CreateNewNote Endpoint Name
-        const string UpdateNoteEndpointName = "UpdateNote";
+        const string UpdateUserNoteEndpointName = "UpdateUserNote";
         const string DeleteUserNoteEndpointName = "DeleteUserNote"; // Constant For The DeleteUserNote Endpoint Name
 
         public static RouteGroupBuilder MapNotesEndpoints(this WebApplication app)
@@ -69,7 +69,7 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(CreateNewNoteEndpointName).RequireAuthorization();
 
-            notesGroup.MapPut("/", async (UpdateNoteRequest request, UpdateNoteHandler handler, HttpContext context) =>
+            notesGroup.MapPut("/", async (UpdateUserNoteRequest request, UpdateUserNoteHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
@@ -79,7 +79,7 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(UpdateNoteEndpointName).RequireAuthorization();
+            }).WithName(UpdateUserNoteEndpointName).RequireAuthorization();
 
             notesGroup.MapDelete("/{noteId}", async (int noteId, DeleteUserNoteHandler handler, HttpContext context) =>
             {
