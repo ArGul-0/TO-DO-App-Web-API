@@ -37,7 +37,7 @@
         condition: service_healthy
 
   api:
-    image: argul0/todoapp-api:1.2.0 # Use The Published Docker Image From Docker Hub For Current Version
+    image: argul0/todoapp-api:1.3.0 # Use The Published Docker Image From Docker Hub For Current Version
     restart: always # Always Restart The Container If It Stops
     environment:
       ASPNETCORE_ENVIRONMENT: Production # Set The ASP.NET Core Environment To Production
