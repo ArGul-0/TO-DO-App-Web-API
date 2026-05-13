@@ -70,7 +70,7 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(CreateNewNoteEndpointName).RequireAuthorization();
 
-            notesGroup.MapPut("/{noteId}", async (int noteId,UpdateUserNoteRequest request, UpdateUserNoteHandler handler, HttpContext context) =>
+            notesGroup.MapPut("/{noteId}", async (int noteId, UpdateUserNoteRequest request, UpdateUserNoteHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 

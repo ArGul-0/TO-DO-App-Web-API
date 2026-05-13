@@ -6,6 +6,8 @@ namespace ToDoApp.Application.Interfaces.Repositories
     {
         public Task<Note?> GetNoteById(int id);
 
+        public Task<Note?> GetNoteByIdWithTracking(int id);
+
         /// <summary>
         /// Asynchronously retrieves all notes.
         /// </summary>
