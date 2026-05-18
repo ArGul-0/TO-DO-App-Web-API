@@ -99,7 +99,7 @@ namespace ToDoApp.WebApi
                 {
                     HttpOnly = HttpOnlyPolicy.Always, // Ensure Cookies Are Marked As HttpOnly To Prevent Client-Side Access
                     Secure = CookieSecurePolicy.Always, // Ensure Cookies Are Only Sent Over HTTPS
-                    MinimumSameSitePolicy = SameSiteMode.Strict // Set SameSite Policy To Strict To Prevent CSRF Attacks
+                    MinimumSameSitePolicy = SameSiteMode.Lax // Set SameSite Policy To Lax To Prevent CSRF Attacks
                 });
 
             app.UseAuthentication();

@@ -31,7 +31,7 @@ namespace ToDoApp.WebApi.Endpoints
                 {
                     HttpOnly = true,
                     Secure = true,
-                    SameSite = SameSiteMode.Strict
+                    SameSite = SameSiteMode.Lax
                 }); // Set The JWT Token In Cookies
 
                 return Results.Ok(result.Value);
@@ -52,7 +52,7 @@ namespace ToDoApp.WebApi.Endpoints
                 {
                     HttpOnly = true,
                     Secure = true,
-                    SameSite = SameSiteMode.Strict
+                    SameSite = SameSiteMode.Lax
                 }); // Set The JWT Token In Cookies
 
                 return Results.Ok(result.Value);
