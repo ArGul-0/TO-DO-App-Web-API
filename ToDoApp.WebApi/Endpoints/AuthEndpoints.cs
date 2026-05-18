@@ -26,12 +26,17 @@ namespace ToDoApp.WebApi.Endpoints
                 if (result.IsFailure)
                     return result.ToHttpResult();
 
+                var jwtExpires = DateTimeOffset.UtcNow.AddHours(
+                    configuration.GetValue<int>("JwtOptions:ExpirationHours"));
+
                 httpContext.Response.Cookies
-                .Append(configuration["JwtOptions:NameInCookies"]!, result.Value.Token, new CookieOptions
+                .Append(configuration["JwtOptions:NameInCookies"] ?? throw new InvalidOperationException("Jwt cookie name not configured"),
+                result.Value.Token, new CookieOptions
                 {
                     HttpOnly = true,
                     Secure = true,
-                    SameSite = SameSiteMode.Lax
+                    SameSite = SameSiteMode.Lax,
+                    Expires = jwtExpires
                 }); // Set The JWT Token In Cookies
 
                 return Results.Ok(result.Value);
@@ -47,12 +52,17 @@ namespace ToDoApp.WebApi.Endpoints
                 if (result.IsFailure)
                     return result.ToHttpResult();
 
+                var jwtExpires = DateTimeOffset.UtcNow.AddHours(
+                    configuration.GetValue<int>("JwtOptions:ExpirationHours"));
+
                 httpContext.Response.Cookies
-                .Append(configuration["JwtOptions:NameInCookies"]!, result.Value.Token, new CookieOptions
+                .Append(configuration["JwtOptions:NameInCookies"] ?? throw new InvalidOperationException("Jwt cookie name not configured"),
+                result.Value.Token, new CookieOptions
                 {
                     HttpOnly = true,
                     Secure = true,
-                    SameSite = SameSiteMode.Lax
+                    SameSite = SameSiteMode.Lax,
+                    Expires = jwtExpires
                 }); // Set The JWT Token In Cookies
 
                 return Results.Ok(result.Value);
