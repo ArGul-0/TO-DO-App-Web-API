@@ -31,7 +31,7 @@ namespace ToDoApp.Application.UseCases.Notes.CreateNewNote
                 return ResultT<NoteDto>.Failure(UsersErrors.UserNotFound);
             }
 
-            user.AddNote(request.Title, request.Content);
+            user.AddNote(request.Title, request.Content, request.IsDone);
 
             await unitOfWork.SaveChangesAsync();
 
