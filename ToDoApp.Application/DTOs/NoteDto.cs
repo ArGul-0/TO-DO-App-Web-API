@@ -5,6 +5,7 @@ namespace ToDoApp.Application.DTOs
     public record NoteDto(
         [Required] int Id,
         [Required] string Title,
-        string Content
+        string Content,
+        [Required] bool IsDone
     );
 }
