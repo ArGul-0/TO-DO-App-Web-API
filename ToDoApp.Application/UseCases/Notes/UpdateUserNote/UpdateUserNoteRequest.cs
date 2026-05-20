@@ -5,6 +5,6 @@ namespace ToDoApp.Application.UseCases.Notes.UpdateUserNote
     public record UpdateUserNoteRequest(
         [Required] string Title,
         [Required] string Content,
-        bool isDone
+        [Required] bool IsDone = false
         );
 }

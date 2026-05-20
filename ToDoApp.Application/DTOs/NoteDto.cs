@@ -6,6 +6,6 @@ namespace ToDoApp.Application.DTOs
         [Required] int Id,
         [Required] string Title,
         string Content,
-        [Required] bool IsDone
+        [Required] bool IsDone = false
     );
 }

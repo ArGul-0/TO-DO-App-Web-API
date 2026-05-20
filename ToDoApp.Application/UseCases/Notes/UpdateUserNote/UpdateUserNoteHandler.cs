@@ -42,6 +42,7 @@ namespace ToDoApp.Application.UseCases.Notes.UpdateUserNote
 
             note.UpdateTitle(request.Title);
             note.UpdateContent(request.Content);
+            note.UpdateIsDone(request.IsDone);
 
             await unitOfWork.SaveChangesAsync();
 
