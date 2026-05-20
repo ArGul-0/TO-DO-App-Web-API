@@ -40,7 +40,8 @@ namespace ToDoApp.Application.UseCases.Notes.CreateNewNote
             var noteDto = new NoteDto(
                 Id: user.Notes.Last().Id,
                 Title: request.Title,
-                Content: request.Content
+                Content: request.Content,
+                IsDone: request.IsDone
                 );
 
             return ResultT<NoteDto>.Success(noteDto);

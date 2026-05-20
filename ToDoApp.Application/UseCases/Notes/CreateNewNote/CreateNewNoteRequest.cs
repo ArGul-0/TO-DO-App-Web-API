@@ -4,6 +4,7 @@ namespace ToDoApp.Application.UseCases.Notes.CreateNewNote
 {
     public record CreateNewNoteRequest(
         [Required]string Title,
-        string Content
+        string Content,
+        bool IsDone
     );
 }
