@@ -10,7 +10,8 @@ namespace ToDoApp.Application.Common.Mappings
             return new NoteDto(
                 Id: note.Id,
                 Title: note.Title,
-                Content: note.Content
+                Content: note.Content,
+                IsDone: note.IsDone
                 );
         }
     }
