@@ -10,13 +10,13 @@ namespace ToDoApp.Application.UseCases.Notes.DeleteUserNote
     public class DeleteUserNoteHandler
     {
         private readonly IUserRepository userRepository;
-        private readonly INotesRepository notesRepository;
+        private readonly INoteRepository notesRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly INotesAuthorizationService notesAuthorizationService;
         private readonly ILogger<DeleteUserNoteHandler> logger;
         public DeleteUserNoteHandler(
             IUserRepository userRepository,
-            INotesRepository notesRepository,
+            INoteRepository notesRepository,
             IUnitOfWork unitOfWork,
             INotesAuthorizationService notesAuthorizationService,
             ILogger<DeleteUserNoteHandler> logger)

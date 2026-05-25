@@ -4,11 +4,11 @@ using ToDoApp.Application.Interfaces.Repositories;
 
 namespace ToDoApp.Infrastructure.Repositories
 {
-    public class NotesRepository : INotesRepository
+    public class NoteRepository : INoteRepository
     {
         private readonly AppDbContext dbContext;
 
-        public NotesRepository(AppDbContext dbContext)
+        public NoteRepository(AppDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

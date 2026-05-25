@@ -2,7 +2,7 @@
 
 namespace ToDoApp.Application.Interfaces.Repositories
 {
-    public interface INotesRepository
+    public interface INoteRepository
     {
         public Task<Note?> GetNoteById(int id);
 

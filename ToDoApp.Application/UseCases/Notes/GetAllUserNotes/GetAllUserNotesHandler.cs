@@ -7,8 +7,8 @@ namespace ToDoApp.Application.UseCases.Notes.GetAllOtherPeopleNotes
 {
     public class GetAllUserNotesHandler
     {
-        private readonly INotesRepository notesRepository;
-        public GetAllUserNotesHandler(INotesRepository notesRepository)
+        private readonly INoteRepository notesRepository;
+        public GetAllUserNotesHandler(INoteRepository notesRepository)
         {
             this.notesRepository = notesRepository;
         }

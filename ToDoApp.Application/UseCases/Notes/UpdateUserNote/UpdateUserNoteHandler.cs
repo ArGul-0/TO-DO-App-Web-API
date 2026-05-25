@@ -12,12 +12,12 @@ namespace ToDoApp.Application.UseCases.Notes.UpdateUserNote
 {
     public class UpdateUserNoteHandler
     {
-        private readonly INotesRepository notesRepository;
+        private readonly INoteRepository notesRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly INotesAuthorizationService notesAuthorizationService;
         private readonly ILogger<UpdateUserNoteHandler> logger;
         public UpdateUserNoteHandler(
-            INotesRepository notesRepository,
+            INoteRepository notesRepository,
             IUnitOfWork unitOfWork,
             INotesAuthorizationService notesAuthorizationService,
             ILogger<UpdateUserNoteHandler> logger)

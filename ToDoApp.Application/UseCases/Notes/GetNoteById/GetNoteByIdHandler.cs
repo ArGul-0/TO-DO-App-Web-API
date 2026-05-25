@@ -9,11 +9,11 @@ namespace ToDoApp.Application.UseCases.Notes.GetNoteById
 {
     public class GetNoteByIdHandler
     {
-        private readonly INotesRepository notesRepository;
+        private readonly INoteRepository notesRepository;
         private readonly IUserRepository userRepository;
         private readonly INotesAuthorizationService notesAuthorizationService;
 
-        public GetNoteByIdHandler(INotesRepository notesRepository, IUserRepository userRepository, INotesAuthorizationService notesAuthorizationService)
+        public GetNoteByIdHandler(INoteRepository notesRepository, IUserRepository userRepository, INotesAuthorizationService notesAuthorizationService)
         {
             this.notesRepository = notesRepository;
             this.userRepository = userRepository;

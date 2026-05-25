@@ -49,7 +49,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<IPasswordHasher, Argon2Hasher>();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<INotesRepository, NotesRepository>();
+            builder.Services.AddScoped<INoteRepository, NoteRepository>();
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
