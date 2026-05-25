@@ -4,7 +4,7 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
 {
     public class SendFriendRequestHandler
     {
-        private readonly IFriendRepository _friendRepository;
+        private readonly IFriendRepository friendRepository;
         public SendFriendRequestHandler()
         {
             
