@@ -2,7 +2,7 @@
 
 namespace ToDoApp.Infrastructure.Repositories
 {
-    internal class FriendRepository : IFriendRepository
+    public class FriendRepository : IFriendRepository
     {
         private readonly AppDbContext dbContext;
         public FriendRepository(AppDbContext dbContext)
