@@ -67,7 +67,7 @@ namespace ToDoApp.WebApi.Endpoints
                 if (result.IsFailure)
                     return result.ToHttpResult();
 
-                return Results.Ok(result.Value);
+                return Results.CreatedAtRoute(GetNoteByIdEndpointName, new { id = result.Value.Id }, result.Value);
             }).WithName(CreateNewNoteEndpointName).RequireAuthorization();
 
             notesGroup.MapPut("/{noteId}", async (int noteId, UpdateUserNoteRequest request, UpdateUserNoteHandler handler, HttpContext context) =>
