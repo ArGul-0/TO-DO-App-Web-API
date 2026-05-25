@@ -39,6 +39,8 @@ namespace ToDoApp.Infrastructure
                 .HasForeignKey(n => n.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+
+
             modelBuilder.Entity<Friendship>()
                 .HasOne(f => f.Requester)
                 .WithMany()
