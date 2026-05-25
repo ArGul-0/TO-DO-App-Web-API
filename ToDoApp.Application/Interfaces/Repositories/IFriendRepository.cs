@@ -2,6 +2,6 @@
 {
     public interface IFriendRepository
     {
-        public Task SendFriendRequest(int requesterId, int addresseeId);
+        public Task AddFriendRequestAsync(int requesterId, int addresseeId);
     }
 }
