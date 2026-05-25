@@ -4,6 +4,17 @@ namespace ToDoApp.Domain.Entities
 {
     public class Friendship
     {
+        private Friendship() { } // Private constructor for EF Core
+        public Friendship(int requesterId, int addresseeId)
+        {
+            if (requesterId == addresseeId)
+                throw new InvalidOperationException("Cannot friend yourself");
+
+            RequesterId = requesterId;
+            AddresseeId = addresseeId;
+            Status = FriendshipStatus.Pending;
+        }
+
         public int Id { get; private set; }
 
         public int RequesterId { get; private set; }
@@ -16,7 +27,7 @@ namespace ToDoApp.Domain.Entities
 
         public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
-        public void Accert()
+        public void Accept()
         {
             if(Status != FriendshipStatus.Pending)
             {

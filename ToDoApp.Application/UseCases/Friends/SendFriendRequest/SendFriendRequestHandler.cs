@@ -6,12 +6,12 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
     public class SendFriendRequestHandler
     {
         private readonly IFriendRepository friendRepository;
-        public SendFriendRequestHandler()
+        public SendFriendRequestHandler(IFriendRepository friendRepository)
         {
-            
+            this.friendRepository = friendRepository;
         }
 
-        public Task<Result> Handle(int userId, int friendId)
+        public async Task<Result> Handle(int userId, int friendId)
         {
 
         }

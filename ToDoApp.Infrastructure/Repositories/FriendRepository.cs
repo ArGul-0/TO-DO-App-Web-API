@@ -1,5 +1,4 @@
 ﻿using ToDoApp.Application.Interfaces.Repositories;
-using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Infrastructure.Repositories
 {
