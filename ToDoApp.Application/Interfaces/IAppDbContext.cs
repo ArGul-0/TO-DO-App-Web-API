@@ -6,6 +6,7 @@ namespace ToDoApp.Application.Interfaces
     {
         IQueryable<User> Users  { get; }
         IQueryable<Note> Notes { get; }
+        IQueryable<Friendship> Friendships { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
