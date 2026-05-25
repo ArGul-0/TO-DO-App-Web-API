@@ -1,4 +1,5 @@
 ﻿using ToDoApp.Application.Interfaces.Repositories;
+using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Infrastructure.Repositories
 {
@@ -10,9 +11,9 @@ namespace ToDoApp.Infrastructure.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task AddFriendRequestAsync(int requesterId, int addresseeId)
+        public async Task AddFriendAsync(Friendship friendship)
         {
-
+            await dbContext.Friendships.AddAsync(friendship);
         }
     }
 }
