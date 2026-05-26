@@ -11,7 +11,7 @@ namespace ToDoApp.Infrastructure.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task AddFriendAsync(Friendship friendship)
+        public async Task AddFriendshipAsync(Friendship friendship)
         {
             await dbContext.Friendships.AddAsync(friendship);
         }
