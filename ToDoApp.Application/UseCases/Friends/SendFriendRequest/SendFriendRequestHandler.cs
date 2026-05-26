@@ -26,6 +26,8 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
 
         public async Task<Result> Handle(int userId, int friendId)
         {
+
+
             var newFriendship = new Friendship(userId, friendId);
 
             await friendRepository.AddFriendAsync(newFriendship);
