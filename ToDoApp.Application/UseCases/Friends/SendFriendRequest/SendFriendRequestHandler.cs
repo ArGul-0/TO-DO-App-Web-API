@@ -2,6 +2,7 @@
 using ToDoApp.Application.Common;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
+using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
 {
@@ -25,7 +26,13 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
 
         public async Task<Result> Handle(int userId, int friendId)
         {
+            var newFriendship = new Friendship(userId, friendId);
 
+            await friendRepository.AddFriendAsync(newFriendship);
+
+            await unitOfWork.SaveChangesAsync();
+
+            return Result.Success();
         }
     }
 }
