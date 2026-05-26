@@ -32,6 +32,8 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
 
             await unitOfWork.SaveChangesAsync();
 
+            logger.LogInformation("User {UserId} sent a friend request to User {FriendId}", userId, friendId);
+
             return Result.Success();
         }
     }
