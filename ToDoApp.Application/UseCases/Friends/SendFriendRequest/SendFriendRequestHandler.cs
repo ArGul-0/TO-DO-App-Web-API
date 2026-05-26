@@ -39,7 +39,7 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
             {
                 return Result.Failure(UsersErrors.UserNotFound);
             }
-            else if (friend is null)
+            if (friend is null)
             {
                 return Result.Failure(FriendsErrors.FriendNotFound);
             }
