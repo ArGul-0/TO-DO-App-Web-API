@@ -44,7 +44,7 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
                 return Result.Failure(FriendsErrors.FriendNotFound);
             }
 
-            // Normalization
+            // Normalization, so we always store the smaller userId as RequesterId and the larger one as AddresseeId
             userId = Math.Min(userId, friendId);
             friendId = Math.Max(userId, friendId);
 
