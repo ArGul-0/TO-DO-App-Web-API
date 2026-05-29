@@ -37,6 +37,14 @@ namespace ToDoApp.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public Task<List<Friendship>> GetOutgoingFriendRequestsAsync(int userId)
+        {
+            return dbContext.Friendships
+                .AsNoTracking()
+                .Where(f => f.RequesterId == userId && f.Status == FriendshipStatus.Pending)
+                .ToListAsync();
+        }
+
         public async Task<List<Friendship>> GetAcceptedFriendshipsAsync(int userId)
         {
             return await dbContext.Friendships
