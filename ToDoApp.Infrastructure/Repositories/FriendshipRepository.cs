@@ -17,18 +17,6 @@ namespace ToDoApp.Infrastructure.Repositories
             await dbContext.Friendships.AddAsync(friendship);
         }
 
-        public Task UpdateFriendshipAsync(Friendship friendship)
-        {
-            var existingFriendship = dbContext.Friendships.Find(friendship.Id);
-
-            if(existingFriendship != null)
-            {
-                dbContext.Entry(existingFriendship).CurrentValues.SetValues(friendship);
-            }
-
-            return Task.CompletedTask;
-        }
-
         public async Task<bool> FriendshipExistsAsync(int userId, int friendId)
         {
             return await dbContext.Friendships.AnyAsync(f =>
