@@ -9,6 +9,7 @@ namespace ToDoApp.Application.DTOs
         string RequesterUsername,
         int AddresseeId,
         string AddresseeUsername,
-        FriendshipStatus Status
+        FriendshipStatus Status,
+        DateTime CreatedAt
         );
 }

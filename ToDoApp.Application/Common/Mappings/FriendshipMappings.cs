@@ -13,7 +13,8 @@ namespace ToDoApp.Application.Common.Mappings
                 RequesterUsername: friendship.Requester.Username,
                 AddresseeId: friendship.AddresseeId,
                 AddresseeUsername: friendship.Addressee.Username,
-                Status: friendship.Status
+                Status: friendship.Status,
+                CreatedAt: friendship.CreatedAt
             );
         }
     }
