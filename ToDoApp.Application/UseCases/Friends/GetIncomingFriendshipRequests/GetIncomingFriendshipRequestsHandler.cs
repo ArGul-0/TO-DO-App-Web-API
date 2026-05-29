@@ -1,8 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
-using ToDoApp.Application.Common;
+﻿using ToDoApp.Application.Common;
 using ToDoApp.Application.Common.Mappings;
 using ToDoApp.Application.DTOs;
-using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 
 namespace ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests
@@ -15,15 +13,12 @@ namespace ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests
             this.friendshipRepository = friendshipRepository;
         }
 
-        public async Task<ResultT<List<FriendshipDto>>> Handle(int userId, int friendId)
+        public async Task<ResultT<List<FriendshipDto>>> Handle(int userId)
         {
             var friendships = await friendshipRepository.GetIncomingFriendshipsRequestsAsync(userId);
 
-            if (friendships is null)
-                return ResultT<List<FriendshipDto>>.Failure(FriendshipErrors.FriendshipNotExists);
-
-            if (!friendships.Any(f => f.AddresseeId == userId))
-                return ResultT<List<FriendshipDto>>.Failure(FriendshipErrors.NotAllowedToManageThisFriendsipRequest);
+            if (!friendships.Any())
+                return ResultT<List<FriendshipDto>>.Failure(FriendshipErrors.NoIncomingRequests);
 
             return ResultT<List<FriendshipDto>>.Success(friendships.Select(f => f.ToDto()).ToList());
         }
