@@ -9,6 +9,6 @@ namespace ToDoApp.Application.Interfaces.Repositories
         public Task<List<Friendship>> GetAcceptedFriendshipsAsync(int userId);
         public Task AddFriendshipAsync(Friendship friendship);
         public Task<bool> FriendshipExistsAsync(int userId, int friendId);
-        public void RemoveFriendshipAsync(Friendship friendship);
+        public void RemoveFriendship(Friendship friendship);
     }
 }

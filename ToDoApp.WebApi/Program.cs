@@ -4,6 +4,7 @@ using Serilog;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.Security.Notes;
+using ToDoApp.Application.UseCases.Friends.AcceptFriendRequest;
 using ToDoApp.Application.UseCases.Friends.SendFriendRequest;
 using ToDoApp.Application.UseCases.Notes.CreateNewNote;
 using ToDoApp.Application.UseCases.Notes.DeleteUserNote;
@@ -67,6 +68,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<DeleteUserNoteHandler>();
 
             builder.Services.AddScoped<SendFriendRequestHandler>();
+            builder.Services.AddScoped<AcceptFriendRequestHandler>();
 
             builder.Services.AddScoped<INotesAuthorizationService, NotesAuthorizationService>();
 

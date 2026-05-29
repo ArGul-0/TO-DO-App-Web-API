@@ -50,11 +50,9 @@ namespace ToDoApp.Infrastructure.Repositories
                 (f.RequesterId == friendId && f.AddresseeId == userId));
         }
 
-        public Task RemoveFriendship(Friendship friendship)
+        public void RemoveFriendship(Friendship friendship)
         {
             dbContext.Friendships.Remove(friendship);
-
-            return Task.CompletedTask;
         }
     }
 }
