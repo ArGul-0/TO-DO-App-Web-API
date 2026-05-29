@@ -4,11 +4,11 @@ using ToDoApp.Domain.Enums;
 namespace ToDoApp.Application.DTOs
 {
     public record FriendshipDto(
-        [Required] int Id,
-        [Required] int RequesterId,
-        [Required] string RequesterUsername,
-        [Required] int AddresseeId,
-        [Required] string AddresseeUsername,
-        [Required] FriendshipStatus Status
+        int Id,
+        int RequesterId,
+        string RequesterUsername,
+        int AddresseeId,
+        string AddresseeUsername,
+        FriendshipStatus Status
         );
 }
