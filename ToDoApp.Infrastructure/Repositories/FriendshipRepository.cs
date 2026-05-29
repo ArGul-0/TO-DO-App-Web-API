@@ -12,6 +12,13 @@ namespace ToDoApp.Infrastructure.Repositories
             this.dbContext = dbContext;
         }
 
+        public Task<List<Friendship>> GetFriendshipsByUserIdAsync(int userId)
+        {
+            return dbContext.Friendships
+                .Where(f => f.RequesterId == userId || f.AddresseeId == userId)
+                .ToListAsync();
+        }
+
         public async Task AddFriendshipAsync(Friendship friendship)
         {
             await dbContext.Friendships.AddAsync(friendship);
