@@ -34,6 +34,8 @@ namespace ToDoApp.Infrastructure.Repositories
             return dbContext.Friendships
                 .AsNoTracking()
                 .Where(f => f.AddresseeId == userId && f.Status == FriendshipStatus.Pending)
+                .Include(f => f.Requester)
+                .Include(f => f.Addressee)
                 .ToListAsync();
         }
 

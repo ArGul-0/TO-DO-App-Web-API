@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using ToDoApp.Application.Common;
+using ToDoApp.Application.Common.Mappings;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
@@ -24,7 +25,7 @@ namespace ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests
             if (!friendships.Any(f => f.AddresseeId == userId))
                 return ResultT<List<FriendshipDto>>.Failure(FriendshipErrors.NotAllowedToManageThisFriendsipRequest);
 
-            return ResultT<List<FriendshipDto>>.Success(friendships);
+            return ResultT<List<FriendshipDto>>.Success(friendships.Select(f => f.ToDto()).ToList());
         }
     }
 }
