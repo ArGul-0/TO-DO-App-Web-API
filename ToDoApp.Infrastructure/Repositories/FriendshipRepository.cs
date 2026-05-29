@@ -50,16 +50,11 @@ namespace ToDoApp.Infrastructure.Repositories
                 (f.RequesterId == friendId && f.AddresseeId == userId));
         }
 
-        public async Task RemoveFriendshipAsync(int userId, int friendId)
+        public Task RemoveFriendshipAsync(Friendship friendship)
         {
-            var friendship = await dbContext.Friendships.FirstOrDefaultAsync(f =>
-                (f.RequesterId == userId && f.AddresseeId == friendId) ||
-                (f.RequesterId == friendId && f.AddresseeId == userId));
+            dbContext.Friendships.Remove(friendship);
 
-            if (friendship != null)
-            {
-                dbContext.Friendships.Remove(friendship);
-            }
+            return Task.CompletedTask;
         }
     }
 }
