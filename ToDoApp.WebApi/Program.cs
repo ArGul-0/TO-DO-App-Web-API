@@ -5,6 +5,7 @@ using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.Security.Notes;
 using ToDoApp.Application.UseCases.Friends.AcceptFriendRequest;
+using ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests;
 using ToDoApp.Application.UseCases.Friends.RejectFriendRequest;
 using ToDoApp.Application.UseCases.Friends.RemoveFriendship;
 using ToDoApp.Application.UseCases.Friends.SendFriendRequest;
@@ -73,6 +74,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<AcceptFriendshipsRequestHandler>();
             builder.Services.AddScoped<RejectFriendshipsRequestHandler>();
             builder.Services.AddScoped<RemoveFriendshipHandler>();
+            builder.Services.AddScoped<GetIncomingFriendshipRequestsHandler>();
 
             builder.Services.AddScoped<INotesAuthorizationService, NotesAuthorizationService>();
 

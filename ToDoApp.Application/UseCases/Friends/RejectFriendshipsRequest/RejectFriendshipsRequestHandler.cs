@@ -28,7 +28,7 @@ namespace ToDoApp.Application.UseCases.Friends.RejectFriendRequest
                 return Result.Failure(FriendshipErrors.FriendshipNotExists);
 
             if (friendship.AddresseeId != userId)
-                return Result.Failure(FriendshipErrors.NotAllowedToManageThisFriendRequest);
+                return Result.Failure(FriendshipErrors.NotAllowedToManageThisFriendsipRequest);
 
             friendship.Reject();
 
