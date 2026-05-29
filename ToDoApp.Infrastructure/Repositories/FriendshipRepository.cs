@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Domain.Entities;
+using ToDoApp.Domain.Enums;
 
 namespace ToDoApp.Infrastructure.Repositories
 {
@@ -12,10 +13,18 @@ namespace ToDoApp.Infrastructure.Repositories
             this.dbContext = dbContext;
         }
 
-        public Task<List<Friendship>> GetFriendshipsByUserIdAsync(int userId)
+        public async Task<List<Friendship>> GetFriendshipsByUserIdAsync(int userId)
         {
-            return dbContext.Friendships
+            return await dbContext.Friendships
                 .Where(f => f.RequesterId == userId || f.AddresseeId == userId)
+                .ToListAsync();
+        }
+
+        public async Task<List<Friendship>> GetAcceptedFriendshipsAsync(int userId)
+        {
+            return await dbContext.Friendships
+                .Where(f => (f.RequesterId == userId || f.AddresseeId == userId)
+                && f.Status == FriendshipStatus.Accepted)
                 .ToListAsync();
         }
 
