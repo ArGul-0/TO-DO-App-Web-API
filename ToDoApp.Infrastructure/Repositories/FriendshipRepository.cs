@@ -4,10 +4,10 @@ using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Infrastructure.Repositories
 {
-    public class FriendRepository : IFriendRepository
+    public class FriendshipRepository : IFriendshipRepository
     {
         private readonly AppDbContext dbContext;
-        public FriendRepository(AppDbContext dbContext)
+        public FriendshipRepository(AppDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

@@ -2,7 +2,7 @@
 
 namespace ToDoApp.Application.Interfaces.Repositories
 {
-    public interface IFriendRepository
+    public interface IFriendshipRepository
     {
         public Task AddFriendshipAsync(Friendship friendship);
         public Task UpdateFriendshipAsync(Friendship friendship);

@@ -50,7 +50,7 @@ namespace ToDoApp.WebApi
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<INoteRepository, NoteRepository>();
-            builder.Services.AddScoped<IFriendRepository, FriendRepository>();
+            builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

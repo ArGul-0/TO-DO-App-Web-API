@@ -9,12 +9,12 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
 {
     public class SendFriendRequestHandler
     {
-        private readonly IFriendRepository friendRepository;
+        private readonly IFriendshipRepository friendRepository;
         private readonly IUserRepository userRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly ILogger<SendFriendRequestHandler> logger;
         public SendFriendRequestHandler(
-            IFriendRepository friendRepository,
+            IFriendshipRepository friendRepository,
             IUserRepository userRepository,
             IUnitOfWork unitOfWork,
             ILogger<SendFriendRequestHandler> logger)
