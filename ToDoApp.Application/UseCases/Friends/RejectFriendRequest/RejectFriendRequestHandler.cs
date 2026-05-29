@@ -25,10 +25,10 @@ namespace ToDoApp.Application.UseCases.Friends.RejectFriendRequest
             var friendship = await friendRepository.GetFriendshipAsync(userId, friendId);
 
             if (friendship is null)
-                return Result.Failure(FriendsErrors.FriendshipNotExists);
+                return Result.Failure(FriendshipErrors.FriendshipNotExists);
 
             if (friendship.AddresseeId != userId)
-                return Result.Failure(FriendsErrors.NotAllowedToManageThisFriendRequest);
+                return Result.Failure(FriendshipErrors.NotAllowedToManageThisFriendRequest);
 
             friendship.Reject();
 

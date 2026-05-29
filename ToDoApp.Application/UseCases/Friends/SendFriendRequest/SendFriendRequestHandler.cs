@@ -9,17 +9,17 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
 {
     public class SendFriendRequestHandler
     {
-        private readonly IFriendshipRepository friendRepository;
+        private readonly IFriendshipRepository friendshipRepository;
         private readonly IUserRepository userRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly ILogger<SendFriendRequestHandler> logger;
         public SendFriendRequestHandler(
-            IFriendshipRepository friendRepository,
+            IFriendshipRepository friendshipRepository,
             IUserRepository userRepository,
             IUnitOfWork unitOfWork,
             ILogger<SendFriendRequestHandler> logger)
         {
-            this.friendRepository = friendRepository;
+            this.friendshipRepository = friendshipRepository;
             this.userRepository = userRepository;
             this.unitOfWork = unitOfWork;
             this.logger = logger;
@@ -38,15 +38,15 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
             if (user is null)
                 return Result.Failure(UsersErrors.UserNotFound);
             if (friend is null)
-                return Result.Failure(FriendsErrors.FriendNotFound);
+                return Result.Failure(FriendshipErrors.FriendNotFound);
 
-            var existingFriendship = await friendRepository.FriendshipExistsAsync(userId, friendId);
+            var existingFriendship = await friendshipRepository.FriendshipExistsAsync(userId, friendId);
             if (existingFriendship)
-                return Result.Failure(FriendsErrors.FriendshipAlreadyExists);
+                return Result.Failure(FriendshipErrors.FriendshipAlreadyExists);
 
             var newFriendship = new Friendship(userId, friendId);
 
-            await friendRepository.AddFriendshipAsync(newFriendship);
+            await friendshipRepository.AddFriendshipAsync(newFriendship);
 
             await unitOfWork.SaveChangesAsync();
 
