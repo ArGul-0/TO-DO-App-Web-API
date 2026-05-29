@@ -36,13 +36,9 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
             var friend = await userRepository.GetUserByIdAsync(friendId);
             
             if (user is null)
-            {
                 return Result.Failure(UsersErrors.UserNotFound);
-            }
             if (friend is null)
-            {
                 return Result.Failure(FriendsErrors.FriendNotFound);
-            }
 
             // Normalization, so we always store the smaller userId as RequesterId and the larger one as AddresseeId
             userId = Math.Min(userId, friendId);
