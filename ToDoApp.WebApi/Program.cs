@@ -69,9 +69,9 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<UpdateUserNoteHandler>();
             builder.Services.AddScoped<DeleteUserNoteHandler>();
 
-            builder.Services.AddScoped<SendFriendRequestHandler>();
-            builder.Services.AddScoped<AcceptFriendRequestHandler>();
-            builder.Services.AddScoped<RejectFriendRequestHandler>();
+            builder.Services.AddScoped<SendFriendshipsRequestHandler>();
+            builder.Services.AddScoped<AcceptFriendshipsRequestHandler>();
+            builder.Services.AddScoped<RejectFriendshipsRequestHandler>();
             builder.Services.AddScoped<RemoveFriendshipHandler>();
 
             builder.Services.AddScoped<INotesAuthorizationService, NotesAuthorizationService>();
