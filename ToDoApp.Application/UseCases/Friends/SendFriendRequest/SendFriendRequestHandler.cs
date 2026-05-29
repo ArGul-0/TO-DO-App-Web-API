@@ -40,9 +40,9 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
             if (friend is null)
                 return Result.Failure(FriendsErrors.FriendNotFound);
 
-            // Normalization, so we always store the smaller userId as RequesterId and the larger one as AddresseeId
-            userId = Math.Min(userId, friendId);
-            friendId = Math.Max(userId, friendId);
+            var existingFriendship = await friendRepository.FriendshipExistsAsync(userId, friendId);
+            if (existingFriendship)
+                return Result.Failure(FriendsErrors.FriendshipAlreadyExists);
 
             var newFriendship = new Friendship(userId, friendId);
 
