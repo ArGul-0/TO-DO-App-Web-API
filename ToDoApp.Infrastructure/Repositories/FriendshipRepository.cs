@@ -29,7 +29,7 @@ namespace ToDoApp.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public Task<List<Friendship>> GetIncomingFriendRequestsAsync(int userId)
+        public Task<List<Friendship>> GetIncomingFriendshipsRequestsAsync(int userId)
         {
             return dbContext.Friendships
                 .AsNoTracking()
@@ -37,7 +37,7 @@ namespace ToDoApp.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public Task<List<Friendship>> GetOutgoingFriendRequestsAsync(int userId)
+        public Task<List<Friendship>> GetOutgoingFriendshipsRequestsAsync(int userId)
         {
             return dbContext.Friendships
                 .AsNoTracking()
