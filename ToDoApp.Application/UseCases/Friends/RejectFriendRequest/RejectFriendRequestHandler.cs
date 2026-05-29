@@ -3,17 +3,17 @@ using ToDoApp.Application.Common;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 
-namespace ToDoApp.Application.UseCases.Friends.AcceptFriendRequest
+namespace ToDoApp.Application.UseCases.Friends.RejectFriendRequest
 {
-    public class AcceptFriendRequestHandler
+    public class RejectFriendRequestHandler
     {
         private readonly IFriendshipRepository friendRepository;
         private readonly IUnitOfWork unitOfWork;
-        private readonly ILogger<AcceptFriendRequestHandler> logger;
-        public AcceptFriendRequestHandler(
+        private readonly ILogger<RejectFriendRequestHandler> logger;
+        public RejectFriendRequestHandler(
             IFriendshipRepository friendRepository,
             IUnitOfWork unitOfWork,
-            ILogger<AcceptFriendRequestHandler> logger)
+            ILogger<RejectFriendRequestHandler> logger)
         {
             this.friendRepository = friendRepository;
             this.unitOfWork = unitOfWork;
@@ -24,17 +24,17 @@ namespace ToDoApp.Application.UseCases.Friends.AcceptFriendRequest
         {
             var friendship = await friendRepository.GetFriendshipAsync(userId, friendId);
 
-            if(friendship is null)
+            if (friendship is null)
                 return Result.Failure(FriendsErrors.FriendshipNotExists);
 
             if (friendship.AddresseeId != userId)
                 return Result.Failure(FriendsErrors.NotAllowedToManageThisFriendRequest);
 
-            friendship.Accept();
+            friendship.Reject();
 
             await unitOfWork.SaveChangesAsync();
 
-            logger.LogInformation("User {UserId} accepted friend request from {FriendId}", userId, friendId);
+            logger.LogInformation("User {UserId} rejected friend request from {FriendId}", userId, friendId);
 
             return Result.Success();
         }
