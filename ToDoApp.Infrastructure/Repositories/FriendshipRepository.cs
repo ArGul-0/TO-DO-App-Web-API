@@ -16,6 +16,8 @@ namespace ToDoApp.Infrastructure.Repositories
         public Task<Friendship?> GetFriendshipAsync(int userId, int friendId)
         {
             return dbContext.Friendships
+                .Include(f => f.Requester)
+                .Include(f => f.Addressee)
                 .FirstOrDefaultAsync(f =>
                     (f.RequesterId == userId && f.AddresseeId == friendId) ||
                     (f.RequesterId == friendId && f.AddresseeId == userId));
@@ -26,6 +28,8 @@ namespace ToDoApp.Infrastructure.Repositories
             return await dbContext.Friendships
                 .AsNoTracking()
                 .Where(f => f.RequesterId == userId || f.AddresseeId == userId)
+                .Include(f => f.Requester)
+                .Include(f => f.Addressee)
                 .ToListAsync();
         }
 
@@ -43,6 +47,8 @@ namespace ToDoApp.Infrastructure.Repositories
         {
             return dbContext.Friendships
                 .AsNoTracking()
+                .Include(f => f.Requester)
+                .Include(f => f.Addressee)
                 .Where(f => f.RequesterId == userId && f.Status == FriendshipStatus.Pending)
                 .ToListAsync();
         }
