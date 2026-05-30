@@ -14,7 +14,7 @@ namespace ToDoApp.WebApi.Endpoints
         {
             var friendsGroup = app.MapGroup("/Friends"); // Create A Group For /Friends Endpoints
 
-            friendsGroup.MapGet("/Me/", async (GetAllMyFriendshipsHandler handler, HttpContext context) =>
+            friendsGroup.MapGet("/", async (GetAllMyFriendshipsHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
@@ -26,7 +26,7 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetAllMyFriendsEndpointName).RequireAuthorization();
 
-            friendsGroup.MapGet("/Me/Incoming", async (GetIncomingFriendshipRequestsHandler handler, HttpContext context) =>
+            friendsGroup.MapGet("/Incoming", async (GetIncomingFriendshipRequestsHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
