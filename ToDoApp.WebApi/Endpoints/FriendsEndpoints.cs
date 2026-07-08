@@ -9,6 +9,10 @@ namespace ToDoApp.WebApi.Endpoints
     {
         const string GetAllMyFriendsEndpointName = "GetAllMyFriends"; // Constant For The GetAllMyFriends Endpoint Name
         const string GetIncomingFriendshipRequestsEndpointName = "GetIncomingFriendshipRequests"; // Constant For The GetIncomingFriendshipRequests Endpoint Name
+        const string SendFriendRequestEndpointName = "SendFriendRequest"; // Constant For The SendFriendRequest Endpoint Name
+        const string AcceptFriendRequestEndpointName = "AcceptFriendRequest"; // Constant For The AcceptFriendRequest Endpoint Name
+        const string RejectFriendRequestEndpointName = "RejectFriendRequest"; // Constant For The RejectFriendRequest Endpoint Name
+        const string RemoveFriendshipEndpointName = "RemoveFriendship"; // Constant For The RemoveFriendship Endpoint Name
 
         public static RouteGroupBuilder MapFriendsEndpoints(this WebApplication app)
         {
