@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using ToDoApp.Application.UseCases.Friends.GetAllMyFriendships;
 using ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests;
+using ToDoApp.Application.UseCases.Friends.SendFriendRequest;
 using ToDoApp.WebApi.Extensions;
 
 namespace ToDoApp.WebApi.Endpoints
@@ -41,6 +42,17 @@ namespace ToDoApp.WebApi.Endpoints
 
                 return Results.Ok(result.Value);
             }).WithName(GetIncomingFriendshipRequestsEndpointName).RequireAuthorization();
+
+            friendsGroup.MapPost("/Requests/{friendId}", async (int friendId, SendFriendshipRequestHandler handler, HttpContext context) =>
+            {
+                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var result = await handler.Handle(int.Parse(userId), friendId);
+
+                if (result.IsFailure)
+                    return result.ToHttpResult();
+
+                return Results.Ok();
+            }).WithName(SendFriendRequestEndpointName).RequireAuthorization();
 
             return friendsGroup;
         }

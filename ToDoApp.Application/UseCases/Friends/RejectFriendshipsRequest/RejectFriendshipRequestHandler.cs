@@ -3,38 +3,38 @@ using ToDoApp.Application.Common;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 
-namespace ToDoApp.Application.UseCases.Friends.AcceptFriendRequest
+namespace ToDoApp.Application.UseCases.Friends.RejectFriendRequest
 {
-    public class AcceptFriendshipsRequestHandler
+    public class RejectFriendshipRequestHandler
     {
-        private readonly IFriendshipRepository friendshipRepository;
+        private readonly IFriendshipRepository friendRepository;
         private readonly IUnitOfWork unitOfWork;
-        private readonly ILogger<AcceptFriendshipsRequestHandler> logger;
-        public AcceptFriendshipsRequestHandler(
-            IFriendshipRepository friendshipRepository,
+        private readonly ILogger<RejectFriendshipRequestHandler> logger;
+        public RejectFriendshipRequestHandler(
+            IFriendshipRepository friendRepository,
             IUnitOfWork unitOfWork,
-            ILogger<AcceptFriendshipsRequestHandler> logger)
+            ILogger<RejectFriendshipRequestHandler> logger)
         {
-            this.friendshipRepository = friendshipRepository;
+            this.friendRepository = friendRepository;
             this.unitOfWork = unitOfWork;
             this.logger = logger;
         }
 
         public async Task<Result> Handle(int userId, int friendId)
         {
-            var friendship = await friendshipRepository.GetFriendshipAsync(userId, friendId);
+            var friendship = await friendRepository.GetFriendshipAsync(userId, friendId);
 
-            if(friendship is null)
+            if (friendship is null)
                 return Result.Failure(FriendshipErrors.FriendshipNotExists);
 
             if (friendship.AddresseeId != userId)
                 return Result.Failure(FriendshipErrors.NotAllowedToManageThisFriendsipRequest);
 
-            friendship.Accept();
+            friendship.Reject();
 
             await unitOfWork.SaveChangesAsync();
 
-            logger.LogInformation("User {UserId} accepted friend request from {FriendId}", userId, friendId);
+            logger.LogInformation("User {UserId} rejected friend request from {FriendId}", userId, friendId);
 
             return Result.Success();
         }

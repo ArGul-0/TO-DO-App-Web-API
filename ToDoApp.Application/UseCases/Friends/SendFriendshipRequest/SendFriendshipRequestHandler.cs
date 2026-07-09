@@ -7,17 +7,17 @@ using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
 {
-    public class SendFriendshipsRequestHandler
+    public class SendFriendshipRequestHandler
     {
         private readonly IFriendshipRepository friendshipRepository;
         private readonly IUserRepository userRepository;
         private readonly IUnitOfWork unitOfWork;
-        private readonly ILogger<SendFriendshipsRequestHandler> logger;
-        public SendFriendshipsRequestHandler(
+        private readonly ILogger<SendFriendshipRequestHandler> logger;
+        public SendFriendshipRequestHandler(
             IFriendshipRepository friendshipRepository,
             IUserRepository userRepository,
             IUnitOfWork unitOfWork,
-            ILogger<SendFriendshipsRequestHandler> logger)
+            ILogger<SendFriendshipRequestHandler> logger)
         {
             this.friendshipRepository = friendshipRepository;
             this.userRepository = userRepository;
@@ -29,7 +29,7 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
         {
             if (userId == friendId)
             {
-                return Result.Failure(SendFriendshipsRequestErrors.CannotFriendYourself);
+                return Result.Failure(SendFriendshipRequestErrors.CannotFriendYourself);
             }
 
             var user = await userRepository.GetUserByIdAsync(userId);
