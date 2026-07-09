@@ -46,6 +46,7 @@ namespace ToDoApp.WebApi.Endpoints
             friendsGroup.MapPost("/Requests/{friendId}", async (int friendId, SendFriendshipRequestHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
                 var result = await handler.Handle(int.Parse(userId), friendId);
 
                 if (result.IsFailure)
