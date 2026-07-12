@@ -1,6 +1,9 @@
 ﻿using System.Security.Claims;
+using ToDoApp.Application.UseCases.Friends.AcceptFriendRequest;
 using ToDoApp.Application.UseCases.Friends.GetAllMyFriendships;
 using ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests;
+using ToDoApp.Application.UseCases.Friends.RejectFriendRequest;
+using ToDoApp.Application.UseCases.Friends.RemoveFriendship;
 using ToDoApp.Application.UseCases.Friends.SendFriendRequest;
 using ToDoApp.WebApi.Extensions;
 
@@ -52,8 +55,44 @@ namespace ToDoApp.WebApi.Endpoints
                 if (result.IsFailure)
                     return result.ToHttpResult();
 
-                return Results.Ok();
+                return Results.Created();
             }).WithName(SendFriendRequestEndpointName).RequireAuthorization();
+
+            friendsGroup.MapPost("/Requests/{friendId}/Accept", async (int friendId, AcceptFriendshipRequestHandler handler, HttpContext context) =>
+            {
+                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+                var result = await handler.Handle(int.Parse(userId), friendId);
+
+                if (result.IsFailure)
+                    return result.ToHttpResult();
+
+                return Results.Ok();
+            }).WithName(AcceptFriendRequestEndpointName).RequireAuthorization();
+
+            friendsGroup.MapPost("/Requests/{friendId}/Reject", async (int friendId, RejectFriendshipRequestHandler handler, HttpContext context) =>
+            {
+                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+                var result = await handler.Handle(int.Parse(userId), friendId);
+
+                if (result.IsFailure)
+                    return result.ToHttpResult();
+
+                return Results.Ok();
+            }).WithName(RejectFriendRequestEndpointName).RequireAuthorization();
+
+            friendsGroup.MapDelete("/{friendId}", async (int friendId, RemoveFriendshipHandler handler, HttpContext context) =>
+            {
+                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+                var result = await handler.Handle(int.Parse(userId), friendId);
+
+                if (result.IsFailure)
+                    return result.ToHttpResult();
+
+                return Results.Ok();
+            }).WithName(RemoveFriendshipEndpointName).RequireAuthorization();
 
             return friendsGroup;
         }
