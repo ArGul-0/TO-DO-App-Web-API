@@ -50,6 +50,15 @@ namespace ToDoApp.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<bool> AddNoteAsync(Note note)
+        {
+            if (note is null)
+                return false;
+
+            await dbContext.Notes.AddAsync(note);
+            return true;
+        }
+
         public async Task<bool> DeleteNoteAsync(int noteId)
         {
             var note = await dbContext.Notes.FindAsync(noteId);
