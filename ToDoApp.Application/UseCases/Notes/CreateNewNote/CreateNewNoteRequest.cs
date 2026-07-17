@@ -3,8 +3,8 @@
 namespace ToDoApp.Application.UseCases.Notes.CreateNewNote
 {
     public record CreateNewNoteRequest(
-        [Required]string Title,
-        string Content,
-        bool IsDone = false
+        [Required] string Title,
+        [Required] string Content,
+        [Required] bool IsDone = false
     );
 }
