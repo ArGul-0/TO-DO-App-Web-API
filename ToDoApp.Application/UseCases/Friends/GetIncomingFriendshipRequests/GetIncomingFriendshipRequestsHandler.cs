@@ -17,9 +17,6 @@ namespace ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests
         {
             var friendships = await friendshipRepository.GetIncomingFriendshipsRequestsAsync(userId);
 
-            //if (!friendships.Any())
-            //    return ResultT<List<FriendshipDto>>.Failure(FriendshipErrors.NoIncomingRequests);
-
             return ResultT<List<FriendshipDto>>.Success(friendships.Select(f => f.ToDto()).ToList());
         }
     }

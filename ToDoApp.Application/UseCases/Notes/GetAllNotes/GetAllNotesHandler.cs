@@ -24,9 +24,6 @@ namespace ToDoApp.Application.UseCases.Notes.GetAllNotes
         {
             var notes = await notesRepository.GetAllNotesWithOwnersAsync();
 
-            //if (notes is null || !notes.Any())
-            //    return ResultT<List<NoteDto>>.Failure(NotesErrors.NotesNotFound);
-
             var user = await userRepository.GetUserByIdAsync(userId);
 
             if (user is null)

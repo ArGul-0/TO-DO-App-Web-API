@@ -17,9 +17,6 @@ namespace ToDoApp.Application.UseCases.Users.GetAllUsers
         {
             var users = await userRepository.GetAllUsersAsync();
 
-            //if(users is null || !users.Any())
-            //   return ResultT<GetAllUsersResponse>.Failure(GetAllUsersErrors.NoUsersFound);
-
             var userDtos = users
                 .Select(u => u.ToDto())
                 .ToList();
