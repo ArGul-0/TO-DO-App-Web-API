@@ -11,6 +11,8 @@ namespace ToDoApp.Application.Common.Mappings
                 Id: note.Id,
                 Title: note.Title,
                 Content: note.Content,
+                CreatedAt: note.CreatedAt,
+                UpdatedAt: note.UpdatedAt,
                 IsDone: note.IsDone
                 );
         }

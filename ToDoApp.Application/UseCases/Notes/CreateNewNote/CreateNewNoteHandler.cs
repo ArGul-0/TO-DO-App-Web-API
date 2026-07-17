@@ -41,6 +41,8 @@ namespace ToDoApp.Application.UseCases.Notes.CreateNewNote
                 Id: user.Notes.Last().Id,
                 Title: request.Title,
                 Content: request.Content,
+                CreatedAt: user.Notes.Last().CreatedAt,
+                UpdatedAt: user.Notes.Last().UpdatedAt,
                 IsDone: request.IsDone
                 );
 
