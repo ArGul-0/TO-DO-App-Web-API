@@ -1,6 +1,5 @@
 ﻿using ToDoApp.Application.Common;
 using ToDoApp.Application.Common.Mappings;
-using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces.Repositories;
 
 namespace ToDoApp.Application.UseCases.Users.GetAllUsers
@@ -18,8 +17,8 @@ namespace ToDoApp.Application.UseCases.Users.GetAllUsers
         {
             var users = await userRepository.GetAllUsersAsync();
 
-            if(users is null || !users.Any())
-                return ResultT<GetAllUsersResponse>.Failure(GetAllUsersErrors.NoUsersFound);
+            //if(users is null || !users.Any())
+            //   return ResultT<GetAllUsersResponse>.Failure(GetAllUsersErrors.NoUsersFound);
 
             var userDtos = users
                 .Select(u => u.ToDto())
