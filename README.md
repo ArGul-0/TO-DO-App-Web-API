@@ -27,6 +27,8 @@ This project was designed as a scalable backend foundation for a notes / task ma
 ## 📝 Notes System
 
 * Create notes
+* Update notes
+* Delete notes
 * Get all notes for authenticated user
 * Get note by ID
 * One-to-many relationship between users and notes
