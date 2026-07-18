@@ -1,11 +1,10 @@
 # 🚀 ToDoApp — ASP.NET Core Web API
 
-![Version](https://img.shields.io/github/v/release/ArGul/ToDoApp)
-![Downloads](https://img.shields.io/github/downloads/ArGul/ToDoApp/total)
-![License](https://img.shields.io/github/license/ArGul/ToDoApp)
-![Last Commit](https://img.shields.io/github/last-commit/ArGul/ToDoApp)
-![Repo Size](https://img.shields.io/github/repo-size/ArGul/ToDoApp)
-![Top Language](https://img.shields.io/github/languages/top/ArGul/ToDoApp)
+![Release](https://img.shields.io/github/v/release/ArGul-0/TO-DO-App-Web-API)
+![Downloads](https://img.shields.io/github/downloads/ArGul-0/TO-DO-App-Web-API/total)
+![Last Commit](https://img.shields.io/github/last-commit/ArGul-0/TO-DO-App-Web-API)
+![Repo Size](https://img.shields.io/github/repo-size/ArGul-0/TO-DO-App-Web-API)
+![Top Language](https://img.shields.io/github/languages/top/ArGul-0/TO-DO-App-Web-API)
 
 A modern and production-ready ToDo Web API built with **ASP.NET Core**, **Clean Architecture**, **JWT Authentication**, **PostgreSQL**, and **Docker**.
 
