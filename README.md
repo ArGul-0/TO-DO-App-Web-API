@@ -32,6 +32,16 @@ This project was designed as a scalable backend foundation for a notes / task ma
 * Get all users
 * Get user by ID
 
+## 🤝 Friendship System
+
+* Send friend requests
+* Accept friend requests
+* Reject friend requests
+* Remove friends
+* View all friends
+* View incoming friend requests
+* Friendship status management (`Pending`, `Accepted`, `Rejected`)
+
 ## 🏗 Architecture
 
 * Clean Architecture
@@ -182,11 +192,22 @@ Contains:
 | ------ | ---------------------- | --------------------------------- |
 | GET    | `/Notes`               | Get all notes for authorized user |
 | GET    | `/Notes/{id}`          | Get note by ID                    |
-| POST   | `/Notes/`              | Create new note                   |
-| PUT    | `/Notes/{id}`           | Update note                       |
-| DELETE | `/Notes/{id]`        | Delete note                       |
+| POST   | `/Notes`               | Create new note                   |
+| PUT    | `/Notes/{id}`          | Update note                       |
+| DELETE | `/Notes/{id}`          | Delete note                       |
 
 ---
+
+## Friendships
+
+| Method | Endpoint                     | Description                  |
+| ------ | ---------------------------- | ---------------------------- |
+| GET    | `/Friends`                   | Get all friends              |
+| GET    | `/Friends/Incoming`          | Get incoming friend requests |
+| POST   | `/Friends/{friendId}`        | Send friend request          |
+| PUT    | `/Friends/{friendId}/Accept` | Accept friend request        |
+| PUT    | `/Friends/{friendId}/Reject` | Reject friend request        |
+| DELETE | `/Friends/{friendId}`        | Remove friend                |
 
 ## Health Check
 
