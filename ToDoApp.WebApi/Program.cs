@@ -61,6 +61,7 @@ namespace ToDoApp.WebApi
 
             builder.Services.AddScoped<CreateUserHandler>();
             builder.Services.AddScoped<LoginUserHandler>();
+
             builder.Services.AddScoped<GetAllUsersHandler>();
             builder.Services.AddScoped<GetUserByIdHandler>();
             builder.Services.AddScoped<GetAllNotesHandler>();
