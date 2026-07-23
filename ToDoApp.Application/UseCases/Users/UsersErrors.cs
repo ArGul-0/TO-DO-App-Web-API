@@ -2,7 +2,7 @@
 
 namespace ToDoApp.Application.UseCases.Users
 {
-    internal class UsersErrors
+    public class UsersErrors
     {
         public static readonly Error UserNotFound = new Error(
             "UserNotFound",
