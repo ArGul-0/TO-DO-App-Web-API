@@ -3,25 +3,21 @@ using ToDoApp.Application.Common;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.Security.Notes;
-using ToDoApp.Application.UseCases.Users;
 
 namespace ToDoApp.Application.UseCases.Notes.DeleteUserNote
 {
     public class DeleteUserNoteHandler
     {
-        private readonly IUserRepository userRepository;
         private readonly INoteRepository notesRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly INotesAuthorizationService notesAuthorizationService;
         private readonly ILogger<DeleteUserNoteHandler> logger;
         public DeleteUserNoteHandler(
-            IUserRepository userRepository,
             INoteRepository notesRepository,
             IUnitOfWork unitOfWork,
             INotesAuthorizationService notesAuthorizationService,
             ILogger<DeleteUserNoteHandler> logger)
         {
-            this.userRepository = userRepository;
             this.notesRepository = notesRepository;
             this.unitOfWork = unitOfWork;
             this.notesAuthorizationService = notesAuthorizationService;

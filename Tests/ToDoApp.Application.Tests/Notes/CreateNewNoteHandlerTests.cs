@@ -80,8 +80,8 @@ namespace ToDoApp.Application.Tests.Notes
             var result = await handler.Handle(request, 1);
 
             // Assert
-            result.IsSuccess.Should().BeTrue()
-                ;
+            result.IsSuccess.Should().BeTrue();
+
             result.Value.Title.Should().Be(request.Title);
             result.Value.Content.Should().Be(request.Content);
             result.Value.IsDone.Should().Be(request.IsDone);
