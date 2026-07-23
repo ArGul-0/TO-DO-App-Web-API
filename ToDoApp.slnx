@@ -5,6 +5,7 @@
     <File Path="Dockerfile" />
     <File Path="nginx/Dockerfile" />
   </Folder>
+  <Project Path="Tests/ToDoApp.Application.Tests/ToDoApp.Application.Tests.csproj" Id="37244d8d-38ed-4eb8-b34f-f02af78aacfd" />
   <Project Path="ToDoApp.Application/ToDoApp.Application.csproj" />
   <Project Path="ToDoApp.Domain/ToDoApp.Domain.csproj" />
   <Project Path="ToDoApp.Infrastructure/ToDoApp.Infrastructure.csproj" />
