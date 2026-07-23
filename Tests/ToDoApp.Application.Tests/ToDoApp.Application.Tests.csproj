@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Notes\" />
     <Folder Include="Friendships\" />
     <Folder Include="Users\" />
   </ItemGroup>
