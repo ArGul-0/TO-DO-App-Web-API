@@ -9,6 +9,7 @@ namespace ToDoApp.Domain.ValueObjects
         {
             if (string.IsNullOrEmpty(value))
                 throw new ArgumentException("Email cannot be null or empty.", nameof(value));
+
             else if (!IsValidEmail(value))
                 throw new ArgumentException("Invalid email format.", nameof(value));
 
