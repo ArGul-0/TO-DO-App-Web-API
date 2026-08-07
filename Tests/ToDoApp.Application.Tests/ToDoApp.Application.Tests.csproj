@@ -27,10 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Users\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\ToDoApp.Application\ToDoApp.Application.csproj" />
   </ItemGroup>
 
