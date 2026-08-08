@@ -10,12 +10,12 @@ namespace ToDoApp.Application.UseCases.Users.ChangeUserVisibility
     {
         private readonly IUserRepository userRepository;
         private readonly IUnitOfWork unitOfWork;
-        private readonly ILogger<CreateUserHandler> logger;
+        private readonly ILogger<ChangeUserVisibilityHandler> logger;
 
         public ChangeUserVisibilityHandler(
             IUserRepository userRepository,
             IUnitOfWork unitOfWork,
-            ILogger<CreateUserHandler> logger)
+            ILogger<ChangeUserVisibilityHandler> logger)
         {
             this.userRepository = userRepository;
             this.unitOfWork = unitOfWork;
