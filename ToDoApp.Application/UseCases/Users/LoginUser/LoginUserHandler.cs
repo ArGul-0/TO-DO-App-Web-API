@@ -1,12 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using ToDoApp.Application.Common;
 using ToDoApp.Application.Common.Mappings;
-using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
-using ToDoApp.Application.UseCases.Users.CreateUser;
-using ToDoApp.Domain.Entities;
-using ToDoApp.Domain.ValueObjects;
 
 namespace ToDoApp.Application.UseCases.Users.LoginUser
 {
