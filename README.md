@@ -8,7 +8,7 @@
 
 A modern and production-ready ToDo Web API built with **ASP.NET Core**, **Clean Architecture**, **JWT Authentication**, **PostgreSQL**, and **Docker**.
 
-This project was designed as a scalable backend foundation for a notes / task management platform with secure authentication, domain separation, and infrastructure isolation.
+This project was designed as a scalable backend foundation for a notes / task management platform with secure authentication, domain separation, infrastructure isolation, and automated unit testing.
 
 ---
 
@@ -50,7 +50,48 @@ This project was designed as a scalable backend foundation for a notes / task ma
 * View incoming friend requests
 * Friendship status management (`Pending`, `Accepted`, `Rejected`)
 
-## 🏗 Architecture
+## 🧪 Automated Testing
+
+The project includes a dedicated unit testing suite built with **xUnit**, **FluentAssertions**, and **Moq**.
+
+### Test Statistics
+
+| Metric                   |                  Value |
+| ------------------------ | ---------------------: |
+| Test projects            |                      1 |
+| Test files               |                 **17** |
+| Test code                |        **1,711 lines** |
+| Non-empty test lines     |              **1,373** |
+| Test coverage of C# code | **~30% by line count** |
+
+### Tested Features
+
+* User registration
+* User authentication
+* Note creation
+* Note retrieval
+* Note updating
+* Note deletion
+* Friend requests
+* Friend request acceptance
+* Friend request rejection
+* Friend removal
+* Friendship retrieval
+* Validation and error scenarios
+
+### Testing Stack
+
+| Technology       | Purpose              |
+| ---------------- | -------------------- |
+| xUnit            | Test framework       |
+| FluentAssertions | Readable assertions  |
+| Moq              | Mocking dependencies |
+
+Tests primarily target **Application Layer use cases and handlers**, isolating business logic from external infrastructure.
+
+---
+
+# 🏗 Architecture
 
 * Clean Architecture
 * Domain-Driven Design principles
@@ -59,17 +100,6 @@ This project was designed as a scalable backend foundation for a notes / task ma
 * Unit Of Work Pattern
 * DTO separation
 * Value Objects
-
-## ⚙️ Infrastructure
-
-* PostgreSQL + Entity Framework Core
-* EF Core migrations
-* Docker support
-* Docker Compose for development and production
-* Nginx reverse proxy configuration
-* Health Check endpoint
-* Swagger / OpenAPI documentation
-* Structured logging with Serilog
 
 ---
 
@@ -82,6 +112,11 @@ ToDoApp
 ├── ToDoApp.Application     → Use cases, DTOs, interfaces, business logic
 ├── ToDoApp.Infrastructure  → Database, repositories, authentication, persistence
 ├── ToDoApp.WebApi          → Minimal API endpoints and application entry point
+│
+├── ToDoApp.Application.Tests
+│   └── Users               → User use case tests
+│   └── Notes               → Note use case tests
+│   └── Friendships         → Friendship use case tests
 │
 ├── nginx                   → Nginx reverse proxy configuration
 ├── docker-compose.dev.yaml
@@ -147,6 +182,38 @@ Contains:
 
 ---
 
+# 🧪 Testing Architecture
+
+Unit tests are separated from the production application and focus primarily on the **Application Layer**.
+
+```text
+ToDoApp.Application.Tests
+│
+├── Users
+│   ├── CreateUserHandlerTests
+│   └── LoginUserHandlerTests
+│
+├── Notes
+│   ├── CreateNoteHandlerTests
+│   ├── GetNoteHandlerTests
+│   ├── GetNotesHandlerTests
+│   ├── UpdateNoteHandlerTests
+│   └── DeleteNoteHandlerTests
+│
+└── Friendships
+    ├── SendFriendRequestHandlerTests
+    ├── AcceptFriendRequestHandlerTests
+    ├── RejectFriendRequestHandlerTests
+    ├── RemoveFriendHandlerTests
+    └── GetFriendsHandlerTests
+```
+
+The tests use mocks to isolate application logic from repositories, unit-of-work implementations, logging, and other external dependencies.
+
+This allows individual use cases to be tested independently and deterministically.
+
+---
+
 # 🛠 Tech Stack
 
 | Technology            | Description       |
@@ -161,6 +228,9 @@ Contains:
 | Nginx                 | Reverse proxy     |
 | Serilog               | Logging           |
 | Swagger/OpenAPI       | API documentation |
+| xUnit                 | Unit testing      |
+| FluentAssertions      | Test assertions   |
+| Moq                   | Mocking           |
 
 ---
 
@@ -196,13 +266,13 @@ Contains:
 
 ## Notes
 
-| Method | Endpoint               | Description                       |
-| ------ | ---------------------- | --------------------------------- |
-| GET    | `/Notes`               | Get all notes for authorized user |
-| GET    | `/Notes/{id}`          | Get note by ID                    |
-| POST   | `/Notes`               | Create new note                   |
-| PUT    | `/Notes/{id}`          | Update note                       |
-| DELETE | `/Notes/{id}`          | Delete note                       |
+| Method | Endpoint      | Description                       |
+| ------ | ------------- | --------------------------------- |
+| GET    | `/Notes`      | Get all notes for authorized user |
+| GET    | `/Notes/{id}` | Get note by ID                    |
+| POST   | `/Notes`      | Create new note                   |
+| PUT    | `/Notes/{id}` | Update note                       |
+| DELETE | `/Notes/{id}` | Delete note                       |
 
 ---
 
@@ -270,6 +340,22 @@ dotnet run --project ToDoApp.WebApi
 
 ---
 
+# 🧪 Running Tests
+
+Run the complete test suite with:
+
+```bash
+dotnet test
+```
+
+To run tests with detailed output:
+
+```bash
+dotnet test --verbosity normal
+```
+
+---
+
 # 📚 Swagger UI
 
 Swagger is enabled automatically.
@@ -326,6 +412,6 @@ See `LICENSE.txt` for more information.
 
 # 👨‍💻 Author
 
-Developed by ArGul.
+Developed by **ArGul**.
 
 If you like this project — consider giving it a ⭐ on GitHub.
