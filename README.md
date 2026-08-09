@@ -54,16 +54,6 @@ This project was designed as a scalable backend foundation for a notes / task ma
 
 The project includes a dedicated unit testing suite built with **xUnit**, **FluentAssertions**, and **Moq**.
 
-### Test Statistics
-
-| Metric                   |                  Value |
-| ------------------------ | ---------------------: |
-| Test projects            |                      1 |
-| Test files               |                 **17** |
-| Test code                |        **1,711 lines** |
-| Non-empty test lines     |              **1,373** |
-| Test coverage of C# code | **~30% by line count** |
-
 ### Tested Features
 
 * User registration
