@@ -350,16 +350,16 @@ dotnet test --verbosity normal
 
 Swagger is enabled automatically.
 
-After launching the application:
+After launching the application open:
 
 ```text
-https://localhost/
+localhost/
 ```
 
 or
 
 ```text
-http://localhost:5000/
+localhost:5000/
 ```
 
 ---
@@ -368,10 +368,10 @@ http://localhost:5000/
 
 Seq is enabled automatically.
 
-After launching the application:
+After launching the application open:
 
 ```text
-https://localhost/5341
+localhost:5341
 ```
 
 User - Admin
