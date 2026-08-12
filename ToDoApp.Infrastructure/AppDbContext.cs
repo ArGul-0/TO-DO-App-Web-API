@@ -9,10 +9,14 @@ namespace ToDoApp.Infrastructure
         public DbSet<User> Users => Set<User>();
         public DbSet<Note> Notes => Set<Note>();
         public DbSet<Friendship> Friendships => Set<Friendship>();
+        public DbSet<Tag> Tags => Set<Tag>();
+        public DbSet<NoteTag> NoteTags => Set<NoteTag>();
 
         IQueryable<User> IAppDbContext.Users => Users;
         IQueryable<Note> IAppDbContext.Notes => Notes;
         IQueryable<Friendship> IAppDbContext.Friendships => Friendships;
+        IQueryable<Tag> IAppDbContext.Tags => Tags;
+        IQueryable<NoteTag> IAppDbContext.NoteTags => NoteTags;
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) // Constructor that takes DbContextOptions and passes it to the base DbContext constructor
         {
