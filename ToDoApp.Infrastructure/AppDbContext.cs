@@ -41,6 +41,7 @@ namespace ToDoApp.Infrastructure
 
 
 
+            // Configure the Friendship entity
             modelBuilder.Entity<Friendship>()
                 .HasOne(f => f.Requester)
                 .WithMany()
@@ -56,6 +57,26 @@ namespace ToDoApp.Infrastructure
             modelBuilder.Entity<Friendship>() // Configure the Friendship entity to have a unique index on the combination of RequesterId and AddresseeId to prevent duplicate friendships between the same users
                 .HasIndex(f => new { f.RequesterId, f.AddresseeId })
                 .IsUnique();
+
+
+
+            // Configure the tags system
+            modelBuilder.Entity<NoteTag>()
+                .HasKey(x => new
+                {
+                    x.NoteId,
+                    x.TagId
+                });
+
+            modelBuilder.Entity<Note>()
+                .HasMany(n => n.NoteTags)
+                .WithOne(nt => nt.Note)
+                .HasForeignKey(nt => nt.NoteId);
+
+            modelBuilder.Entity<Tag>()
+                .HasMany(t => t.NoteTags)
+                .WithOne(nt => nt.Tag)
+                .HasForeignKey(nt => nt.TagId);
         }
     }
 }
