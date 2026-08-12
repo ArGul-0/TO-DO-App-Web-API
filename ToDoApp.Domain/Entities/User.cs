@@ -23,8 +23,8 @@ namespace ToDoApp.Domain.Entities
         public string Username { get; private set; } = null!;
         public Email Email { get; private set; } = null!;
         public string HashedPassword { get; private set; } = null!;
-        public List<Note> Notes { get; private set; } = new List<Note>();
-        public List<Tag> Tags { get; private set; } = new List<Tag>();
+        public ICollection<Note> Notes { get; private set; } = new List<Note>();
+        public ICollection<Tag> Tags { get; private set; } = new List<Tag>();
         public AccountVisibility Visibility { get; private set; } = AccountVisibility.Public;
 
         public Note AddNote(string title, string content, bool isDone = false)
