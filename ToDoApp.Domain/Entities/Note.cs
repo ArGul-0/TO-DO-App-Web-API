@@ -15,6 +15,7 @@
         public string Title { get; private set; } = null!;
         public string Content { get; private set; } = string.Empty;
         public bool IsDone { get; private set; } = false;
+        public ICollection<NoteTag> NoteTags { get; private set; } = [];
         public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; private set; } = DateTime.UtcNow;
         public User User { get; private set; } = null!;
@@ -42,6 +43,22 @@
             this.IsDone = isDone;
 
             UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void AddTag(NoteTag tag)
+        {
+            if (tag is null)
+                throw new ArgumentNullException(nameof(tag), "Tag cannot be null.");
+
+            NoteTags.Add(tag);
+        }
+
+        public void RemoveTag(NoteTag tag)
+        {
+            if (tag is null)
+                throw new ArgumentNullException(nameof(tag), "Tag cannot be null.");
+
+            NoteTags.Remove(tag);
         }
     }
 }
