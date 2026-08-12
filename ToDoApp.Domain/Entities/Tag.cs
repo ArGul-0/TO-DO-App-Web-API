@@ -13,7 +13,7 @@
         public int Id { get; private set; }
         public string Name { get; private set; } = null!;
         public int OwnerId { get; private set; }
-        public User Owner { get; private set; }
+        public User Owner { get; private set; } = null!;
         public ICollection<NoteTag> NoteTags { get; private set; } = [];
         
         public void ChangeName( string newName )

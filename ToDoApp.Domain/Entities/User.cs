@@ -24,6 +24,7 @@ namespace ToDoApp.Domain.Entities
         public Email Email { get; private set; } = null!;
         public string HashedPassword { get; private set; } = null!;
         public List<Note> Notes { get; private set; } = new List<Note>();
+        public List<Tag> Tags { get; private set; } = new List<Tag>();
         public AccountVisibility Visibility { get; private set; } = AccountVisibility.Public;
 
         public Note AddNote(string title, string content, bool isDone = false)
@@ -33,6 +34,15 @@ namespace ToDoApp.Domain.Entities
             Notes.Add(note);
 
             return note;
+        }
+
+        public Tag AddTag(string name)
+        {
+            var tag = new Tag(name, Id);
+
+            Tags.Add(tag);
+
+            return tag;
         }
 
         public void UpdateUsername(string newUsername)

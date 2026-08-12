@@ -81,6 +81,12 @@ namespace ToDoApp.Infrastructure
                 .HasMany(t => t.NoteTags)
                 .WithOne(nt => nt.Tag)
                 .HasForeignKey(nt => nt.TagId);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Tags)
+                .WithOne(t => t.Owner)
+                .HasForeignKey(t => t.OwnerId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
