@@ -14,7 +14,7 @@
         public string Name { get; private set; } = null!;
         public int OwnerId { get; private set; }
         public User Owner { get; private set; } = null!;
-        public ICollection<NoteTag> NoteTags { get; private set; } = [];
+        public ICollection<NoteTag> NoteTags { get; private set; } = new List<NoteTag>();
         
         public void ChangeName( string newName )
         {
