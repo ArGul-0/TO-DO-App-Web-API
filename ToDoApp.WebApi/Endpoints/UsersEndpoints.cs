@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using ToDoApp.Application.UseCases.Users.ChangeUserVisibility;
 using ToDoApp.Application.UseCases.Users.GetAllUsers;
+using ToDoApp.Application.UseCases.Users.GetCurrentUser;
 using ToDoApp.Application.UseCases.Users.GetUserById;
 using ToDoApp.WebApi.Extensions;
 
@@ -38,11 +38,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetUserByIdEndpointName);
 
-            usersGroup.MapGet("/Me", async (GetCurrentUserHandler handler) =>
+            usersGroup.MapGet("/Me", async (GetCurrentUserHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
-                var result = await handler.Handle(userId);
+                var result = await handler.Handle(int.Parse(userId));
 
                 if (result.IsFailure)
                     return result.ToHttpResult();

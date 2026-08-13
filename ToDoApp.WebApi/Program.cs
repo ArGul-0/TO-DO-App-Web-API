@@ -5,11 +5,11 @@ using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.Security.Notes;
 using ToDoApp.Application.UseCases.Friends.AcceptFriendRequest;
+using ToDoApp.Application.UseCases.Friends.GetAllMyFriendships;
 using ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests;
 using ToDoApp.Application.UseCases.Friends.RejectFriendRequest;
 using ToDoApp.Application.UseCases.Friends.RemoveFriendship;
 using ToDoApp.Application.UseCases.Friends.SendFriendRequest;
-using ToDoApp.Application.UseCases.Friends.GetAllMyFriendships;
 using ToDoApp.Application.UseCases.Notes.CreateNewNote;
 using ToDoApp.Application.UseCases.Notes.DeleteUserNote;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
@@ -19,6 +19,7 @@ using ToDoApp.Application.UseCases.Notes.UpdateUserNote;
 using ToDoApp.Application.UseCases.Users.ChangeUserVisibility;
 using ToDoApp.Application.UseCases.Users.CreateUser;
 using ToDoApp.Application.UseCases.Users.GetAllUsers;
+using ToDoApp.Application.UseCases.Users.GetCurrentUser;
 using ToDoApp.Application.UseCases.Users.GetUserById;
 using ToDoApp.Application.UseCases.Users.LoginUser;
 using ToDoApp.Infrastructure;
@@ -64,10 +65,12 @@ namespace ToDoApp.WebApi
 
             builder.Services.AddScoped<GetAllUsersHandler>();
             builder.Services.AddScoped<GetUserByIdHandler>();
+            builder.Services.AddScoped<GetCurrentUserHandler>();
+            builder.Services.AddScoped<ChangeUserVisibilityHandler>();
+
             builder.Services.AddScoped<GetAllNotesHandler>();
             builder.Services.AddScoped<GetNoteByIdHandler>();
             builder.Services.AddScoped<CreateNewNoteHandler>();
-            builder.Services.AddScoped<ChangeUserVisibilityHandler>();
             builder.Services.AddScoped<GetAllUserNotesHandler>();
             builder.Services.AddScoped<UpdateUserNoteHandler>();
             builder.Services.AddScoped<DeleteUserNoteHandler>();
