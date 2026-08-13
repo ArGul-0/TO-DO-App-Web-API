@@ -48,7 +48,7 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetUserByIdEndpointName);
+            }).WithName(GetCurrentUserEndpointName).RequireAuthorization();
 
             usersGroup.MapPost("/Me/ChangeUserVisibility", async (ChangeUserVisibilityRequest request, ChangeUserVisibilityHandler handler, HttpContext context) =>
             {
