@@ -11,6 +11,7 @@ namespace ToDoApp.WebApi.Endpoints
     {
         const string GetAllUsersEndpointName = "GetAllUsers"; // Constant For The GetAllUsers Endpoint Name
         const string GetUserByIdEndpointName = "GetUserById"; // Constant For The GetUserById Endpoint Name
+        const string GetCurrentUserEndpointName = "GetCurrentUser"; // Constant For The GetCurrentUser Endpoint Name
         const string ChangeUserVisibilityEndpointName = "ChangeUserVisibility"; // Constant For The ChangeUserVisibility Endpoint Name
 
         public static RouteGroupBuilder MapUsersEndpoints(this WebApplication app)
@@ -30,6 +31,18 @@ namespace ToDoApp.WebApi.Endpoints
             usersGroup.MapGet("/{id}", async (GetUserByIdHandler handler, int id) =>
             {
                 var result = await handler.Handle(id);
+
+                if (result.IsFailure)
+                    return result.ToHttpResult();
+
+                return Results.Ok(result.Value);
+            }).WithName(GetUserByIdEndpointName);
+
+            usersGroup.MapGet("/Me", async (GetCurrentUserHandler handler) =>
+            {
+                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+                var result = await handler.Handle(userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
