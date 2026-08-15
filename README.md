@@ -37,6 +37,7 @@ This project was designed as a scalable backend foundation for a notes / task ma
 
 * User registration
 * User login
+* Get info about current user
 * Get all users
 * Get user by ID
 
@@ -249,6 +250,7 @@ This allows individual use cases to be tested independently and deterministicall
 
 | Method | Endpoint      | Description    |
 | ------ | ------------- | -------------- |
+| GET    | `/Users/Me`   | Get info about current user |
 | GET    | `/Users`      | Get all users  |
 | GET    | `/Users/{id}` | Get user by ID |
 
