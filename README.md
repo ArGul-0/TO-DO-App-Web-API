@@ -250,9 +250,9 @@ This allows individual use cases to be tested independently and deterministicall
 
 | Method | Endpoint      | Description    |
 | ------ | ------------- | -------------- |
-| GET    | `/Users/Me`   | Get info about current authenticated user |
 | GET    | `/Users`      | Get all users  |
 | GET    | `/Users/{id}` | Get user by ID |
+| GET    | `/Users/Me`   | Get info about current authenticated user |
 
 ---
 
