@@ -37,7 +37,7 @@ This project was designed as a scalable backend foundation for a notes / task ma
 
 * User registration
 * User login
-* Get info about current user
+* Get info about current authenticated user
 * Get all users
 * Get user by ID
 
@@ -250,7 +250,7 @@ This allows individual use cases to be tested independently and deterministicall
 
 | Method | Endpoint      | Description    |
 | ------ | ------------- | -------------- |
-| GET    | `/Users/Me`   | Get info about current user |
+| GET    | `/Users/Me`   | Get info about current authenticated user |
 | GET    | `/Users`      | Get all users  |
 | GET    | `/Users/{id}` | Get user by ID |
 
@@ -262,6 +262,7 @@ This allows individual use cases to be tested independently and deterministicall
 | ------ | ------------- | --------------------------------- |
 | GET    | `/Notes`      | Get all notes for authorized user |
 | GET    | `/Notes/{id}` | Get note by ID                    |
+| GET    | `/Notes/Me`   | Get all notes for authenticated user |
 | POST   | `/Notes`      | Create new note                   |
 | PUT    | `/Notes/{id}` | Update note                       |
 | DELETE | `/Notes/{id}` | Delete note                       |
