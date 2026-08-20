@@ -128,6 +128,7 @@ namespace ToDoApp.WebApi
             app.MapAuthEndpoints();
             app.MapUsersEndpoints();
             app.MapNotesEndpoints();
+            app.MapTagsEndpoints();
             app.MapFriendsEndpoints();
 
             app.MigrateDatabase(); // Apply Database Migrations On Startup
