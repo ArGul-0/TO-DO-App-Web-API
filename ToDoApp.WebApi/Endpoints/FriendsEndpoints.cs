@@ -91,7 +91,7 @@ namespace ToDoApp.WebApi.Endpoints
                 if (result.IsFailure)
                     return result.ToHttpResult();
 
-                return Results.Ok();
+                return Results.NoContent();
             }).WithName(RemoveFriendshipEndpointName).RequireAuthorization();
 
             return friendsGroup;
