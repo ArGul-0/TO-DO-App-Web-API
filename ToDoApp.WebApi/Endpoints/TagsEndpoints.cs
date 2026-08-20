@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using ToDoApp.Application.UseCases.Tags.GetAllMyTags;
 using ToDoApp.WebApi.Extensions;
 
 namespace ToDoApp.WebApi.Endpoints
@@ -16,7 +17,7 @@ namespace ToDoApp.WebApi.Endpoints
             var tagsGroup = app.MapGroup("/Tags"); // Create A Group For /Tags Endpoints
 
 
-            tagsGroup.MapGet("/Me", async (handler, HttpContext context) =>
+            tagsGroup.MapGet("/Me", async (GetAllMyTagsHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
