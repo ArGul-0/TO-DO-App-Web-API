@@ -1,43 +1,71 @@
-﻿using ToDoApp.Application.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Infrastructure.Repositories
 {
     internal class TagRepository : ITagRepository
     {
-        public Task<Tag?> GetTagByIdAsync(int id)
+        private readonly AppDbContext dbContext;
+        public TagRepository(AppDbContext dbContext)
         {
-            throw new NotImplementedException();
+            this.dbContext = dbContext;
         }
 
-        public Task<Tag?> GetTagByIdWithTrackingAsync(int id)
+        public async Task<Tag?> GetTagByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await dbContext.Tags
+                .AsNoTracking()
+                .FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public Task<List<Tag>> GetAllTagsWithOwnersAsync()
+        public async Task<Tag?> GetTagByIdWithTrackingAsync(int id)
         {
-            throw new NotImplementedException();
+            return await dbContext.Tags
+                .FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public Task<Tag?> GetTagWithOwnerByIdAsync(int id)
+        public async Task<List<Tag>> GetAllTagsWithOwnersAsync()
         {
-            throw new NotImplementedException();
+            return await dbContext.Tags
+                .AsNoTracking()
+                .Include(t => t.Owner)
+                .ToListAsync();
         }
 
-        public Task<List<Tag>> GetAllTagsByUserIdAsync(int userId)
+        public async Task<Tag?> GetTagWithOwnerByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await dbContext.Tags
+                .AsNoTracking()
+                .Include(t => t.Owner)
+                .FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public Task<bool> AddTagAsync(Tag tag)
+        public async Task<List<Tag>> GetAllTagsByUserIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            return await dbContext.Tags
+                .AsNoTracking()
+                .Where(t => t.OwnerId == userId)
+                .ToListAsync();
         }
 
-        public Task<bool> DeleteTagAsync(int tagId)
+        public async Task<bool> AddTagAsync(Tag tag)
         {
-            throw new NotImplementedException();
+            await dbContext.Tags.AddAsync(tag);
+
+            return true;
+        }
+
+        public async Task<bool> DeleteTagAsync(int tagId)
+        {
+            var tag = await dbContext.Tags.FindAsync(tagId);
+
+            if (tag is null)
+                return false;
+
+            dbContext.Tags.Remove(tag);
+
+            return true;
         }
     }
 }
