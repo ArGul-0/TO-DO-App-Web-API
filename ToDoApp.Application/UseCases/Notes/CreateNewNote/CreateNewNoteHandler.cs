@@ -13,7 +13,9 @@ namespace ToDoApp.Application.UseCases.Notes.CreateNewNote
         private readonly ILogger<CreateNewNoteHandler> logger;
         private readonly IUnitOfWork unitOfWork;
 
-        public CreateNewNoteHandler(IUserRepository userRepository, ILogger<CreateNewNoteHandler> logger, IUnitOfWork unitOfWork)
+        public CreateNewNoteHandler(IUserRepository userRepository,
+            ILogger<CreateNewNoteHandler> logger,
+            IUnitOfWork unitOfWork)
         {
             this.userRepository = userRepository;
             this.logger = logger;
