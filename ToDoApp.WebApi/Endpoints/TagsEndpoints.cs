@@ -57,8 +57,8 @@ namespace ToDoApp.WebApi.Endpoints
             tagsGroup.MapPut("/{tagId}", async (int tagId, request, handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
-
-                var result = await handler.Handle(request, int.Parse(userId), tagId);
+                
+                var result = await handler.Handle(request, tagId, int.Parse(userId));
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -70,7 +70,7 @@ namespace ToDoApp.WebApi.Endpoints
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
-                var result = await handler.Handle(int.Parse(userId), tagId);
+                var result = await handler.Handle(tagId, int.Parse(userId));
 
                 if (result.IsFailure)
                     return result.ToHttpResult();

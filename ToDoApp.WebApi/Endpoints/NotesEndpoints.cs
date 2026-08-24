@@ -86,7 +86,7 @@ namespace ToDoApp.WebApi.Endpoints
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
-                var result = await handler.Handle(int.Parse(userId), noteId);
+                var result = await handler.Handle(noteId, int.Parse(userId));
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
