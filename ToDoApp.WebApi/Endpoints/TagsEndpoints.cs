@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using ToDoApp.Application.UseCases.Tags.GetAllMyTags;
+using ToDoApp.Application.UseCases.Tags.GetMyTagById;
 using ToDoApp.WebApi.Extensions;
 
 namespace ToDoApp.WebApi.Endpoints
@@ -29,7 +30,7 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetAllMyTagsEndpointName).RequireAuthorization();
 
-            tagsGroup.MapGet("/Me/{id}", async (int id, handler, HttpContext context) =>
+            tagsGroup.MapGet("/Me/{id}", async (int id, GetMyTagByIdHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
