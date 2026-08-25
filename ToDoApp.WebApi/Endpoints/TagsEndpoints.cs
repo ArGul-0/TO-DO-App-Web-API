@@ -2,6 +2,7 @@
 using ToDoApp.Application.UseCases.Tags.CreateNewTag;
 using ToDoApp.Application.UseCases.Tags.GetAllMyTags;
 using ToDoApp.Application.UseCases.Tags.GetMyTagById;
+using ToDoApp.Application.UseCases.Tags.UpdateUserTag;
 using ToDoApp.WebApi.Extensions;
 
 namespace ToDoApp.WebApi.Endpoints
