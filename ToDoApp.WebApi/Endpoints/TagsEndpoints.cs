@@ -56,7 +56,7 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.CreatedAtRoute(GetMyTagByIdEndpointName, new { id = result.Value.Id }, result.Value);
             }).WithName(CreateNewTagEndpointName).RequireAuthorization();
 
-            tagsGroup.MapPut("/{tagId}", async (int tagId, UpdateUserTagRequest request, handler, HttpContext context) =>
+            tagsGroup.MapPut("/{tagId}", async (int tagId, UpdateUserTagRequest request, UpdateUserTagHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
                 
