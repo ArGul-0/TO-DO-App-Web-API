@@ -3,6 +3,6 @@
 namespace ToDoApp.Application.UseCases.Tags.CreateNewTag
 {
     public record CreateNewTagRequest(
-        [Required] string Name
+        [Required, StringLength(50)] string Name
         );
 }

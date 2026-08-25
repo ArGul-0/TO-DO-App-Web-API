@@ -43,7 +43,7 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetMyTagByIdEndpointName).RequireAuthorization();
 
-            tagsGroup.MapPost("/", async (CreateNewTagRequest request, handler, HttpContext context) =>
+            tagsGroup.MapPost("/", async (CreateNewTagRequest request, CreateNewTagHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
