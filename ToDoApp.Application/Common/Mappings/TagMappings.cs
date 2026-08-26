@@ -5,12 +5,15 @@ namespace ToDoApp.Application.Common.Mappings
 {
     public static class TagMappings
     {
-        public static TagDto ToDto(this Tag tag)
+        extension(Tag tag)
         {
-            return new TagDto(
-                Id: tag.Id,
-                Name: tag.Name
-            );
+            public TagDto ToDto()
+            {
+                return new TagDto(
+                    Id: tag.Id,
+                    Name: tag.Name
+                );
+            }
         }
     }
 }

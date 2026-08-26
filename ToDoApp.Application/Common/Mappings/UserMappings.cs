@@ -5,14 +5,17 @@ namespace ToDoApp.Application.Common.Mappings
 {
     public static class UserMappings
     {
-        public static UserDto ToDto(this User user)
+        extension(User user)
         {
-            return new UserDto(
-                Id: user.Id,
-                Username: user.Username,
-                Email: user.Email.Value,
-                Visibility: user.Visibility
-                );
+            public UserDto ToDto()
+            {
+                return new UserDto(
+                    Id: user.Id,
+                    Username: user.Username,
+                    Email: user.Email.Value,
+                    Visibility: user.Visibility
+                    );
+            }
         }
     }
 }
