@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using ToDoApp.Application.UseCases.Tags.CreateNewTag;
+using ToDoApp.Application.UseCases.Tags.DeleteUserTag;
 using ToDoApp.Application.UseCases.Tags.GetAllMyTags;
 using ToDoApp.Application.UseCases.Tags.GetMyTagById;
 using ToDoApp.Application.UseCases.Tags.UpdateUserTag;
@@ -68,7 +69,7 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.NoContent();
             }).WithName(UpdateUserTagEndpointName).RequireAuthorization();
 
-            tagsGroup.MapDelete("/{tagId}", async (int tagId, handler, HttpContext context) =>
+            tagsGroup.MapDelete("/{tagId}", async (int tagId, DeleteUserTagHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 

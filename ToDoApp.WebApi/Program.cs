@@ -17,6 +17,7 @@ using ToDoApp.Application.UseCases.Notes.GetAllOtherPeopleNotes;
 using ToDoApp.Application.UseCases.Notes.GetNoteById;
 using ToDoApp.Application.UseCases.Notes.UpdateUserNote;
 using ToDoApp.Application.UseCases.Tags.CreateNewTag;
+using ToDoApp.Application.UseCases.Tags.DeleteUserTag;
 using ToDoApp.Application.UseCases.Tags.GetAllMyTags;
 using ToDoApp.Application.UseCases.Tags.GetMyTagById;
 using ToDoApp.Application.UseCases.Tags.UpdateUserTag;
@@ -83,6 +84,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<GetMyTagByIdHandler>();
             builder.Services.AddScoped<CreateNewTagHandler>();
             builder.Services.AddScoped<UpdateUserTagHandler>();
+            builder.Services.AddScoped<DeleteUserTagHandler>();
 
             builder.Services.AddScoped<SendFriendshipRequestHandler>();
             builder.Services.AddScoped<AcceptFriendshipRequestHandler>();
