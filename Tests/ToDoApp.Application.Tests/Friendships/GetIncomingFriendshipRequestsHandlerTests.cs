@@ -32,7 +32,7 @@ namespace ToDoApp.Application.Tests
             typeof(Friendship).GetProperty("Addressee", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic)!
                 .SetValue(friendship2, addressee);
 
-            friendshipRepo.Setup(r => r.GetIncomingFriendshipsRequestsAsync(It.IsAny<int>()))
+            friendshipRepo.Setup(r => r.GetIncomingFriendshipRequestsAsync(It.IsAny<int>()))
                 .ReturnsAsync(new List<Friendship> { friendship1, friendship2 });
 
             var handler = new GetIncomingFriendshipRequestsHandler(friendshipRepo.Object);

@@ -15,7 +15,7 @@ namespace ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests
 
         public async Task<ResultT<List<FriendshipDto>>> Handle(int userId)
         {
-            var friendships = await friendshipRepository.GetIncomingFriendshipsRequestsAsync(userId);
+            var friendships = await friendshipRepository.GetIncomingFriendshipRequestsAsync(userId);
 
             return ResultT<List<FriendshipDto>>.Success(friendships.Select(f => f.ToDto()).ToList());
         }

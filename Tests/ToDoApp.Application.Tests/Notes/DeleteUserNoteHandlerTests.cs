@@ -21,7 +21,7 @@ namespace ToDoApp.Application.Tests.Notes
             var unitOfWork = new Mock<IUnitOfWork>();
             var notesAuth = new Mock<INotesAuthorizationService>();
 
-            notesRepository.Setup(r => r.GetNoteById(It.IsAny<int>()))
+            notesRepository.Setup(r => r.GetNoteByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync((Note?)null);
 
             var handler = new DeleteUserNoteHandler(
@@ -53,7 +53,7 @@ namespace ToDoApp.Application.Tests.Notes
 
             var note = new Note("Title", "Content", false, 2);
 
-            notesRepository.Setup(r => r.GetNoteById(It.IsAny<int>()))
+            notesRepository.Setup(r => r.GetNoteByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(note);
 
             notesAuth.Setup(s => s.IsUserOwnsNote(It.IsAny<int>(), It.IsAny<Note>()))
@@ -88,7 +88,7 @@ namespace ToDoApp.Application.Tests.Notes
 
             var note = new Note("Title", "Content", false, 1);
 
-            notesRepository.Setup(r => r.GetNoteById(It.IsAny<int>()))
+            notesRepository.Setup(r => r.GetNoteByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(note);
 
             notesAuth.Setup(s => s.IsUserOwnsNote(It.IsAny<int>(), It.IsAny<Note>()))

@@ -11,17 +11,23 @@ namespace ToDoApp.Application.Interfaces.Repositories
         public Task<List<User>> GetAllUsersAsync();
 
         /// <summary>
-        /// Retrieves a user by their unique identifier.
+        /// Asynchronously retrieves a user by their unique identifier without tracking.
         /// </summary>
         /// <param name="userId">The unique identifier of the user.</param>
-        /// <returns>The user with the specified identifier, or null if no such user exists.</returns>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains the user if found; otherwise, null.
+        /// </returns>
         public Task<User?> GetUserByIdAsync(int userId);
 
         /// <summary>
-        /// Retrieves a user by their unique identifier.
+        /// Asynchronously retrieves a user by their unique identifier with tracking enabled.
         /// </summary>
         /// <param name="userId">The unique identifier of the user.</param>
-        /// <returns>The user with the specified identifier, or null if no such user exists.</returns>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains the tracked user if found; otherwise, null.
+        /// </returns>
         public Task<User?> GetUserByIdWithTrackingAsync(int userId);
 
         /// <summary>
@@ -33,7 +39,7 @@ namespace ToDoApp.Application.Interfaces.Repositories
         public Task<User?> GetUserWithNotesAsync(int userId);
 
         /// <summary>
-        /// Asynchronously retrieves a user by their username.
+        /// Asynchronously retrieves a user by their unique identifier, including their associated notes.
         /// </summary>
         /// <param name="username">The username of the user to retrieve. Cannot be null or empty.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains the user associated with the

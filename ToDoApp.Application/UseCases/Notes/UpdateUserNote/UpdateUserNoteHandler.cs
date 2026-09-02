@@ -30,7 +30,7 @@ namespace ToDoApp.Application.UseCases.Notes.UpdateUserNote
 
         public async Task<Result> Handle(UpdateUserNoteRequest request, int userId, int noteId)
         {
-            var note = await notesRepository.GetNoteByIdWithTracking(noteId);
+            var note = await notesRepository.GetNoteByIdWithTrackingAsync(noteId);
 
             if (note is null)
                 return ResultT<NoteDto>.Failure(NotesErrors.NoteNotFound);

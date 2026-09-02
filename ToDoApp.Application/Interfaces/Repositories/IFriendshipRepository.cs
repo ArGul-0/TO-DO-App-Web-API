@@ -22,13 +22,13 @@ namespace ToDoApp.Application.Interfaces.Repositories
         /// </summary>
         /// <param name="userId">The ID of the user.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains a list of incoming friendship requests for the user.</returns>
-        public Task<List<Friendship>> GetIncomingFriendshipsRequestsAsync(int userId);
+        public Task<List<Friendship>> GetIncomingFriendshipRequestsAsync(int userId);
         /// <summary>
         /// Gets all outgoing friendship requests for a specific user by their ID.
         /// </summary>
         /// <param name="userId">The ID of the user.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains a list of outgoing friendship requests for the user.</returns>
-        public Task<List<Friendship>> GetOutgoingFriendshipsRequestsAsync(int userId);
+        public Task<List<Friendship>> GetOutgoingFriendshipRequestsAsync(int userId);
         /// <summary>
         /// Gets all accepted friendships for a specific user by their ID.
         /// </summary>

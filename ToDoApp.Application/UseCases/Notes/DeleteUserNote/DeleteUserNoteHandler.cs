@@ -26,7 +26,7 @@ namespace ToDoApp.Application.UseCases.Notes.DeleteUserNote
 
         public async Task<Result> Handle(int noteId, int userId)
         {
-            var note = await notesRepository.GetNoteById(noteId);
+            var note = await notesRepository.GetNoteByIdAsync(noteId);
 
             if (note is null)
                 return Result.Failure(NotesErrors.NoteNotFound);

@@ -21,7 +21,7 @@ namespace ToDoApp.Application.Tests.Notes
             var notesAuth = new Mock<INotesAuthorizationService>();
             var logger = new Mock<ILogger<UpdateUserNoteHandler>>();
 
-            notesRepository.Setup(r => r.GetNoteByIdWithTracking(It.IsAny<int>()))
+            notesRepository.Setup(r => r.GetNoteByIdWithTrackingAsync(It.IsAny<int>()))
                 .ReturnsAsync((Note?)null);
 
             var handler = new UpdateUserNoteHandler(notesRepository.Object, unitOfWork.Object, notesAuth.Object, logger.Object);
@@ -48,7 +48,7 @@ namespace ToDoApp.Application.Tests.Notes
 
             var note = new Note("Old Title","Old Content", false, userId: 2);
 
-            notesRepository.Setup(r => r.GetNoteByIdWithTracking(It.IsAny<int>()))
+            notesRepository.Setup(r => r.GetNoteByIdWithTrackingAsync(It.IsAny<int>()))
                 .ReturnsAsync(note);
 
             notesAuth.Setup(s => s.IsUserOwnsNote(It.IsAny<int>(), It.IsAny<Note>())).Returns(false);
@@ -77,7 +77,7 @@ namespace ToDoApp.Application.Tests.Notes
 
             var note = new Note("Old Title","Old Content", false, userId: 1);
 
-            notesRepository.Setup(r => r.GetNoteByIdWithTracking(It.IsAny<int>()))
+            notesRepository.Setup(r => r.GetNoteByIdWithTrackingAsync(It.IsAny<int>()))
                 .ReturnsAsync(note);
 
             notesAuth.Setup(s => s.IsUserOwnsNote(It.IsAny<int>(), It.IsAny<Note>())).Returns(true);
