@@ -56,16 +56,11 @@ namespace ToDoApp.Infrastructure.Repositories
             return true;
         }
 
-        public async Task<bool> DeleteTagAsync(int tagId)
+        public async Task DeleteTagAsync(Tag tag)
         {
-            var tag = await dbContext.Tags.FindAsync(tagId);
-
-            if (tag is null)
-                return false;
-
             dbContext.Tags.Remove(tag);
 
-            return true;
+            await Task.CompletedTask;
         }
     }
 }

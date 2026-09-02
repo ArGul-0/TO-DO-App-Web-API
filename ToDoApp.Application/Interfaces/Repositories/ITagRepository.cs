@@ -68,11 +68,11 @@ namespace ToDoApp.Application.Interfaces.Repositories
         /// <summary>
         /// Asynchronously deletes a tag from the repository.
         /// </summary>
-        /// <param name="tagId">The unique identifier of the tag to be deleted.</param>
+        /// <param name="tag">The tag to be deleted.</param>
         /// <returns>
         /// A task that represents the asynchronous operation.
         /// The task result indicates whether the operation was successful.
         /// </returns>
-        public Task<bool> DeleteTagAsync(int tagId);
+        public Task<bool> DeleteTagAsync(Tag tag);
     }
 }
