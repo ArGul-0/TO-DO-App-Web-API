@@ -38,7 +38,7 @@ namespace ToDoApp.Application.Tests.Notes
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(NotesErrors.NoteNotFound);
 
-            notesRepository.Verify(r => r.DeleteNoteAsync(It.IsAny<int>()), Times.Never);
+            notesRepository.Verify(r => r.DeleteNoteAsync(It.IsAny<Note>()), Times.Never);
             unitOfWork.Verify(u => u.SaveChangesAsync(), Times.Never);
         }
 
@@ -73,7 +73,7 @@ namespace ToDoApp.Application.Tests.Notes
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(NotesErrors.Forbidden);
 
-            notesRepository.Verify(r => r.DeleteNoteAsync(It.IsAny<int>()), Times.Never);
+            notesRepository.Verify(r => r.DeleteNoteAsync(It.IsAny<Note>()), Times.Never);
             unitOfWork.Verify(u => u.SaveChangesAsync(), Times.Never);
         }
 
@@ -94,9 +94,6 @@ namespace ToDoApp.Application.Tests.Notes
             notesAuth.Setup(s => s.IsUserOwnsNote(It.IsAny<int>(), It.IsAny<Note>()))
                 .Returns(true);
 
-            notesRepository.Setup(r => r.DeleteNoteAsync(It.IsAny<int>()))
-                .ReturnsAsync(true);
-
             var handler = new DeleteUserNoteHandler(
                 notesRepository.Object,
                 unitOfWork.Object,
@@ -110,7 +107,7 @@ namespace ToDoApp.Application.Tests.Notes
             // Assert
             result.IsSuccess.Should().BeTrue();
 
-            notesRepository.Verify(r => r.DeleteNoteAsync(1), Times.Once);
+            notesRepository.Verify(r => r.DeleteNoteAsync(note), Times.Once);
             unitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
         }
     }
