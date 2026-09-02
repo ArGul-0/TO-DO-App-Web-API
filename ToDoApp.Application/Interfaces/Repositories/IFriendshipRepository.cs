@@ -52,6 +52,6 @@ namespace ToDoApp.Application.Interfaces.Repositories
         /// Deletes a friendship from the repository.
         /// </summary>
         /// <param name="friendship">The friendship to delete.</param>
-        public void DeleteFriendship(Friendship friendship);
+        public Task DeleteFriendship(Friendship friendship);
     }
 }
