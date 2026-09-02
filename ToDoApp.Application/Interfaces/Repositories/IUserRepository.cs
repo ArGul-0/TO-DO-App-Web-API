@@ -58,8 +58,8 @@ namespace ToDoApp.Application.Interfaces.Repositories
         /// <summary>
         /// Asynchronously deletes the user with the specified identifier.
         /// </summary>
-        /// <param name="userId">The unique identifier of the user to delete. Must be a positive integer.</param>
-        /// <returns>A task that represents the asynchronous delete operation. The task result contains a boolean indicating whether the user was successfully deleted.</returns>
-        public Task<bool> DeleteUserAsync(int userId);
+        /// <param name="user">The user to delete. Cannot be null.</param>
+        /// <returns>A task that represents the asynchronous delete operation.</returns>
+        public Task DeleteUserAsync(User user);
     }
 }

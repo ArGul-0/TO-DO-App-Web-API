@@ -51,16 +51,11 @@ namespace ToDoApp.Infrastructure.Repositories
             await dbContext.Users.AddAsync(user);
         }
 
-        public async Task<bool> DeleteUserAsync(int userId)
+        public async Task DeleteUserAsync(User user)
         {
-            var user = await dbContext.Users.FindAsync(userId);
-
-            if (user is null)
-                return false;
-
             dbContext.Users.Remove(user);
 
-            return true;
+            await Task.CompletedTask;
         }
     }
 }
