@@ -34,7 +34,7 @@ namespace ToDoApp.Application.UseCases.Friends.RemoveFriendship
             if (friendship.AddresseeId != userId && friendship.RequesterId != userId)
                 return Result.Failure(FriendshipErrors.NotAllowedToManageThisFriendsipRequest);
 
-            friendshipRepository.DeleteFriendship(friendship);
+            await friendshipRepository.DeleteFriendship(friendship);
 
             await unitOfWork.SaveChangesAsync();
 
