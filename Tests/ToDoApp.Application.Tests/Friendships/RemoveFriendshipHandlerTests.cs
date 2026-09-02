@@ -19,12 +19,12 @@ namespace ToDoApp.Application.Tests
             // Arrange
             var friendshipRepo = new Mock<IFriendshipRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var logger = new Mock<ILogger<RemoveFriendshipHandler>>();
+            var logger = new Mock<ILogger<DeleteFriendship>>();
 
             friendshipRepo.Setup(r => r.GetFriendshipAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync((Friendship?)null);
 
-            var handler = new RemoveFriendshipHandler(
+            var handler = new DeleteFriendship(
                 friendshipRepo.Object,
                 unitOfWork.Object,
                 logger.Object
@@ -44,14 +44,14 @@ namespace ToDoApp.Application.Tests
             // Arrange
             var friendshipRepo = new Mock<IFriendshipRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var logger = new Mock<ILogger<RemoveFriendshipHandler>>();
+            var logger = new Mock<ILogger<DeleteFriendship>>();
 
             var friendship = new Friendship(1, 2);
 
             friendshipRepo.Setup(r => r.GetFriendshipAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(friendship);
 
-            var handler = new RemoveFriendshipHandler(
+            var handler = new DeleteFriendship(
                 friendshipRepo.Object,
                 unitOfWork.Object,
                 logger.Object
@@ -71,7 +71,7 @@ namespace ToDoApp.Application.Tests
             // Arrange
             var friendshipRepo = new Mock<IFriendshipRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var logger = new Mock<ILogger<RemoveFriendshipHandler>>();
+            var logger = new Mock<ILogger<DeleteFriendship>>();
 
             var friendship = new Friendship(1, 2);
             friendship.Accept();
@@ -79,7 +79,7 @@ namespace ToDoApp.Application.Tests
             friendshipRepo.Setup(r => r.GetFriendshipAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(friendship);
 
-            var handler = new RemoveFriendshipHandler(
+            var handler = new DeleteFriendship(
                 friendshipRepo.Object,
                 unitOfWork.Object,
                 logger.Object
@@ -99,7 +99,7 @@ namespace ToDoApp.Application.Tests
             // Arrange
             var friendshipRepo = new Mock<IFriendshipRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var logger = new Mock<ILogger<RemoveFriendshipHandler>>();
+            var logger = new Mock<ILogger<DeleteFriendship>>();
 
             var friendship = new Friendship(1, 2);
             friendship.Accept();
@@ -115,7 +115,7 @@ namespace ToDoApp.Application.Tests
             friendshipRepo.Setup(r => r.GetFriendshipAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(friendship);
 
-            var handler = new RemoveFriendshipHandler(
+            var handler = new DeleteFriendship(
                 friendshipRepo.Object,
                 unitOfWork.Object,
                 logger.Object
@@ -127,7 +127,7 @@ namespace ToDoApp.Application.Tests
             // Assert
             result.IsSuccess.Should().BeTrue();
 
-            friendshipRepo.Verify(r => r.DeleteFriendship(friendship), Times.Once);
+            friendshipRepo.Verify(r => r.DeleteFriendshipAsync(friendship), Times.Once);
             unitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
         }
     }

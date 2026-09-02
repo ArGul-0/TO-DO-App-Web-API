@@ -82,7 +82,7 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok();
             }).WithName(RejectFriendRequestEndpointName).RequireAuthorization();
 
-            friendsGroup.MapDelete("/{friendId}", async (int friendId, RemoveFriendshipHandler handler, HttpContext context) =>
+            friendsGroup.MapDelete("/{friendId}", async (int friendId, DeleteFriendship handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 

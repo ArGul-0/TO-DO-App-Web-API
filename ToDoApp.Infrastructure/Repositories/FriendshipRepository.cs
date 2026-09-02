@@ -74,7 +74,7 @@ namespace ToDoApp.Infrastructure.Repositories
                 (f.RequesterId == friendId && f.AddresseeId == userId));
         }
 
-        public async Task DeleteFriendship(Friendship friendship)
+        public async Task DeleteFriendshipAsync(Friendship friendship)
         {
             dbContext.Friendships.Remove(friendship);
 

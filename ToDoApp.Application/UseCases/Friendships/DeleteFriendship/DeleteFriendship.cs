@@ -6,15 +6,15 @@ using ToDoApp.Domain.Enums;
 
 namespace ToDoApp.Application.UseCases.Friends.RemoveFriendship
 {
-    public class RemoveFriendshipHandler
+    public class DeleteFriendship
     {
         private readonly IFriendshipRepository friendshipRepository;
         private readonly IUnitOfWork unitOfWork;
-        private readonly ILogger<RemoveFriendshipHandler> logger;
-        public RemoveFriendshipHandler(
+        private readonly ILogger<DeleteFriendship> logger;
+        public DeleteFriendship(
             IFriendshipRepository friendshipRepository,
             IUnitOfWork unitOfWork,
-            ILogger<RemoveFriendshipHandler> logger)
+            ILogger<DeleteFriendship> logger)
         {
             this.friendshipRepository = friendshipRepository;
             this.unitOfWork = unitOfWork;
@@ -34,7 +34,7 @@ namespace ToDoApp.Application.UseCases.Friends.RemoveFriendship
             if (friendship.AddresseeId != userId && friendship.RequesterId != userId)
                 return Result.Failure(FriendshipErrors.NotAllowedToManageThisFriendsipRequest);
 
-            await friendshipRepository.DeleteFriendship(friendship);
+            await friendshipRepository.DeleteFriendshipAsync(friendship);
 
             await unitOfWork.SaveChangesAsync();
 

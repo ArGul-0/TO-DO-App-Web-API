@@ -89,7 +89,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<SendFriendshipRequestHandler>();
             builder.Services.AddScoped<AcceptFriendshipRequestHandler>();
             builder.Services.AddScoped<RejectFriendshipRequestHandler>();
-            builder.Services.AddScoped<RemoveFriendshipHandler>();
+            builder.Services.AddScoped<DeleteFriendship>();
             builder.Services.AddScoped<GetIncomingFriendshipRequestsHandler>();
             builder.Services.AddScoped<GetAllMyFriendshipsHandler>();
 
