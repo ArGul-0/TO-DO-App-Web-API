@@ -48,8 +48,8 @@ namespace ToDoApp.Application.Interfaces.Repositories
         /// <summary>
         /// Asynchronously deletes a note from the repository.
         /// </summary>
-        /// <param name="noteId">The id of the note to be deleted.</param>
+        /// <param name="note">The note to be deleted.</param>
         /// <returns>A task that represents the asynchronous operation. The task result indicates whether the operation was successful.</returns>
-        public Task<bool> DeleteNoteAsync(int noteId);
+        public Task DeleteNoteAsync(Note note);
     }
 }

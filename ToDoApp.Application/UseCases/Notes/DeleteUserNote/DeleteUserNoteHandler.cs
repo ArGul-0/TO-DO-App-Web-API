@@ -36,7 +36,7 @@ namespace ToDoApp.Application.UseCases.Notes.DeleteUserNote
             if (!result)
                 return Result.Failure(NotesErrors.Forbidden);
 
-            await notesRepository.DeleteNoteAsync(noteId);
+            await notesRepository.DeleteNoteAsync(note);
 
             await unitOfWork.SaveChangesAsync();
 

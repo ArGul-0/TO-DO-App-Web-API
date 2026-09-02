@@ -1,6 +1,6 @@
-﻿using ToDoApp.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ToDoApp.Application.Interfaces.Repositories;
+using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Infrastructure.Repositories
 {
@@ -59,16 +59,11 @@ namespace ToDoApp.Infrastructure.Repositories
             return true;
         }
 
-        public async Task<bool> DeleteNoteAsync(int noteId)
+        public async Task DeleteNoteAsync(Note note)
         {
-            var note = await dbContext.Notes.FindAsync(noteId);
-
-            if (note is null)
-                return false;
-
             dbContext.Notes.Remove(note);
 
-            return true;
+            await Task.CompletedTask;
         }
     }
 }
