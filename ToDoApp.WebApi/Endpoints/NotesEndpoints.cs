@@ -96,6 +96,30 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.NoContent();
             }).WithName(DeleteUserNoteEndpointName).RequireAuthorization();
 
+            notesGroup.MapPost("/{noteId}/Tags/{tagId}", async ( int noteId, int tagId, handler, HttpContext context) =>
+            {
+                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+                var result = await handler.Handle(noteId, tagId ,request, int.Parse(userId));
+
+                if (result.IsFailure)
+                    return result.ToHttpResult();
+
+                return Results.NoContent();
+            }).WithName(AttachTagToNoteEndpointName).RequireAuthorization();
+
+            notesGroup.MapDelete("/{noteId}/Tags/{tagId}", async (int noteId, int tagId, handler, HttpContext context) =>
+            {
+                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+                var result = await handler.Handle(noteId, tagId, int.Parse(userId));
+
+                if (result.IsFailure)
+                    return result.ToHttpResult();
+
+                return Results.NoContent();
+            }).WithName(DetachTagFromNoteEndpointName).RequireAuthorization();
+
             return notesGroup;
         }
     }
