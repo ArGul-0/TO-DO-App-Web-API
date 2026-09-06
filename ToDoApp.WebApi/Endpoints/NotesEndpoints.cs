@@ -15,7 +15,9 @@ namespace ToDoApp.WebApi.Endpoints
         const string GetNoteByIdEndpointName = "GetNoteById"; // Constant For The GetNoteById Endpoint Name
         const string GetAllUserNotesEndpointName = "GetAllUserNotes"; // Constant For The GetAllUserNotes Endpoint Name
         const string CreateNewNoteEndpointName = "CreateNewNote"; // Constant For The CreateNewNote Endpoint Name
-        const string UpdateUserNoteEndpointName = "UpdateUserNote";
+        const string AttachTagToNoteEndpointName = "AttachTagToNote"; // Constant For The AttachTagToNote Endpoint Name
+        const string DetachTagFromNoteEndpointName = "DetachTagFromNote"; // Constant For The DetachTagFromNote Endpoint Name
+        const string UpdateUserNoteEndpointName = "UpdateUserNote"; // Constant For The UpdateUserNote Endpoint Name
         const string DeleteUserNoteEndpointName = "DeleteUserNote"; // Constant For The DeleteUserNote Endpoint Name
 
         public static RouteGroupBuilder MapNotesEndpoints(this WebApplication app)
