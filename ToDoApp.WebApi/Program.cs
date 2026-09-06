@@ -10,8 +10,10 @@ using ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests;
 using ToDoApp.Application.UseCases.Friends.RejectFriendRequest;
 using ToDoApp.Application.UseCases.Friends.RemoveFriendship;
 using ToDoApp.Application.UseCases.Friends.SendFriendRequest;
+using ToDoApp.Application.UseCases.Notes.AttachTagToNote;
 using ToDoApp.Application.UseCases.Notes.CreateNewNote;
 using ToDoApp.Application.UseCases.Notes.DeleteUserNote;
+using ToDoApp.Application.UseCases.Notes.DetachTagFromNote;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
 using ToDoApp.Application.UseCases.Notes.GetAllOtherPeopleNotes;
 using ToDoApp.Application.UseCases.Notes.GetNoteById;
@@ -79,6 +81,8 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<GetAllUserNotesHandler>();
             builder.Services.AddScoped<UpdateUserNoteHandler>();
             builder.Services.AddScoped<DeleteUserNoteHandler>();
+            builder.Services.AddScoped<AttachTagToNoteHandler>();
+            builder.Services.AddScoped<DetachTagFromNoteHandler>();
 
             builder.Services.AddScoped<GetAllMyTagsHandler>();
             builder.Services.AddScoped<GetMyTagByIdHandler>();

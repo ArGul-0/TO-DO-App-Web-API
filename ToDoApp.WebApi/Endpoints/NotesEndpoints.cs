@@ -1,6 +1,8 @@
 ﻿using System.Security.Claims;
+using ToDoApp.Application.UseCases.Notes.AttachTagToNote;
 using ToDoApp.Application.UseCases.Notes.CreateNewNote;
 using ToDoApp.Application.UseCases.Notes.DeleteUserNote;
+using ToDoApp.Application.UseCases.Notes.DetachTagFromNote;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
 using ToDoApp.Application.UseCases.Notes.GetAllOtherPeopleNotes;
 using ToDoApp.Application.UseCases.Notes.GetNoteById;
@@ -96,11 +98,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.NoContent();
             }).WithName(DeleteUserNoteEndpointName).RequireAuthorization();
 
-            notesGroup.MapPost("/{noteId}/Tags/{tagId}", async ( int noteId, int tagId, handler, HttpContext context) =>
+            notesGroup.MapPost("/{noteId}/Tags/{tagId}", async ( int noteId, int tagId, AttachTagToNoteHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
-                var result = await handler.Handle(noteId, tagId ,request, int.Parse(userId));
+                var result = await handler.Handle(noteId, tagId, int.Parse(userId));
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -108,7 +110,7 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.NoContent();
             }).WithName(AttachTagToNoteEndpointName).RequireAuthorization();
 
-            notesGroup.MapDelete("/{noteId}/Tags/{tagId}", async (int noteId, int tagId, handler, HttpContext context) =>
+            notesGroup.MapDelete("/{noteId}/Tags/{tagId}", async (int noteId, int tagId, DetachTagFromNoteHandler handler, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
