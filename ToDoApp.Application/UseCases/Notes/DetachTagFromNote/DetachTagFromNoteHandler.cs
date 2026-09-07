@@ -9,9 +9,10 @@ namespace ToDoApp.Application.UseCases.Notes.DetachTagFromNote
             
         }
 
-        public Task<Result> Handle(int noteId, int tagId, int userId)
+        public async Task<Result> Handle(int noteId, int tagId, int userId)
         {
 
+            return Result.Success();
         }
     }
 }
