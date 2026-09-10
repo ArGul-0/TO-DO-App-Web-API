@@ -28,7 +28,7 @@ namespace ToDoApp.Application.UseCases.Tags.GetMyTagById
 
             if (existingUser is null)
             {
-                logger.LogWarning("Authenticated user with ID {UserId} was not found in the database.", userId);
+                logger.LogWarning("Authenticated user with ID {UserId} was not found in the database while fetching a tag by ID.", userId);
 
                 return ResultT<TagDto>.Failure(UsersErrors.UserNotFound);
             }

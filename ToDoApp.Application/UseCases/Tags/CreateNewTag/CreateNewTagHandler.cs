@@ -32,7 +32,7 @@ namespace ToDoApp.Application.UseCases.Tags.CreateNewTag
 
             if (existingUser is null)
             {
-                logger.LogWarning("Authenticated user with ID {UserId} was not found in the database.", userId);
+                logger.LogWarning("Authenticated user with ID {UserId} was not found in the database while creating a new tag.", userId);
 
                 return ResultT<TagDto>.Failure(UsersErrors.UserNotFound);
             }

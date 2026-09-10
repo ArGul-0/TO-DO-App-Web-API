@@ -30,7 +30,7 @@ namespace ToDoApp.Application.UseCases.Tags.UpdateUserTag
 
             if (existingUser is null)
             {
-                logger.LogWarning("Authenticated user with ID {UserId} was not found in the database.", userId);
+                logger.LogWarning("Authenticated user with ID {UserId} was not found in the database while updating a user tag.", userId);
 
                 return Result.Failure(UsersErrors.UserNotFound);
             }
