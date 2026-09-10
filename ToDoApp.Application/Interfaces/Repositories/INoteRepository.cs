@@ -25,6 +25,16 @@ namespace ToDoApp.Application.Interfaces.Repositories
         public Task<Note?> GetNoteByIdWithTrackingAsync(int id);
 
         /// <summary>
+        /// Asynchronously retrieves a note by ID with tracking and includes its associated note tags.
+        /// </summary>
+        /// <param name="id">Note ID.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains the note if found; otherwise, null.
+        /// </returns>
+        public Task<Note?> GetNoteByIdWithTrackingIncludeNoteTagsAsync(int id);
+
+        /// <summary>
         /// Asynchronously retrieves all notes with their owners.
         /// </summary>
         /// <returns>
