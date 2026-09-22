@@ -30,8 +30,4 @@
     <ProjectReference Include="..\..\ToDoApp.Application\ToDoApp.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Tags\" />
-  </ItemGroup>
-
 </Project>
