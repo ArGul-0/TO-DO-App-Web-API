@@ -69,6 +69,8 @@ namespace ToDoApp.Application.UseCases.Notes.AttachTagToNote
 
             await unitOfWork.SaveChangesAsync();
 
+            logger.LogInformation("User with id {UserId} attached tag with id {TagId} to note with id {NoteId}", userId, tagId, noteId);
+
             return Result.Success();
         }
     }
