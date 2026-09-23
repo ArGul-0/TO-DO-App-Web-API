@@ -6,6 +6,7 @@ using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.Security.Notes;
 using ToDoApp.Application.UseCases.Notes;
 using ToDoApp.Application.UseCases.Notes.AttachTagToNote;
+using ToDoApp.Application.UseCases.Notes.DetachTagFromNote;
 using ToDoApp.Application.UseCases.Tags;
 using ToDoApp.Application.UseCases.Users;
 using ToDoApp.Domain.Entities;
@@ -365,7 +366,7 @@ namespace ToDoApp.Application.Tests.Notes
 
             // Assert
             result.IsFailure.Should().BeTrue();
-            result.Error.Should().Be(DetachTagFromNoteHandlerErrors.TagAlreadyAttachedToNote);
+            result.Error.Should().Be(AttachTagToNoteErrors.TagAlreadyAttachedToNote);
 
             noteRepository.Verify(
                 repo => repo.GetNoteByIdWithTrackingIncludeNoteTagsAsync(It.IsAny<int>()),

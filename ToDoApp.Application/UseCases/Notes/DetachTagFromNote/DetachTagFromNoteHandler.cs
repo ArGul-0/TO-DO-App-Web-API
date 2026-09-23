@@ -3,7 +3,6 @@ using ToDoApp.Application.Common;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.Security.Notes;
-using ToDoApp.Application.UseCases.Notes.AttachTagToNote;
 using ToDoApp.Application.UseCases.Users;
 
 namespace ToDoApp.Application.UseCases.Notes.DetachTagFromNote

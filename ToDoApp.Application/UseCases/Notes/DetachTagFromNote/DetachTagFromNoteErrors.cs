@@ -1,6 +1,6 @@
 ﻿using ToDoApp.Application.Common;
 
-namespace ToDoApp.Application.UseCases.Notes.AttachTagToNote
+namespace ToDoApp.Application.UseCases.Notes.DetachTagFromNote
 {
     public class DetachTagFromNoteErrors
     {
