@@ -57,6 +57,8 @@ namespace ToDoApp.Application.UseCases.Notes.DetachTagFromNote
 
             await unitOfWork.SaveChangesAsync();
 
+            logger.LogInformation("User with id {UserId} detached tag with id {TagId} from note with id {NoteId}", userId, tagId, noteId);
+
             return Result.Success();
         }
     }
