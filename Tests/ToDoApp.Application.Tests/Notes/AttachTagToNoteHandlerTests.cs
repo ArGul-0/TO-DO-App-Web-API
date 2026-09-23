@@ -365,7 +365,7 @@ namespace ToDoApp.Application.Tests.Notes
 
             // Assert
             result.IsFailure.Should().BeTrue();
-            result.Error.Should().Be(AttachTagToNoteErrors.TagAlreadyAttachedToNote);
+            result.Error.Should().Be(DetachTagFromNoteHandlerErrors.TagAlreadyAttachedToNote);
 
             noteRepository.Verify(
                 repo => repo.GetNoteByIdWithTrackingIncludeNoteTagsAsync(It.IsAny<int>()),
