@@ -6,58 +6,63 @@ namespace ToDoApp.Application.Interfaces.Repositories
     {
         /// <summary>
         /// Asynchronously retrieves a note by id without tracking.
+        /// The returned Note includes its NoteTags collection and each NoteTag's Tag entity.
         /// </summary>
         /// <param name="id">Note id.</param>
         /// <returns>
         /// A task that represents the asynchronous operation.
-        /// The task result contains the note if found; otherwise, null.
+        /// The task result contains the note with its tags if found; otherwise, null.
         /// </returns>
         public Task<Note?> GetNoteByIdAsync(int id);
 
         /// <summary>
         /// Asynchronously retrieves a note by ID with tracking.
+        /// The returned Note includes its NoteTags collection and each NoteTag's Tag entity.
         /// </summary>
         /// <param name="id">Note ID.</param>
         /// <returns>
         /// A task that represents the asynchronous operation.
-        /// The task result contains the note if found; otherwise, null.
+        /// The task result contains the note with its tags if found; otherwise, null.
         /// </returns>
         public Task<Note?> GetNoteByIdWithTrackingAsync(int id);
 
         /// <summary>
-        /// Asynchronously retrieves a note by ID with tracking and includes its associated note tags.
+        /// Asynchronously retrieves a note by ID with tracking and includes its associated NoteTags
+        /// and each NoteTag's Tag entity.
         /// </summary>
         /// <param name="id">Note ID.</param>
         /// <returns>
         /// A task that represents the asynchronous operation.
-        /// The task result contains the note if found; otherwise, null.
+        /// The task result contains the note with its tags if found; otherwise, null.
         /// </returns>
         public Task<Note?> GetNoteByIdWithTrackingIncludeNoteTagsAsync(int id);
 
         /// <summary>
         /// Asynchronously retrieves all notes with their owners.
+        /// Each returned Note includes its NoteTags collection and each NoteTag's Tag entity.
         /// </summary>
         /// <returns>
         /// A task that represents the asynchronous operation.
-        /// The task result contains a list of notes with their owners.
+        /// The task result contains a list of notes with their owners and tags.
         /// The list will be empty if no notes are found.
         /// </returns>
         public Task<List<Note>> GetAllNotesWithOwnersAsync();
 
         /// <summary>
         /// Asynchronously retrieves a note by its unique identifier with its owner.
+        /// The returned Note includes its NoteTags collection and each NoteTag's Tag entity.
         /// </summary>
         /// <param name="id">The unique identifier of the note.</param>
         /// <returns>
         /// A task that represents the asynchronous operation.
-        /// The task result contains the note with its owner if found; otherwise, null.
+        /// The task result contains the note with its owner and tags if found; otherwise, null.
         /// </returns>
         public Task<Note?> GetNoteWithOwnerByIdAsync(int id);
 
         /// <returns>
         /// A task that represents the asynchronous operation.
-        /// The task result contains a list of the user's notes.
-        /// The list will be empty if the user has no notes.
+        /// The task result contains a list of the user's notes; each Note includes its NoteTags
+        /// and each NoteTag's Tag entity. The list will be empty if the user has no notes.
         /// </returns>
         public Task<List<Note>> GetAllNotesByUserIdAsync(int userId);
 
