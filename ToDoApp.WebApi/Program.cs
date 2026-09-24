@@ -63,6 +63,7 @@ namespace ToDoApp.WebApi
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<INoteRepository, NoteRepository>();
+            builder.Services.AddScoped<ITagRepository, TagRepository>();
             builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

@@ -4,7 +4,7 @@ using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Infrastructure.Repositories
 {
-    internal class TagRepository : ITagRepository
+    public class TagRepository : ITagRepository
     {
         private readonly AppDbContext dbContext;
         public TagRepository(AppDbContext dbContext)
