@@ -17,12 +17,16 @@ namespace ToDoApp.Infrastructure.Repositories
         {
             return await dbContext.Notes
                 .AsNoTracking()
+                .Include(note => note.NoteTags)
+                .ThenInclude(noteTag => noteTag.Tag)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Note?> GetNoteByIdWithTrackingAsync(int id)
         {
             return await dbContext.Notes
+                .Include(note => note.NoteTags)
+                .ThenInclude(noteTag => noteTag.Tag)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -30,6 +34,7 @@ namespace ToDoApp.Infrastructure.Repositories
         {
             return await dbContext.Notes
                 .Include(note => note.NoteTags)
+                .ThenInclude(noteTag => noteTag.Tag)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -37,6 +42,8 @@ namespace ToDoApp.Infrastructure.Repositories
         {
             return await dbContext.Notes
                 .AsNoTracking()
+                .Include(note => note.NoteTags)
+                .ThenInclude(noteTag => noteTag.Tag)
                 .Include(note => note.User)
                 .ToListAsync();
         }
@@ -45,6 +52,8 @@ namespace ToDoApp.Infrastructure.Repositories
         {
             return await dbContext.Notes
                 .AsNoTracking()
+                .Include(note => note.NoteTags)
+                .ThenInclude(noteTag => noteTag.Tag)
                 .Include(note => note.User)
                 .FirstOrDefaultAsync(note => note.Id == id);
         }
@@ -54,6 +63,8 @@ namespace ToDoApp.Infrastructure.Repositories
             return await dbContext.Notes
                 .AsNoTracking()
                 .Where(note => note.UserId == userId)
+                .Include(note => note.NoteTags)
+                .ThenInclude(noteTag => noteTag.Tag)
                 .ToListAsync();
         }
 
