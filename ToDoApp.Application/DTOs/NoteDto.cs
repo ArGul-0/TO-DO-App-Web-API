@@ -6,8 +6,9 @@ namespace ToDoApp.Application.DTOs
         [Required] int Id,
         [Required] string Title,
         [Required] string Content,
+        [Required] bool IsDone,
+        [Required] List<TagDto> Tags, 
         [Required] DateTime CreatedAt,
-        [Required] DateTime UpdatedAt,
-        [Required] bool IsDone = false
+        [Required] DateTime UpdatedAt
     );
 }
