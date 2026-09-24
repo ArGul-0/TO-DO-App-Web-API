@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using ToDoApp.Application.Common;
+using ToDoApp.Application.Common.Mappings;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
@@ -43,9 +44,10 @@ namespace ToDoApp.Application.UseCases.Notes.CreateNewNote
                 Id: user.Notes.Last().Id,
                 Title: request.Title,
                 Content: request.Content,
+                IsDone: request.IsDone,
+                Tags: user.Notes.Last().NoteTags.Select(noteTag => noteTag.Tag.ToDto()).ToList(),
                 CreatedAt: user.Notes.Last().CreatedAt,
-                UpdatedAt: user.Notes.Last().UpdatedAt,
-                IsDone: request.IsDone
+                UpdatedAt: user.Notes.Last().UpdatedAt
                 );
 
             return ResultT<NoteDto>.Success(noteDto);

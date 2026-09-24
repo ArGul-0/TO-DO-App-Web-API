@@ -13,9 +13,10 @@ namespace ToDoApp.Application.Common.Mappings
                     Id: note.Id,
                     Title: note.Title,
                     Content: note.Content,
+                    IsDone: note.IsDone,
+                    Tags: note.NoteTags.Select(noteTag => noteTag.Tag.ToDto()).ToList(),
                     CreatedAt: note.CreatedAt,
-                    UpdatedAt: note.UpdatedAt,
-                    IsDone: note.IsDone
+                    UpdatedAt: note.UpdatedAt
                     );
             }
         }
