@@ -1,12 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using ToDoApp.Application.Common;
-using ToDoApp.Application.Common.Mappings;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.Security.Notes;
-using ToDoApp.Application.UseCases.Notes.DeleteUserNote;
-using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Application.UseCases.Notes.UpdateUserNote
 {
