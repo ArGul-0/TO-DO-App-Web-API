@@ -40,7 +40,7 @@ This project was designed as a scalable backend foundation for a notes / task ma
 * Delete tags
 * Get all tags for authenticated user
 * Get tag by ID
-* many-to-many relationship between notes and tags
+* Many-to-many relationship between notes and tags
 
 ## 👤 Users System
 
