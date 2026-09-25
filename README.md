@@ -32,6 +32,9 @@ This project was designed as a scalable backend foundation for a notes / task ma
 * Get all notes for authenticated user
 * Get note by ID
 * One-to-many relationship between users and notes
+* Attach tags to notes
+* Detach tags from notes
+* Multiple tags can be attached to a single note
 
 ## 📝 Tags System
 
@@ -41,6 +44,11 @@ This project was designed as a scalable backend foundation for a notes / task ma
 * Get all tags for authenticated user
 * Get tag by ID
 * Many-to-many relationship between notes and tags
+* Attach tags to notes
+* Detach tags from notes
+* User-owned tags
+* Tag ownership validation
+* Prevention of duplicate tag attachments
 
 ## 👤 Users System
 
@@ -72,6 +80,12 @@ The project includes a dedicated unit testing suite built with **xUnit**, **Flue
 * Note retrieval
 * Note updating
 * Note deletion
+* Tag creation
+* Tag retrieval
+* Tag updating
+* Tag deletion
+* Tag attachment to notes
+* Tag detachment from notes
 * Friend requests
 * Friend request acceptance
 * Friend request rejection
@@ -100,6 +114,8 @@ Tests primarily target **Application Layer use cases and handlers**, isolating b
 * Unit Of Work Pattern
 * DTO separation
 * Value Objects
+* Result / Error pattern
+* Authorization services
 
 ---
 
@@ -114,8 +130,9 @@ ToDoApp
 ├── ToDoApp.WebApi          → Minimal API endpoints and application entry point
 │
 ├── ToDoApp.Application.Tests
-│   └── Users               → User use case tests
-│   └── Notes               → Note use case tests
+│   ├── Users               → User use case tests
+│   ├── Notes               → Note use case tests
+│   ├── Tags                → Tag use case tests
 │   └── Friendships         → Friendship use case tests
 │
 ├── nginx                   → Nginx reverse proxy configuration
@@ -149,6 +166,7 @@ Contains:
 * Use Cases
 * DTOs
 * Repository Interfaces
+* Authorization Services
 * Validation
 * Result/Error abstractions
 
@@ -166,7 +184,6 @@ Contains:
 * Argon2 password hashing
 * Repository implementations
 * Dependency Injection configuration
-* Nginx
 
 ---
 
@@ -198,7 +215,16 @@ ToDoApp.Application.Tests
 │   ├── GetNoteHandlerTests
 │   ├── GetNotesHandlerTests
 │   ├── UpdateNoteHandlerTests
-│   └── DeleteNoteHandlerTests
+│   ├── DeleteNoteHandlerTests
+│   ├── AttachTagToNoteHandlerTests
+│   └── DetachTagFromNoteHandlerTests
+│
+├── Tags
+│   ├── CreateNewTagHandlerTests
+│   ├── GetAllMyTagsHandlerTests
+│   ├── GetMyTagByIdHandlerTests
+│   ├── UpdateTagHandlerTests
+│   └── DeleteTagHandlerTests
 │
 └── Friendships
     ├── SendFriendRequestHandlerTests
@@ -226,7 +252,7 @@ This allows individual use cases to be tested independently and deterministicall
 | Argon2                | Password hashing  |
 | Docker                | Containerization  |
 | Nginx                 | Reverse proxy     |
-| Serilog               | Logging           |
+| Serilog               | Structured logging|
 | Swagger/OpenAPI       | API documentation |
 | xUnit                 | Unit testing      |
 | FluentAssertions      | Test assertions   |
@@ -240,7 +266,7 @@ This allows individual use cases to be tested independently and deterministicall
 2. Server generates JWT token
 3. JWT is stored in secure HttpOnly cookie
 4. Authorized endpoints validate token automatically
-5. User identity extracted from claims
+5. User identity is extracted from JWT claims
 
 ---
 
@@ -257,24 +283,38 @@ This allows individual use cases to be tested independently and deterministicall
 
 ## Users
 
-| Method | Endpoint      | Description    |
-| ------ | ------------- | -------------- |
-| GET    | `/Users`      | Get all users  |
-| GET    | `/Users/{id}` | Get user by ID |
-| GET    | `/Users/Me`   | Get info about current authenticated user |
+| Method | Endpoint      | Description                         |
+| ------ | ------------- | ----------------------------------- |
+| GET    | `/Users`      | Get all users                       |
+| GET    | `/Users/{id}` | Get user by ID                      |
+| GET    | `/Users/Me`   | Get current authenticated user info |
 
 ---
 
 ## Notes
 
-| Method | Endpoint      | Description                       |
-| ------ | ------------- | --------------------------------- |
-| GET    | `/Notes`      | Get all notes for authorized user |
-| GET    | `/Notes/{id}` | Get note by ID                    |
-| GET    | `/Notes/Me`   | Get all notes for authenticated user |
-| POST   | `/Notes`      | Create new note                   |
-| PUT    | `/Notes/{id}` | Update note                       |
-| DELETE | `/Notes/{id}` | Delete note                       |
+| Method | Endpoint                     | Description                       |
+| ------ | ---------------------------- | --------------------------------- |
+| GET    | `/Notes`                     | Get all visible notes             |
+| GET    | `/Notes/{id}`                | Get note by ID                    |
+| GET    | `/Notes/Me`                  | Get all notes of authenticated user|
+| POST   | `/Notes`                     | Create new note                   |
+| PUT    | `/Notes/{id}`                | Update note                       |
+| DELETE | `/Notes/{id}`                | Delete note                       |
+| POST   | `/Notes/{noteId}/Tags/{tagId}` | Attach tag to note              |
+| DELETE | `/Notes/{noteId}/Tags/{tagId}` | Detach tag from note            |
+
+---
+
+## Tags
+
+| Method | Endpoint      | Description                         |
+| ------ | ------------- | ----------------------------------- |
+| GET    | `/Tags/Me`    | Get all tags of authenticated user  |
+| GET    | `/Tags/Me/{id}` | Get tag by ID                     |
+| POST   | `/Tags`       | Create new tag                      |
+| PUT    | `/Tags/{id}`  | Update tag                          |
+| DELETE | `/Tags/{id}`  | Delete tag                          |
 
 ---
 
@@ -288,6 +328,8 @@ This allows individual use cases to be tested independently and deterministicall
 | PUT    | `/Friends/{friendId}/Accept` | Accept friend request        |
 | PUT    | `/Friends/{friendId}/Reject` | Reject friend request        |
 | DELETE | `/Friends/{friendId}`        | Remove friend                |
+
+---
 
 ## Health Check
 
@@ -326,7 +368,7 @@ cd ToDoApp
 
 ---
 
-## 2. Run Dev-Container
+## 2. Start Development Environment
 
 ```bash
 docker compose -f docker-compose.dev.yaml up --build
