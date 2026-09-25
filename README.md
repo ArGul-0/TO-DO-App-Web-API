@@ -33,6 +33,15 @@ This project was designed as a scalable backend foundation for a notes / task ma
 * Get note by ID
 * One-to-many relationship between users and notes
 
+## 📝 Tags System
+
+* Create tags
+* Update tags
+* Delete tags
+* Get all tags for authenticated user
+* Get tag by ID
+* many-to-many relationship between notes and tags
+
 ## 👤 Users System
 
 * User registration
