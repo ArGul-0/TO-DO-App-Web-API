@@ -18,6 +18,7 @@ This project was designed as a scalable backend foundation for a notes / task ma
 
 * JWT Authentication
 * JWT stored in secure HttpOnly Cookies
+* User logout with JWT cookie invalidation
 * Argon2 password hashing
 * Authorization using `.RequireAuthorization()`
 * Global exception handling middleware
@@ -54,6 +55,7 @@ This project was designed as a scalable backend foundation for a notes / task ma
 
 * User registration
 * User login
+* User logout
 * Get info about current authenticated user
 * Get all users
 * Get user by ID
@@ -267,6 +269,7 @@ This allows individual use cases to be tested independently and deterministicall
 3. JWT is stored in secure HttpOnly cookie
 4. Authorized endpoints validate token automatically
 5. User identity is extracted from JWT claims
+6. User can log out by invalidating the JWT cookie
 
 ---
 
@@ -274,10 +277,11 @@ This allows individual use cases to be tested independently and deterministicall
 
 ## Authentication
 
-| Method | Endpoint         | Description       |
-| ------ | ---------------- | ----------------- |
-| POST   | `/Auth/Register` | Register new user |
-| POST   | `/Auth/Login`    | Login user        |
+| Method | Endpoint         | Description                    |
+| ------ | ---------------- | ------------------------------ |
+| POST   | `/Auth/Register` | Register new user              |
+| POST   | `/Auth/Login`    | Login user                     |
+| POST   | `/Auth/Logout`   | Logout and remove JWT cookie   |
 
 ---
 
