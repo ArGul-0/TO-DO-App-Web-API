@@ -8,6 +8,7 @@ namespace ToDoApp.WebApi.Endpoints
     {
         const string RegisterEndpointName = "Register"; // Constant For The Register Endpoint Name
         const string LoginEndpointName = "Login"; // Constant For The Login Endpoint Name
+        const string LogoutEndpointName = "Logout"; // Constant For The Logout Endpoint Name
 
         public static RouteGroupBuilder MapAuthEndpoints(this WebApplication app)
         {
@@ -67,6 +68,15 @@ namespace ToDoApp.WebApi.Endpoints
 
                 return Results.Ok(result.Value);
             }).WithName(LoginEndpointName).RequireRateLimiting("AuthLimit");
+
+            authGroup.MapPost("/Logout", async (
+                HttpContext httpContext,
+                IConfiguration configuration) =>
+            {
+                httpContext.Response.Cookies.Delete(configuration["JwtOptions:NameInCookies"] ?? throw new InvalidOperationException("Jwt cookie name not configured"));
+                
+                return Results.Ok();
+            }).WithName(LogoutEndpointName);
 
             return authGroup;
         }
