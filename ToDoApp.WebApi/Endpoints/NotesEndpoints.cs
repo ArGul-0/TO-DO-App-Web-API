@@ -16,6 +16,7 @@ namespace ToDoApp.WebApi.Endpoints
         const string GetAllNotesEndpointName = "GetAllNotes"; // Constant For The GetAllNotes Endpoint Name
         const string GetNoteByIdEndpointName = "GetNoteById"; // Constant For The GetNoteById Endpoint Name
         const string GetAllUserNotesEndpointName = "GetAllUserNotes"; // Constant For The GetAllUserNotes Endpoint Name
+        const string GetUserNotesByTagEndpointName = "GetUserNotesByTag"; // Constant For The GetUserNotesByTag Endpoint Name
         const string CreateNewNoteEndpointName = "CreateNewNote"; // Constant For The CreateNewNote Endpoint Name Name
         const string UpdateUserNoteEndpointName = "UpdateUserNote"; // Constant For The UpdateUserNote Endpoint Name
         const string DeleteUserNoteEndpointName = "DeleteUserNote"; // Constant For The DeleteUserNote Endpoint Name
@@ -61,6 +62,18 @@ namespace ToDoApp.WebApi.Endpoints
 
                 return Results.Ok(result.Value);
             }).WithName(GetAllUserNotesEndpointName).RequireAuthorization();
+
+            notesGroup.MapGet("/Me/Tags/{tagId}", async (int tagId, GetUserNotesByTagHandler handler, HttpContext context) =>
+            {
+                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+                var result = await handler.Handle(tagId, int.Parse(userId));
+                
+                if (result.IsFailure)
+                    return result.ToHttpResult();
+
+                return Results.Ok(result.Value);
+            }).WithName(GetUserNotesByTagEndpointName).RequireAuthorization();
 
             notesGroup.MapPost("/", async (CreateNewNoteRequest request, CreateNewNoteHandler handler, HttpContext context) =>
             {
