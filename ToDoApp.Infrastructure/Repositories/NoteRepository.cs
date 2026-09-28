@@ -65,6 +65,16 @@ namespace ToDoApp.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<Note>> GetAllNotesByTagAndUserIdAsync(int tagId, int userId)
+        {
+            return await dbContext.Notes
+                .AsNoTracking()
+                .Where(note => note.UserId == userId && note.NoteTags.Any(noteTag => noteTag.TagId == tagId))
+                .Include(note => note.NoteTags)
+                .ThenInclude(noteTag => noteTag.Tag)
+                .ToListAsync();
+        }
+
         public async Task<bool> AddNoteAsync(Note note)
         {
             if (note is null)

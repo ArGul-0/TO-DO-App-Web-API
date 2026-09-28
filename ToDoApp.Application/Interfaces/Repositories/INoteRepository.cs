@@ -66,6 +66,27 @@ namespace ToDoApp.Application.Interfaces.Repositories
         public Task<List<Note>> GetAllNotesByUserIdAsync(int userId);
 
         /// <summary>
+        /// Asynchronously retrieves all notes that are associated with the specified tag and belong to the specified user.
+        /// Each returned Note includes its NoteTags collection and each NoteTag's Tag entity.
+        /// </summary>
+        /// <param name="tagId">The tag identifier to filter notes by.</param>
+        /// <param name="userId">The user identifier whose notes to retrieve.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation.
+        /// The task result contains a list of notes matching the tag and user; each Note includes its NoteTags
+        /// and each NoteTag's Tag entity. The list will be empty if no matching notes are found.
+        /// </returns>
+        public Task<List<Note>> GetAllNotesByTagAndUserIdAsync(int tagId, int userId);
+
+        /// <summary>
+        /// Asynchronously retrieves all notes associated with a specific tag and user.
+        /// </summary>
+        /// <param name="tagId">The unique identifier of the tag.</param>
+        /// <param name="userId">The unique identifier of the user.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a list of notes associated with the specified tag and user.</returns>
+        public Task<List<Note>> GetAllNotesByTagAndUserIdAsync(int tagId, int userId);
+
+        /// <summary>
         /// Asynchronously adds a new note to the repository.
         /// </summary>
         /// <param name="note">The note to be added.</param>
