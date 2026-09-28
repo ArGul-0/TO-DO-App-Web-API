@@ -6,6 +6,7 @@ using ToDoApp.Application.UseCases.Notes.DetachTagFromNote;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
 using ToDoApp.Application.UseCases.Notes.GetAllOtherPeopleNotes;
 using ToDoApp.Application.UseCases.Notes.GetNoteById;
+using ToDoApp.Application.UseCases.Notes.GetUserNotesByTag;
 using ToDoApp.Application.UseCases.Notes.UpdateUserNote;
 using ToDoApp.WebApi.Extensions;
 
