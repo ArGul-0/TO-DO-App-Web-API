@@ -1,6 +1,8 @@
-﻿using ToDoApp.Application.Common;
+﻿using Microsoft.Extensions.Logging;
+using ToDoApp.Application.Common;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces.Repositories;
+using ToDoApp.Application.UseCases.Users;
 
 namespace ToDoApp.Application.UseCases.Notes.GetUserNotesByTag
 {
@@ -8,19 +10,33 @@ namespace ToDoApp.Application.UseCases.Notes.GetUserNotesByTag
     {
         private readonly INoteRepository noteRepository;
         private readonly IUserRepository userRepository;
+        private readonly ILogger<GetUserNotesByTagHandler> logger;
 
         public GetUserNotesByTagHandler(INoteRepository noteRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            ILogger<GetUserNotesByTagHandler> logger)
         {
             this.noteRepository = noteRepository;
             this.userRepository = userRepository;
+            this.logger = logger;
         }
 
         public async Task<ResultT<List<NoteDto>>> Handle(int tagId, int userId)
         {
-            // Implement the logic to get user notes by tag here
-            // For now, just return an empty list as a placeholder
-            return ResultT<List<NoteDto>>.Success(new List<NoteDto>());
+            var user = await userRepository.GetUserByIdAsync(userId);
+
+            if (user is null)
+            {
+                logger.LogWarning("User with id {UserId} not found when trying to retrieve notes by tag", userId);
+
+                return ResultT<List<NoteDto>>.Failure(UsersErrors.UserNotFound);
+            }
+
+            var notes = await noteRepository.GetAllNotesByTagAndUserIdAsync(tagId, userId);
+
+            var noteDtos = notes.Select(n => n.ToDto()).ToList();
+
+            return ResultT<List<NoteDto>>.Success(noteDtos);
         }
     }
 }
