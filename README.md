@@ -34,6 +34,7 @@ This project was designed as a scalable backend foundation for a notes / task ma
 * Get note by ID
 * One-to-many relationship between users and notes
 * Attach tags to notes
+* Get all notes of authenticated user by tag
 * Detach tags from notes
 * Multiple tags can be attached to a single note
 
@@ -80,6 +81,7 @@ The project includes a dedicated unit testing suite built with **xUnit**, **Flue
 * User authentication
 * Note creation
 * Note retrieval
+* Note retrieval by tag
 * Note updating
 * Note deletion
 * Tag creation
@@ -216,6 +218,7 @@ ToDoApp.Application.Tests
 │   ├── CreateNoteHandlerTests
 │   ├── GetNoteHandlerTests
 │   ├── GetNotesHandlerTests
+│   ├── GetUserNotesByTagHandlerTests
 │   ├── UpdateNoteHandlerTests
 │   ├── DeleteNoteHandlerTests
 │   ├── AttachTagToNoteHandlerTests
@@ -302,6 +305,7 @@ This allows individual use cases to be tested independently and deterministicall
 | GET    | `/Notes`                     | Get all visible notes             |
 | GET    | `/Notes/{id}`                | Get note by ID                    |
 | GET    | `/Notes/Me`                  | Get all notes of authenticated user|
+| GET    | `/Notes/Me/Tags/{tagId}`     | Get authenticated user's notes by tag|
 | POST   | `/Notes`                     | Create new note                   |
 | PUT    | `/Notes/{id}`                | Update note                       |
 | DELETE | `/Notes/{id}`                | Delete note                       |
