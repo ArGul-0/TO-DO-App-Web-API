@@ -13,6 +13,7 @@ namespace ToDoApp.WebApi.Endpoints
         const string GetUserByIdEndpointName = "GetUserById"; // Constant For The GetUserById Endpoint Name
         const string GetCurrentUserEndpointName = "GetCurrentUser"; // Constant For The GetCurrentUser Endpoint Name
         const string ChangeUserVisibilityEndpointName = "ChangeUserVisibility"; // Constant For The ChangeUserVisibility Endpoint Name
+        const string DeleteMyAccountEndpointName = "DeleteMyAccount"; // Constant For The DeleteMyAccount Endpoint Name
 
         public static RouteGroupBuilder MapUsersEndpoints(this WebApplication app)
         {
@@ -62,6 +63,20 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok();
 
             }).WithName(ChangeUserVisibilityEndpointName).RequireAuthorization();
+
+            usersGroup.MapDelete("/Me", async (DeleteMyAccountHandler handler, HttpContext context) =>
+            {
+                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+                var result = await handler.Handle(int.Parse(userId));
+
+                if (result.IsFailure)
+                    return result.ToHttpResult();
+
+                context.Response.Cookies.Delete(configuration["JwtOptions:NameInCookies"] ?? throw new InvalidOperationException("Jwt cookie name not configured"));
+
+                return Results.Ok();
+            }).WithName(DeleteMyAccountEndpointName).RequireAuthorization();
 
             return usersGroup;
         }
