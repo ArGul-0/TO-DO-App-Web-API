@@ -17,6 +17,7 @@ using ToDoApp.Application.UseCases.Notes.DetachTagFromNote;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
 using ToDoApp.Application.UseCases.Notes.GetAllOtherPeopleNotes;
 using ToDoApp.Application.UseCases.Notes.GetNoteById;
+using ToDoApp.Application.UseCases.Notes.GetUserNotesByTag;
 using ToDoApp.Application.UseCases.Notes.UpdateUserNote;
 using ToDoApp.Application.UseCases.Tags.CreateNewTag;
 using ToDoApp.Application.UseCases.Tags.DeleteUserTag;
@@ -80,6 +81,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<GetNoteByIdHandler>();
             builder.Services.AddScoped<CreateNewNoteHandler>();
             builder.Services.AddScoped<GetAllUserNotesHandler>();
+            builder.Services.AddScoped<GetUserNotesByTagHandler>();
             builder.Services.AddScoped<UpdateUserNoteHandler>();
             builder.Services.AddScoped<DeleteUserNoteHandler>();
             builder.Services.AddScoped<AttachTagToNoteHandler>();
