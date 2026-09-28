@@ -1,13 +1,19 @@
 ﻿using ToDoApp.Application.Common;
 using ToDoApp.Application.DTOs;
+using ToDoApp.Application.Interfaces.Repositories;
 
 namespace ToDoApp.Application.UseCases.Notes.GetUserNotesByTag
 {
     public class GetUserNotesByTagHandler
     {
-        public GetUserNotesByTagHandler()
+        private readonly INoteRepository noteRepository;
+        private readonly IUserRepository userRepository;
+
+        public GetUserNotesByTagHandler(INoteRepository noteRepository,
+            IUserRepository userRepository)
         {
-            
+            this.noteRepository = noteRepository;
+            this.userRepository = userRepository;
         }
 
         public async Task<ResultT<List<NoteDto>>> Handle(int tagId, int userId)
