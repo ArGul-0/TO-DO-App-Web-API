@@ -33,6 +33,13 @@ namespace ToDoApp.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<Friendship>> GetAllFriendshipsByUserIdForDeletionAsync(int userId)
+        {
+            return await dbContext.Friendships
+                .Where(f => f.RequesterId == userId || f.AddresseeId == userId)
+                .ToListAsync();
+        }
+
         public Task<List<Friendship>> GetIncomingFriendshipRequestsAsync(int userId)
         {
             return dbContext.Friendships

@@ -18,6 +18,14 @@ namespace ToDoApp.Application.Interfaces.Repositories
         /// <returns>A task that represents the asynchronous operation. The task result contains a list of friendships for the user.</returns>
         public Task<List<Friendship>> GetAllFriendshipsByUserIdAsync(int userId);
         /// <summary>
+        /// Gets all friendships for a specific user by their ID intended for deletion operations.
+        /// Returns friendships where the user is either the requester or the recipient; useful
+        /// when preparing to remove all relations for a user.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a list of friendships relevant for deletion.</returns>
+        public Task<List<Friendship>> GetAllFriendshipsByUserIdForDeletionAsync(int userId);
+        /// <summary>
         /// Gets all incoming friendship requests for a specific user by their ID.
         /// </summary>
         /// <param name="userId">The ID of the user.</param>

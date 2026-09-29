@@ -35,7 +35,7 @@ namespace ToDoApp.Application.UseCases.Users.DeleteMyAccount
             }
 
             // Delete all friendships for the user
-            var friendships = await friendshipRepository.GetAllFriendshipsByUserIdAsync(userId);
+            var friendships = await friendshipRepository.GetAllFriendshipsByUserIdForDeletionAsync(userId);
             foreach (var friendship in friendships)
             {
                 await friendshipRepository.DeleteFriendshipAsync(friendship);

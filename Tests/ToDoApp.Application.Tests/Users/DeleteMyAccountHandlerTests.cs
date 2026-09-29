@@ -41,7 +41,7 @@ namespace ToDoApp.Application.Tests.Users
             userRepository.Verify(repo => repo.GetUserByIdAsync(1), Times.Once);
 
             friendshipRepository.Verify(
-                repo => repo.GetAllFriendshipsByUserIdAsync(It.IsAny<int>()),
+                repo => repo.GetAllFriendshipsByUserIdForDeletionAsync(It.IsAny<int>()),
                 Times.Never
                 );
 
@@ -77,7 +77,7 @@ namespace ToDoApp.Application.Tests.Users
                 .ReturnsAsync(user);
 
             friendshipRepository
-                .Setup(repo => repo.GetAllFriendshipsByUserIdAsync(It.IsAny<int>()))
+                .Setup(repo => repo.GetAllFriendshipsByUserIdForDeletionAsync(It.IsAny<int>()))
                 .ReturnsAsync([]);
 
             var handler = new DeleteMyAccountHandler(
@@ -96,7 +96,7 @@ namespace ToDoApp.Application.Tests.Users
             userRepository.Verify(repo => repo.GetUserByIdAsync(1), Times.Once);
 
             friendshipRepository.Verify(
-                repo => repo.GetAllFriendshipsByUserIdAsync(1),
+                repo => repo.GetAllFriendshipsByUserIdForDeletionAsync(1),
                 Times.Once
                 );
 
@@ -139,7 +139,7 @@ namespace ToDoApp.Application.Tests.Users
                 .ReturnsAsync(user);
 
             friendshipRepository
-                .Setup(repo => repo.GetAllFriendshipsByUserIdAsync(It.IsAny<int>()))
+                .Setup(repo => repo.GetAllFriendshipsByUserIdForDeletionAsync(It.IsAny<int>()))
                 .ReturnsAsync(
                 [
                     friendshipOne,
@@ -162,7 +162,7 @@ namespace ToDoApp.Application.Tests.Users
             userRepository.Verify(repo => repo.GetUserByIdAsync(1), Times.Once);
 
             friendshipRepository.Verify(
-                repo => repo.GetAllFriendshipsByUserIdAsync(1),
+                repo => repo.GetAllFriendshipsByUserIdForDeletionAsync(1),
                 Times.Once
                 );
 
