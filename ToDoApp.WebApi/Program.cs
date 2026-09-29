@@ -26,6 +26,7 @@ using ToDoApp.Application.UseCases.Tags.GetMyTagById;
 using ToDoApp.Application.UseCases.Tags.UpdateUserTag;
 using ToDoApp.Application.UseCases.Users.ChangeUserVisibility;
 using ToDoApp.Application.UseCases.Users.CreateUser;
+using ToDoApp.Application.UseCases.Users.DeleteMyAccount;
 using ToDoApp.Application.UseCases.Users.GetAllUsers;
 using ToDoApp.Application.UseCases.Users.GetCurrentUser;
 using ToDoApp.Application.UseCases.Users.GetUserById;
@@ -76,6 +77,7 @@ namespace ToDoApp.WebApi
             builder.Services.AddScoped<GetUserByIdHandler>();
             builder.Services.AddScoped<GetCurrentUserHandler>();
             builder.Services.AddScoped<ChangeUserVisibilityHandler>();
+            builder.Services.AddScoped<DeleteMyAccountHandler>();
 
             builder.Services.AddScoped<GetAllNotesHandler>();
             builder.Services.AddScoped<GetNoteByIdHandler>();

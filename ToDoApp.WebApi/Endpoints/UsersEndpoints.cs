@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using ToDoApp.Application.UseCases.Users.ChangeUserVisibility;
+using ToDoApp.Application.UseCases.Users.DeleteMyAccount;
 using ToDoApp.Application.UseCases.Users.GetAllUsers;
 using ToDoApp.Application.UseCases.Users.GetCurrentUser;
 using ToDoApp.Application.UseCases.Users.GetUserById;
@@ -64,7 +65,7 @@ namespace ToDoApp.WebApi.Endpoints
 
             }).WithName(ChangeUserVisibilityEndpointName).RequireAuthorization();
 
-            usersGroup.MapDelete("/Me", async (DeleteMyAccountHandler handler, HttpContext context) =>
+            usersGroup.MapDelete("/Me", async (DeleteMyAccountHandler handler, IConfiguration configuration, HttpContext context) =>
             {
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
