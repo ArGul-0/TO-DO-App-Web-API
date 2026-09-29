@@ -5,7 +5,6 @@ using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.UseCases.Users;
 using ToDoApp.Application.UseCases.Users.ChangeUserVisibility;
-using ToDoApp.Application.UseCases.Users.CreateUser;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.Enums;
 using ToDoApp.Domain.ValueObjects;

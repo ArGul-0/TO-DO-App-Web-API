@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using ToDoApp.Application.Common;
-using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 
