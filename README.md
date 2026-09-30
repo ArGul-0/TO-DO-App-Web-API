@@ -57,6 +57,7 @@ This project was designed as a scalable backend foundation for a notes / task ma
 * User registration
 * User login
 * User logout
+* Delete own account
 * Get info about current authenticated user
 * Get all users
 * Get user by ID
@@ -95,6 +96,7 @@ The project includes a dedicated unit testing suite built with **xUnit**, **Flue
 * Friend request rejection
 * Friend removal
 * Friendship retrieval
+* Account deletion
 * Validation and error scenarios
 
 ### Testing Stack
@@ -212,7 +214,8 @@ ToDoApp.Application.Tests
 │
 ├── Users
 │   ├── CreateUserHandlerTests
-│   └── LoginUserHandlerTests
+│   ├── LoginUserHandlerTests
+│   └── DeleteMyAccountHandlerTests
 │
 ├── Notes
 │   ├── CreateNoteHandlerTests
@@ -295,6 +298,7 @@ This allows individual use cases to be tested independently and deterministicall
 | GET    | `/Users`      | Get all users                       |
 | GET    | `/Users/{id}` | Get user by ID                      |
 | GET    | `/Users/Me`   | Get current authenticated user info |
+| DELETE | `/Users/Me`   | Delete current authenticated user   |
 
 ---
 
