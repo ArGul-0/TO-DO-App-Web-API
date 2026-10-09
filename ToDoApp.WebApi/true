@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ToDoApp.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:ToDoApp.WebApi.Extensions.ApiExtensions.AddSwagger(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <inheritdoc cref="M:ToDoApp.WebApi.Extensions.ApiExtensions.&lt;G&gt;$41F16C2D39AF52899E745C9C9F42FF83.AddSwagger"/>
+        </member>
+        <member name="M:ToDoApp.WebApi.Extensions.ApiExtensions.AddSerilogLogging(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <inheritdoc cref="M:ToDoApp.WebApi.Extensions.ApiExtensions.&lt;G&gt;$41F16C2D39AF52899E745C9C9F42FF83.AddSerilogLogging"/>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:ToDoApp.WebApi.Extensions.ApiExtensions.&lt;G&gt;$41F16C2D39AF52899E745C9C9F42FF83.AddSwagger" -->
+        <member name="M:ToDoApp.WebApi.Extensions.ApiExtensions.&lt;G&gt;$41F16C2D39AF52899E745C9C9F42FF83.AddSerilogLogging">
+            <summary>
+            Configures Serilog as the logging provider for the specified web application builder with default enrichers
+            and sinks.
+            </summary>
+            <remarks>This method sets up Serilog with console and Seq sinks, enriches log events with
+            environment, process, and thread information, and overrides the minimum log level for Microsoft components
+            to Warning. Call this method early in the application's startup to ensure logging is configured before other
+            services are added.</remarks>
+            <param name="builder">The web application builder to configure with Serilog logging. Cannot be null.</param>
+            <returns>The same instance of <see cref="T:Microsoft.AspNetCore.Builder.WebApplicationBuilder"/> with Serilog logging configured.</returns>
+        </member>
+        <member name="M:ToDoApp.WebApi.Middlewares.ExceptionMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Global exception handling middleware. Catches unhandled exceptions, logs them, and returns a standardized error response.
+            </summary>
+            <param name="context">The HTTP context.</param>
+            <returns>A task that represents the completion of request processing.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Type)">
+            <summary>
+            Generates a documentation comment ID for a type.
+            Example: T:Namespace.Outer+Inner`1 becomes T:Namespace.Outer.Inner`1
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Reflection.PropertyInfo)">
+            <summary>
+            Generates a documentation comment ID for a property.
+            Example: P:Namespace.ContainingType.PropertyName or for an indexer P:Namespace.ContainingType.Item(System.Int32)
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Type,System.String)">
+            <summary>
+            Generates a documentation comment ID for a property given its container type and property name.
+            Example: P:Namespace.ContainingType.PropertyName
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Reflection.MethodInfo)">
+            <summary>
+            Generates a documentation comment ID for a method (or constructor).
+            For example:
+              M:Namespace.ContainingType.MethodName(ParamType1,ParamType2)~ReturnType
+              M:Namespace.ContainingType.#ctor(ParamType)
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.GetTypeDocId(System.Type,System.Boolean,System.Boolean)">
+            <summary>
+            Generates a documentation ID string for a type.
+            This method handles nested types (replacing '+' with '.'),
+            generic types, arrays, pointers, by-ref types, and generic parameters.
+            The <paramref name="includeGenericArguments"/> flag controls whether
+            constructed generic type arguments are emitted, while <paramref name="omitGenericArity"/>
+            controls whether the generic arity marker (e.g. "`1") is appended.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.NormalizeDocId(System.String)">
+            <summary>
+            Normalizes a documentation comment ID to match the compiler-style format.
+            Strips the return type suffix for ordinary methods but retains it for conversion operators.
+            </summary>
+            <param name="docId">The documentation comment ID to normalize.</param>
+            <returns>The normalized documentation comment ID.</returns>
+        </member>
+    </members>
+</doc>

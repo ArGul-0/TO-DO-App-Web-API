@@ -4,6 +4,8 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	<DocumentationFile>true</DocumentationFile>
+	<NoWarn>$(NoWarn);CS1591</NoWarn>
     <UserSecretsId>4cac9f30-b137-40f0-b125-0f6a7814c1cd</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
