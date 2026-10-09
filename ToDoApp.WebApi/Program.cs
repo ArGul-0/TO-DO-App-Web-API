@@ -153,7 +153,9 @@ namespace ToDoApp.WebApi
 
             app.MigrateDatabase(); // Apply Database Migrations On Startup
 
-            app.MapGet("/health", async () => Results.Ok("Healthy")).WithName("HealthCheck"); // Health Check Endpoint
+            app.MapGet("/health", async () => Results.Ok("Healthy"))
+                .WithName("HealthCheck")
+                .WithSummary("Check whether the API is healthy."); // Health Check Endpoint
 
             app.Run();
         }

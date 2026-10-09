@@ -38,7 +38,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetAllNotesEndpointName).RequireAuthorization();
+            }).WithName(GetAllNotesEndpointName)
+              .WithSummary("Get notes visible to the current user.")
+              .RequireAuthorization();
 
             notesGroup.MapGet("/{id}", async (int id, GetNoteByIdHandler handler, HttpContext context) =>
             {
@@ -50,7 +52,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetNoteByIdEndpointName).RequireAuthorization();
+            }).WithName(GetNoteByIdEndpointName)
+              .WithSummary("Get a note by ID if it is visible to the current user.")
+              .RequireAuthorization();
 
             notesGroup.MapGet("/Me", async (GetAllUserNotesHandler handler, HttpContext context) =>
             {
@@ -62,7 +66,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetAllUserNotesEndpointName).RequireAuthorization();
+            }).WithName(GetAllUserNotesEndpointName)
+              .WithSummary("Get all notes created by the current user.")
+              .RequireAuthorization();
 
             notesGroup.MapGet("/Me/Tags/{tagId}", async (int tagId, GetUserNotesByTagHandler handler, HttpContext context) =>
             {
@@ -74,7 +80,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetUserNotesByTagEndpointName).RequireAuthorization();
+            }).WithName(GetUserNotesByTagEndpointName)
+              .WithSummary("Get the current user's notes associated with a tag.")
+              .RequireAuthorization();
 
             notesGroup.MapPost("/", async (CreateNewNoteRequest request, CreateNewNoteHandler handler, HttpContext context) =>
             {
@@ -86,7 +94,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.CreatedAtRoute(GetNoteByIdEndpointName, new { id = result.Value.Id }, result.Value);
-            }).WithName(CreateNewNoteEndpointName).RequireAuthorization();
+            }).WithName(CreateNewNoteEndpointName)
+              .WithSummary("Create a note for the current user.")
+              .RequireAuthorization();
 
             notesGroup.MapPut("/{noteId}", async (int noteId, UpdateUserNoteRequest request, UpdateUserNoteHandler handler, HttpContext context) =>
             {
@@ -98,7 +108,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.NoContent();
-            }).WithName(UpdateUserNoteEndpointName).RequireAuthorization();
+            }).WithName(UpdateUserNoteEndpointName)
+              .WithSummary("Update a note owned by the current user.")
+              .RequireAuthorization();
 
             notesGroup.MapDelete("/{noteId}", async (int noteId, DeleteUserNoteHandler handler, HttpContext context) =>
             {
@@ -110,7 +122,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.NoContent();
-            }).WithName(DeleteUserNoteEndpointName).RequireAuthorization();
+            }).WithName(DeleteUserNoteEndpointName)
+              .WithSummary("Delete a note owned by the current user.")
+              .RequireAuthorization();
 
             notesGroup.MapPost("/{noteId}/Tags/{tagId}", async ( int noteId, int tagId, AttachTagToNoteHandler handler, HttpContext context) =>
             {
@@ -122,7 +136,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.NoContent();
-            }).WithName(AttachTagToNoteEndpointName).RequireAuthorization();
+            }).WithName(AttachTagToNoteEndpointName)
+              .WithSummary("Attach a tag to a note owned by the current user.")
+              .RequireAuthorization();
 
             notesGroup.MapDelete("/{noteId}/Tags/{tagId}", async (int noteId, int tagId, DetachTagFromNoteHandler handler, HttpContext context) =>
             {
@@ -134,7 +150,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.NoContent();
-            }).WithName(DetachTagFromNoteEndpointName).RequireAuthorization();
+            }).WithName(DetachTagFromNoteEndpointName)
+              .WithSummary("Remove a tag from a note owned by the current user.")
+              .RequireAuthorization();
 
             return notesGroup;
         }

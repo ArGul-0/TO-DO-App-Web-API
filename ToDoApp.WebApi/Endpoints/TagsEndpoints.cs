@@ -31,7 +31,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetAllMyTagsEndpointName).RequireAuthorization();
+            }).WithName(GetAllMyTagsEndpointName)
+              .WithSummary("Get all tags belonging to the current user.")
+              .RequireAuthorization();
 
             tagsGroup.MapGet("/Me/{id}", async (int id, GetMyTagByIdHandler handler, HttpContext context) =>
             {
@@ -43,7 +45,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetMyTagByIdEndpointName).RequireAuthorization();
+            }).WithName(GetMyTagByIdEndpointName)
+              .WithSummary("Get a tag by ID belonging to the current user.")
+              .RequireAuthorization();
 
             tagsGroup.MapPost("/", async (CreateNewTagRequest request, CreateNewTagHandler handler, HttpContext context) =>
             {
@@ -55,7 +59,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.CreatedAtRoute(GetMyTagByIdEndpointName, new { id = result.Value.Id }, result.Value);
-            }).WithName(CreateNewTagEndpointName).RequireAuthorization();
+            }).WithName(CreateNewTagEndpointName)
+              .WithSummary("Create a tag for the current user.")
+              .RequireAuthorization();
 
             tagsGroup.MapPut("/{tagId}", async (int tagId, UpdateUserTagRequest request, UpdateUserTagHandler handler, HttpContext context) =>
             {
@@ -67,7 +73,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.NoContent();
-            }).WithName(UpdateUserTagEndpointName).RequireAuthorization();
+            }).WithName(UpdateUserTagEndpointName)
+              .WithSummary("Update a tag belonging to the current user.")
+              .RequireAuthorization();
 
             tagsGroup.MapDelete("/{tagId}", async (int tagId, DeleteUserTagHandler handler, HttpContext context) =>
             {
@@ -79,7 +87,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.NoContent();
-            }).WithName(DeleteUserTagEndpointName).RequireAuthorization();
+            }).WithName(DeleteUserTagEndpointName)
+              .WithSummary("Delete a tag belonging to the current user.")
+              .RequireAuthorization();
 
             return tagsGroup;
         }

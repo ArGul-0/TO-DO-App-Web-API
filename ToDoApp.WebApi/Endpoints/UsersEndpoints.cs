@@ -28,7 +28,8 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetAllUsersEndpointName);
+            }).WithName(GetAllUsersEndpointName)
+              .WithSummary("Get all users.");
 
             usersGroup.MapGet("/{id}", async (GetUserByIdHandler handler, int id) =>
             {
@@ -38,7 +39,8 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetUserByIdEndpointName);
+            }).WithName(GetUserByIdEndpointName)
+              .WithSummary("Get a user by ID.");
 
             usersGroup.MapGet("/Me", async (GetCurrentUserHandler handler, HttpContext context) =>
             {
@@ -50,7 +52,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetCurrentUserEndpointName).RequireAuthorization();
+            }).WithName(GetCurrentUserEndpointName)
+              .WithSummary("Get the current user's profile.")
+              .RequireAuthorization();
 
             usersGroup.MapPost("/Me/ChangeUserVisibility", async (ChangeUserVisibilityRequest request, ChangeUserVisibilityHandler handler, HttpContext context) =>
             {
@@ -63,7 +67,9 @@ namespace ToDoApp.WebApi.Endpoints
 
                 return Results.Ok();
 
-            }).WithName(ChangeUserVisibilityEndpointName).RequireAuthorization();
+            }).WithName(ChangeUserVisibilityEndpointName)
+              .WithSummary("Change the visibility setting for the current user's profile.")
+              .RequireAuthorization();
 
             usersGroup.MapDelete("/Me", async (DeleteMyAccountHandler handler, IConfiguration configuration, HttpContext context) =>
             {
@@ -77,7 +83,9 @@ namespace ToDoApp.WebApi.Endpoints
                 context.Response.Cookies.Delete(configuration["JwtOptions:NameInCookies"] ?? throw new InvalidOperationException("Jwt cookie name not configured"));
 
                 return Results.Ok();
-            }).WithName(DeleteMyAccountEndpointName).RequireAuthorization();
+            }).WithName(DeleteMyAccountEndpointName)
+              .WithSummary("Delete the current user's account and clear the authentication cookie.")
+              .RequireAuthorization();
 
             return usersGroup;
         }

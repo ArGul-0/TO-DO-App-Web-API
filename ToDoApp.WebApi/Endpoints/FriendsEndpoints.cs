@@ -32,7 +32,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetAllMyFriendsEndpointName).RequireAuthorization();
+            }).WithName(GetAllMyFriendsEndpointName)
+              .WithSummary("Get all friendships for the current user.")
+              .RequireAuthorization();
 
             friendsGroup.MapGet("/Incoming", async (GetIncomingFriendshipRequestsHandler handler, HttpContext context) =>
             {
@@ -44,7 +46,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok(result.Value);
-            }).WithName(GetIncomingFriendshipRequestsEndpointName).RequireAuthorization();
+            }).WithName(GetIncomingFriendshipRequestsEndpointName)
+              .WithSummary("Get incoming friendship requests for the current user.")
+              .RequireAuthorization();
 
             friendsGroup.MapPost("/Requests/{friendId}", async (int friendId, SendFriendshipRequestHandler handler, HttpContext context) =>
             {
@@ -56,7 +60,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Created();
-            }).WithName(SendFriendRequestEndpointName).RequireAuthorization();
+            }).WithName(SendFriendRequestEndpointName)
+              .WithSummary("Send a friendship request to the specified user.")
+              .RequireAuthorization();
 
             friendsGroup.MapPost("/Requests/{friendId}/Accept", async (int friendId, AcceptFriendshipRequestHandler handler, HttpContext context) =>
             {
@@ -68,7 +74,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok();
-            }).WithName(AcceptFriendRequestEndpointName).RequireAuthorization();
+            }).WithName(AcceptFriendRequestEndpointName)
+              .WithSummary("Accept the friendship request from the specified user.")
+              .RequireAuthorization();
 
             friendsGroup.MapPost("/Requests/{friendId}/Reject", async (int friendId, RejectFriendshipRequestHandler handler, HttpContext context) =>
             {
@@ -80,7 +88,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.Ok();
-            }).WithName(RejectFriendRequestEndpointName).RequireAuthorization();
+            }).WithName(RejectFriendRequestEndpointName)
+              .WithSummary("Reject the friendship request from the specified user.")
+              .RequireAuthorization();
 
             friendsGroup.MapDelete("/{friendId}", async (int friendId, DeleteFriendship handler, HttpContext context) =>
             {
@@ -92,7 +102,9 @@ namespace ToDoApp.WebApi.Endpoints
                     return result.ToHttpResult();
 
                 return Results.NoContent();
-            }).WithName(RemoveFriendshipEndpointName).RequireAuthorization();
+            }).WithName(RemoveFriendshipEndpointName)
+              .WithSummary("Remove the friendship with the specified user.")
+              .RequireAuthorization();
 
             return friendsGroup;
         }

@@ -41,7 +41,9 @@ namespace ToDoApp.WebApi.Endpoints
                 }); // Set The JWT Token In Cookies
 
                 return Results.Ok(result.Value);
-            }).WithName(RegisterEndpointName).RequireRateLimiting("AuthLimit");
+            }).WithName(RegisterEndpointName)
+              .WithSummary("Register a new user and issue an authentication cookie.")
+              .RequireRateLimiting("AuthLimit");
 
             authGroup.MapPost("/Login", async (
                 LoginUserRequest request,
@@ -67,7 +69,9 @@ namespace ToDoApp.WebApi.Endpoints
                 }); // Set The JWT Token In Cookies
 
                 return Results.Ok(result.Value);
-            }).WithName(LoginEndpointName).RequireRateLimiting("AuthLimit");
+            }).WithName(LoginEndpointName)
+              .WithSummary("Authenticate a user and issue an authentication cookie.")
+              .RequireRateLimiting("AuthLimit");
 
             authGroup.MapPost("/Logout", async (
                 HttpContext httpContext,
@@ -76,7 +80,8 @@ namespace ToDoApp.WebApi.Endpoints
                 httpContext.Response.Cookies.Delete(configuration["JwtOptions:NameInCookies"] ?? throw new InvalidOperationException("Jwt cookie name not configured"));
                 
                 return Results.Ok();
-            }).WithName(LogoutEndpointName);
+            }).WithName(LogoutEndpointName)
+              .WithSummary("Log out the current user by deleting the authentication cookie.");
 
             return authGroup;
         }

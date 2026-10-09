@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using Serilog;
 using Serilog.Events;
+using System.Reflection;
 using System.Text;
 using System.Threading.RateLimiting;
 using ToDoApp.Infrastructure.Authentication.Jwt;
@@ -17,8 +18,7 @@ namespace ToDoApp.WebApi.Extensions
             /// <summary>
             /// Configures Swagger services for the specified web application builder with a custom API documentation setup.
             /// </summary>
-            /// <remarks>This method sets up Swagger to generate API documentation with a title, version, description, and contact information.<remarks>
-            /// <param name="builder">The web application builder to configure with Swagger services. Cannot be null.</param>
+            /// <remarks>This method sets up Swagger to generate API documentation with a title, version, description, and contact information.</remarks>
             /// <returns>The same instance of <see cref="WebApplicationBuilder"/> with Swagger services configured.</returns>
             public WebApplicationBuilder AddSwagger()
             {
@@ -34,6 +34,11 @@ namespace ToDoApp.WebApi.Extensions
                             Name = "ArGul",
                         }
                     });
+
+                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                    options.IncludeXmlComments(xmlPath);
                 });
 
                 return builder;
@@ -47,7 +52,6 @@ namespace ToDoApp.WebApi.Extensions
             /// environment, process, and thread information, and overrides the minimum log level for Microsoft components
             /// to Warning. Call this method early in the application's startup to ensure logging is configured before other
             /// services are added.</remarks>
-            /// <param name="builder">The web application builder to configure with Serilog logging. Cannot be null.</param>
             /// <returns>The same instance of <see cref="WebApplicationBuilder"/> with Serilog logging configured.</returns>
             public WebApplicationBuilder AddSerilogLogging()
             {
