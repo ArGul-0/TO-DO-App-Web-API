@@ -15,7 +15,7 @@
       timeout: 5s # Timeout After 5 Seconds
 
   seq:
-    image: datalust/seq:2025.2
+    image: datalust/seq:2026.1
     container_name: seq
     restart: unless-stopped
     environment:
