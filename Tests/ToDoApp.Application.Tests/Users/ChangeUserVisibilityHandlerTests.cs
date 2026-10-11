@@ -13,21 +13,27 @@ namespace ToDoApp.Application.Tests.Users
 {
     public sealed class ChangeUserVisibilityHandlerTests
     {
-        [Fact]
-        public async Task Handle_ShouldChangeUserVisibility_WhenUserExists()
+        [Theory]
+        [InlineData(AccountVisibility.Public)]
+        [InlineData(AccountVisibility.Private)]
+        [InlineData(AccountVisibility.OnlyForFriends)]
+        public async Task Handle_ShouldChangeUserVisibility_WhenUserExists(AccountVisibility newVisibility)
         {
             // Arrange
             var userRepository = new Mock<IUserRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
             var logger = new Mock<ILogger<ChangeUserVisibilityHandler>>();
 
-            var user = new User("John Doe", new Email("john@example.com"), "Example of hashed password");
-            userRepository.Setup(repo => repo.GetUserByIdWithTrackingAsync(It.IsAny<int>()))
+            var user = new User(
+                "John Doe",
+                new Email("john@example.com"),
+                "Example of hashed password");
+
+            userRepository
+                .Setup(repo => repo.GetUserByIdWithTrackingAsync(It.IsAny<int>()))
                 .ReturnsAsync(user);
 
-            var request = new ChangeUserVisibilityRequest(
-                newVisibility: AccountVisibility.Private
-                );
+            var request = new ChangeUserVisibilityRequest(newVisibility);
 
             var handler = new ChangeUserVisibilityHandler(
                 userRepository.Object,
@@ -40,10 +46,15 @@ namespace ToDoApp.Application.Tests.Users
 
             // Assert
             result.IsSuccess.Should().BeTrue();
-            user.Visibility.Should().Be(AccountVisibility.Private);
+            user.Visibility.Should().Be(newVisibility);
 
-            userRepository.Verify(repo => repo.GetUserByIdWithTrackingAsync(1), Times.Once);
-            unitOfWork.Verify(uow => uow.SaveChangesAsync(), Times.Once);
+            userRepository.Verify(
+                repo => repo.GetUserByIdWithTrackingAsync(1),
+                Times.Once);
+
+            unitOfWork.Verify(
+                uow => uow.SaveChangesAsync(),
+                Times.Once);
         }
 
         [Fact]
@@ -57,9 +68,7 @@ namespace ToDoApp.Application.Tests.Users
             userRepository.Setup(repo => repo.GetUserByIdWithTrackingAsync(It.IsAny<int>()))
                 .ReturnsAsync((User?)null);
 
-            var request = new ChangeUserVisibilityRequest(
-                newVisibility: AccountVisibility.Private
-                );
+            var request = new ChangeUserVisibilityRequest(newVisibility: AccountVisibility.Private);
 
             var handler = new ChangeUserVisibilityHandler(
                 userRepository.Object,
