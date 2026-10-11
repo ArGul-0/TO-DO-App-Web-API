@@ -75,7 +75,7 @@ namespace ToDoApp.Application.Tests.Notes
             notesRepository.Setup(r => r.GetNoteWithOwnerByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(note);
 
-            notesAuth.Setup(s => s.CanSeeNote(user, note)).Returns(false);
+            notesAuth.Setup(s => s.CanSeeNote(user, note)).ReturnsAsync(false);
 
             var handler = new GetNoteByIdHandler(notesRepository.Object, userRepository.Object, notesAuth.Object);
 
@@ -104,7 +104,7 @@ namespace ToDoApp.Application.Tests.Notes
             notesRepository.Setup(r => r.GetNoteWithOwnerByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(note);
 
-            notesAuth.Setup(s => s.CanSeeNote(user, note)).Returns(true);
+            notesAuth.Setup(s => s.CanSeeNote(user, note)).ReturnsAsync(true);
 
             var handler = new GetNoteByIdHandler(notesRepository.Object, userRepository.Object, notesAuth.Object);
 

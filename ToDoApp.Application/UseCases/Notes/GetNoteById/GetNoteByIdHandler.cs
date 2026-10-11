@@ -32,7 +32,7 @@ namespace ToDoApp.Application.UseCases.Notes.GetNoteById
             if (note is null)
                 return ResultT<NoteDto>.Failure(NotesErrors.NoteNotFound);
 
-            if (!notesAuthorizationService.CanSeeNote(user, note))
+            if (!await notesAuthorizationService.CanSeeNote(user, note))
                 return ResultT<NoteDto>.Failure(NotesErrors.Forbidden);
 
             return ResultT<NoteDto>.Success(note.ToDto());

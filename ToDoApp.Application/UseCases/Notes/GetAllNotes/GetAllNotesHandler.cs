@@ -29,7 +29,7 @@ namespace ToDoApp.Application.UseCases.Notes.GetAllNotes
             if (user is null)
                 return ResultT<List<NoteDto>>.Failure(UsersErrors.UserNotFound);
 
-            var filteredNotes = notesAuthorizationService.FilterVisibleNotes(user, notes);
+            var filteredNotes = await notesAuthorizationService.FilterVisibleNotes(user, notes);
 
             var noteDtos = filteredNotes.Select(filteredNotes => filteredNotes.ToDto()).ToList();
 

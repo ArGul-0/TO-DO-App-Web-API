@@ -54,7 +54,7 @@ namespace ToDoApp.Application.Tests.Notes
                 .ReturnsAsync(user);
 
             notesAuth.Setup(s => s.FilterVisibleNotes(user, It.IsAny<List<Note>>()))
-                .Returns(new List<Note> { note1 });
+                .ReturnsAsync(new List<Note> { note1 });
 
             var handler = new GetAllNotesHandler(notesRepository.Object, userRepository.Object, notesAuth.Object);
 
