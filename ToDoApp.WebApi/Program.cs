@@ -111,6 +111,8 @@ namespace ToDoApp.WebApi
 
             var app = builder.Build();
 
+            app.UseRateLimiter();
+
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
