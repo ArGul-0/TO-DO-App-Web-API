@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using ToDoApp.Application.UseCases.Tags.CreateNewTag;
+﻿using ToDoApp.Application.UseCases.Tags.CreateNewTag;
 using ToDoApp.Application.UseCases.Tags.DeleteUserTag;
 using ToDoApp.Application.UseCases.Tags.GetAllMyTags;
 using ToDoApp.Application.UseCases.Tags.GetMyTagById;
@@ -23,9 +22,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             tagsGroup.MapGet("/Me", async (GetAllMyTagsHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(int.Parse(userId));
+                var result = await handler.Handle(userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -37,9 +36,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             tagsGroup.MapGet("/Me/{id}", async (int id, GetMyTagByIdHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(id, int.Parse(userId));
+                var result = await handler.Handle(id, userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -51,9 +50,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             tagsGroup.MapPost("/", async (CreateNewTagRequest request, CreateNewTagHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(request, int.Parse(userId));
+                var result = await handler.Handle(request, userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -65,9 +64,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             tagsGroup.MapPut("/{tagId}", async (int tagId, UpdateUserTagRequest request, UpdateUserTagHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
                 
-                var result = await handler.Handle(request, tagId, int.Parse(userId));
+                var result = await handler.Handle(request, tagId, userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -79,9 +78,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             tagsGroup.MapDelete("/{tagId}", async (int tagId, DeleteUserTagHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(tagId, int.Parse(userId));
+                var result = await handler.Handle(tagId, userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();

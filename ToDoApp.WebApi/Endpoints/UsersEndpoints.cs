@@ -44,9 +44,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             usersGroup.MapGet("/Me", async (GetCurrentUserHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(int.Parse(userId));
+                var result = await handler.Handle(userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -58,9 +58,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             usersGroup.MapPost("/Me/ChangeUserVisibility", async (ChangeUserVisibilityRequest request, ChangeUserVisibilityHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(request, int.Parse(userId));
+                var result = await handler.Handle(request, userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -73,9 +73,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             usersGroup.MapDelete("/Me", async (DeleteMyAccountHandler handler, IConfiguration configuration, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(int.Parse(userId));
+                var result = await handler.Handle(userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();

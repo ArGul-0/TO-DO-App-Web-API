@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using ToDoApp.Application.UseCases.Friends.AcceptFriendRequest;
+﻿using ToDoApp.Application.UseCases.Friends.AcceptFriendRequest;
 using ToDoApp.Application.UseCases.Friends.GetAllMyFriendships;
 using ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests;
 using ToDoApp.Application.UseCases.Friends.RejectFriendRequest;
@@ -24,9 +23,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             friendsGroup.MapGet("/", async (GetAllMyFriendshipsHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(int.Parse(userId));
+                var result = await handler.Handle(userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -38,9 +37,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             friendsGroup.MapGet("/Incoming", async (GetIncomingFriendshipRequestsHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(int.Parse(userId));
+                var result = await handler.Handle(userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -52,9 +51,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             friendsGroup.MapPost("/Requests/{friendId}", async (int friendId, SendFriendshipRequestHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(int.Parse(userId), friendId);
+                var result = await handler.Handle(userId, friendId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -66,9 +65,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             friendsGroup.MapPost("/Requests/{friendId}/Accept", async (int friendId, AcceptFriendshipRequestHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(int.Parse(userId), friendId);
+                var result = await handler.Handle(userId, friendId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -80,9 +79,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             friendsGroup.MapPost("/Requests/{friendId}/Reject", async (int friendId, RejectFriendshipRequestHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(int.Parse(userId), friendId);
+                var result = await handler.Handle(userId, friendId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -94,9 +93,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             friendsGroup.MapDelete("/{friendId}", async (int friendId, DeleteFriendship handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(int.Parse(userId), friendId);
+                var result = await handler.Handle(userId, friendId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();

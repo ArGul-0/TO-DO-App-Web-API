@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using ToDoApp.Application.UseCases.Notes.AttachTagToNote;
+﻿using ToDoApp.Application.UseCases.Notes.AttachTagToNote;
 using ToDoApp.Application.UseCases.Notes.CreateNewNote;
 using ToDoApp.Application.UseCases.Notes.DeleteUserNote;
 using ToDoApp.Application.UseCases.Notes.DetachTagFromNote;
@@ -30,9 +29,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             notesGroup.MapGet("/", async (GetAllNotesHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(int.Parse(userId));
+                var result = await handler.Handle(userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -44,9 +43,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             notesGroup.MapGet("/{id}", async (int id, GetNoteByIdHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(id, int.Parse(userId));
+                var result = await handler.Handle(id, userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -58,9 +57,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             notesGroup.MapGet("/Me", async (GetAllUserNotesHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(int.Parse(userId));
+                var result = await handler.Handle(userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -72,9 +71,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             notesGroup.MapGet("/Me/Tags/{tagId}", async (int tagId, GetUserNotesByTagHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(tagId, int.Parse(userId));
+                var result = await handler.Handle(tagId, userId);
                 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -86,9 +85,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             notesGroup.MapPost("/", async (CreateNewNoteRequest request, CreateNewNoteHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(request, int.Parse(userId));
+                var result = await handler.Handle(request, userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -100,9 +99,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             notesGroup.MapPut("/{noteId}", async (int noteId, UpdateUserNoteRequest request, UpdateUserNoteHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(request, int.Parse(userId), noteId);
+                var result = await handler.Handle(request, userId, noteId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -114,9 +113,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             notesGroup.MapDelete("/{noteId}", async (int noteId, DeleteUserNoteHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(noteId, int.Parse(userId));
+                var result = await handler.Handle(noteId, userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -128,9 +127,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             notesGroup.MapPost("/{noteId}/Tags/{tagId}", async ( int noteId, int tagId, AttachTagToNoteHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(noteId, tagId, int.Parse(userId));
+                var result = await handler.Handle(noteId, tagId, userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -142,9 +141,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             notesGroup.MapDelete("/{noteId}/Tags/{tagId}", async (int noteId, int tagId, DetachTagFromNoteHandler handler, HttpContext context) =>
             {
-                var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(noteId, tagId, int.Parse(userId));
+                var result = await handler.Handle(noteId, tagId, userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
