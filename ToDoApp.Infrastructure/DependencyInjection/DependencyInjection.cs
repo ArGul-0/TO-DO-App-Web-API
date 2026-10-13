@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ToDoApp.Application.Interfaces;
+using ToDoApp.Application.Interfaces.Repositories;
+using ToDoApp.Infrastructure.Authentication.Jwt;
+using ToDoApp.Infrastructure.Authentication.Password;
+using ToDoApp.Infrastructure.Repositories;
 
 namespace ToDoApp.Infrastructure.DependencyInjection
 {
@@ -24,11 +28,23 @@ namespace ToDoApp.Infrastructure.DependencyInjection
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
+            services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
+
             services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(connectionString));
 
             services.AddScoped<IAppDbContext>(provider =>
                 provider.GetRequiredService<AppDbContext>());
+
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IPasswordHasher, Argon2Hasher>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<INoteRepository, NoteRepository>();
+            services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<IFriendshipRepository, FriendshipRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

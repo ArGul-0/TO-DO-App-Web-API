@@ -1,41 +1,8 @@
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.HttpOverrides;
 using Serilog;
-using ToDoApp.Application.Interfaces;
-using ToDoApp.Application.Interfaces.Repositories;
-using ToDoApp.Application.Security.Notes;
-using ToDoApp.Application.UseCases.Friends.AcceptFriendRequest;
-using ToDoApp.Application.UseCases.Friends.GetAllMyFriendships;
-using ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests;
-using ToDoApp.Application.UseCases.Friends.RejectFriendRequest;
-using ToDoApp.Application.UseCases.Friends.RemoveFriendship;
-using ToDoApp.Application.UseCases.Friends.SendFriendRequest;
-using ToDoApp.Application.UseCases.Notes.AttachTagToNote;
-using ToDoApp.Application.UseCases.Notes.CreateNewNote;
-using ToDoApp.Application.UseCases.Notes.DeleteUserNote;
-using ToDoApp.Application.UseCases.Notes.DetachTagFromNote;
-using ToDoApp.Application.UseCases.Notes.GetAllNotes;
-using ToDoApp.Application.UseCases.Notes.GetAllOtherPeopleNotes;
-using ToDoApp.Application.UseCases.Notes.GetNoteById;
-using ToDoApp.Application.UseCases.Notes.GetUserNotesByTag;
-using ToDoApp.Application.UseCases.Notes.UpdateUserNote;
-using ToDoApp.Application.UseCases.Tags.CreateNewTag;
-using ToDoApp.Application.UseCases.Tags.DeleteUserTag;
-using ToDoApp.Application.UseCases.Tags.GetAllMyTags;
-using ToDoApp.Application.UseCases.Tags.GetMyTagById;
-using ToDoApp.Application.UseCases.Tags.UpdateUserTag;
-using ToDoApp.Application.UseCases.Users.ChangeUserVisibility;
-using ToDoApp.Application.UseCases.Users.CreateUser;
-using ToDoApp.Application.UseCases.Users.DeleteMyAccount;
-using ToDoApp.Application.UseCases.Users.GetAllUsers;
-using ToDoApp.Application.UseCases.Users.GetCurrentUser;
-using ToDoApp.Application.UseCases.Users.GetUserById;
-using ToDoApp.Application.UseCases.Users.LoginUser;
-using ToDoApp.Infrastructure;
-using ToDoApp.Infrastructure.Authentication.Jwt;
-using ToDoApp.Infrastructure.Authentication.Password;
+using ToDoApp.Application;
 using ToDoApp.Infrastructure.DependencyInjection;
-using ToDoApp.Infrastructure.Repositories;
 using ToDoApp.WebApi.Endpoints;
 using ToDoApp.WebApi.Extensions;
 using ToDoApp.WebApi.Middlewares;
@@ -48,61 +15,17 @@ namespace ToDoApp.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services
+                .AddApplication()
+                .AddInfrastructure(builder.Configuration);
             builder.AddSerilogLogging();
             builder.AddSwagger();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
 
-            builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
-
             builder.AddAuth();
             builder.AddRateLimiting();
-
-            builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-            builder.Services.AddScoped<IPasswordHasher, Argon2Hasher>();
-
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<INoteRepository, NoteRepository>();
-            builder.Services.AddScoped<ITagRepository, TagRepository>();
-            builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
-
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            builder.Services.AddScoped<CreateUserHandler>();
-            builder.Services.AddScoped<LoginUserHandler>();
-
-            builder.Services.AddScoped<GetAllUsersHandler>();
-            builder.Services.AddScoped<GetUserByIdHandler>();
-            builder.Services.AddScoped<GetCurrentUserHandler>();
-            builder.Services.AddScoped<ChangeUserVisibilityHandler>();
-            builder.Services.AddScoped<DeleteMyAccountHandler>();
-
-            builder.Services.AddScoped<GetAllNotesHandler>();
-            builder.Services.AddScoped<GetNoteByIdHandler>();
-            builder.Services.AddScoped<CreateNewNoteHandler>();
-            builder.Services.AddScoped<GetAllUserNotesHandler>();
-            builder.Services.AddScoped<GetUserNotesByTagHandler>();
-            builder.Services.AddScoped<UpdateUserNoteHandler>();
-            builder.Services.AddScoped<DeleteUserNoteHandler>();
-            builder.Services.AddScoped<AttachTagToNoteHandler>();
-            builder.Services.AddScoped<DetachTagFromNoteHandler>();
-
-            builder.Services.AddScoped<GetAllMyTagsHandler>();
-            builder.Services.AddScoped<GetMyTagByIdHandler>();
-            builder.Services.AddScoped<CreateNewTagHandler>();
-            builder.Services.AddScoped<UpdateUserTagHandler>();
-            builder.Services.AddScoped<DeleteUserTagHandler>();
-
-            builder.Services.AddScoped<SendFriendshipRequestHandler>();
-            builder.Services.AddScoped<AcceptFriendshipRequestHandler>();
-            builder.Services.AddScoped<RejectFriendshipRequestHandler>();
-            builder.Services.AddScoped<DeleteFriendship>();
-            builder.Services.AddScoped<GetIncomingFriendshipRequestsHandler>();
-            builder.Services.AddScoped<GetAllMyFriendshipsHandler>();
-
-            builder.Services.AddScoped<INotesAuthorizationService, NotesAuthorizationService>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
@@ -111,14 +34,14 @@ namespace ToDoApp.WebApi
 
             var app = builder.Build();
 
-            app.UseRateLimiter();
-
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            if(app.Environment.IsDevelopment())
+            app.UseRateLimiter();
+
+            if (app.Environment.IsDevelopment())
             {
                 app.UseHttpsRedirection();
             }
