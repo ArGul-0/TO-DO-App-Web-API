@@ -117,12 +117,23 @@ namespace ToDoApp.WebApi.Extensions
             {
                 builder.Services.AddRateLimiter(options =>
                 {
-                    options.AddFixedWindowLimiter("AuthLimit", opt =>
+                    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+                    options.AddPolicy("AuthLimit", context =>
                     {
-                        opt.Window = TimeSpan.FromMinutes(1);
-                        opt.PermitLimit = 10;
-                        opt.QueueLimit = 0;
-                        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                        var ipAddress = context.Connection.RemoteIpAddress;
+                        var partitionKey = ipAddress?.ToString() ?? "unknown";
+
+                        return RateLimitPartition.GetFixedWindowLimiter(
+                            partitionKey,
+                            _ => new FixedWindowRateLimiterOptions
+                            {
+                                Window = TimeSpan.FromMinutes(1),
+                                PermitLimit = 10,
+                                QueueLimit = 0,
+                                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                                AutoReplenishment = true
+                            });
                     });
                 });
 
