@@ -17,7 +17,7 @@ namespace ToDoApp.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.11")
+                .HasAnnotation("ProductVersion", "10.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -145,6 +145,8 @@ namespace ToDoApp.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Username");
+
                     b.ToTable("Users");
                 });
 
@@ -221,6 +223,9 @@ namespace ToDoApp.Infrastructure.Migrations
                                 .HasColumnName("Email");
 
                             b1.HasKey("UserId");
+
+                            b1.HasIndex("Value")
+                                .IsUnique();
 
                             b1.ToTable("Users");
 

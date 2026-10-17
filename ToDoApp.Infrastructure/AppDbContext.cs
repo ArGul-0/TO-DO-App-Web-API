@@ -35,6 +35,9 @@ namespace ToDoApp.Infrastructure
                 emailBuilder.Property(e => e.Value)
                     .HasColumnName("Email")
                     .IsRequired();
+
+                emailBuilder.HasIndex(e => e.Value)
+                    .IsUnique();
             }));
 
             modelBuilder.Entity<User>()
@@ -42,6 +45,9 @@ namespace ToDoApp.Infrastructure
                 .WithOne(n => n.User)
                 .HasForeignKey(n => n.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username);
 
 
 
