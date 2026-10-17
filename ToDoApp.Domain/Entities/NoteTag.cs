@@ -5,6 +5,11 @@
         private NoteTag() { } // Private constructor for EF Core
         public NoteTag(int noteId, int tagId)
         {
+            if (noteId <= 0)
+                throw new ArgumentException("NoteId must be greater than zero.", nameof(noteId));
+            if (tagId <= 0)
+                throw new ArgumentException("TagId must be greater than zero.", nameof(tagId));
+
             this.NoteId = noteId;
             this.TagId = tagId;
         }

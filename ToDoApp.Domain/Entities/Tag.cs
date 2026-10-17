@@ -6,6 +6,11 @@
 
         public Tag(string name, int ownerId)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Tag name cannot be null, empty or whitespace.", nameof(name));
+            if (ownerId <= 0)
+                throw new ArgumentException("OwnerId must be a positive integer.", nameof(ownerId));
+
             this.Name = name;
             this.OwnerId = ownerId;
         }

@@ -5,6 +5,17 @@
         private Note() { } // Private constructor for EF Core
         public Note(string title, string content, bool isDone, int userId)
         {
+            if (string.IsNullOrEmpty(title))
+                throw new ArgumentException("Title cannot be null or empty.", nameof(title));
+            if (userId <= 0)
+                throw new ArgumentException("UserId must be a positive integer.", nameof(userId));
+            if (string.IsNullOrEmpty(content))
+                throw new ArgumentNullException(nameof(content), "Content cannot be null or empty.");
+            if (isDone != true && isDone != false)
+                throw new ArgumentException("IsDone must be a boolean value.", nameof(isDone));
+            if (userId <= 0)
+                throw new ArgumentException("UserId must be a positive integer.", nameof(userId));
+
             Title = title;
             Content = content;
             IsDone = isDone;
