@@ -37,6 +37,10 @@ This project was designed as a scalable backend foundation for a notes / task ma
 * Get all notes of authenticated user by tag
 * Detach tags from notes
 * Multiple tags can be attached to a single note
+* Note visibility authorization based on account visibility settings
+* Access to public notes, private notes, and notes of friends
+* Friendship-based access control using accepted friendships
+* Filtering notes based on the authenticated user's permissions
 
 ## 📝 Tags System
 
@@ -61,6 +65,8 @@ This project was designed as a scalable backend foundation for a notes / task ma
 * Get info about current authenticated user
 * Get all users
 * Get user by ID
+* User account visibility settings (`Public`, `Private`, `OnlyForFriends`)
+* Change account visibility
 
 ## 🤝 Friendship System
 
@@ -85,6 +91,10 @@ The project includes a dedicated unit testing suite built with **xUnit**, **Flue
 * Note retrieval by tag
 * Note updating
 * Note deletion
+* Account visibility changes
+* Note visibility authorization
+* Access control based on friendship status
+* Filtering notes by visibility permissions
 * Tag creation
 * Tag retrieval
 * Tag updating
@@ -173,6 +183,8 @@ Contains:
 * DTOs
 * Repository Interfaces
 * Authorization Services
+* Friendship-aware authorization
+* Visibility-based access control
 * Validation
 * Result/Error abstractions
 
@@ -202,6 +214,8 @@ Contains:
 * Middleware configuration
 * Swagger
 * HTTP concerns
+* Centralized JWT claims access
+* Rate limiting configuration
 
 ---
 
@@ -215,6 +229,7 @@ ToDoApp.Application.Tests
 ├── Users
 │   ├── CreateUserHandlerTests
 │   ├── LoginUserHandlerTests
+│   ├── ChangeUserVisibilityHandlerTests
 │   └── DeleteMyAccountHandlerTests
 │
 ├── Notes
@@ -222,6 +237,7 @@ ToDoApp.Application.Tests
 │   ├── GetNoteHandlerTests
 │   ├── GetNotesHandlerTests
 │   ├── GetUserNotesByTagHandlerTests
+│   ├── NotesAuthorizationServiceTests
 │   ├── UpdateNoteHandlerTests
 │   ├── DeleteNoteHandlerTests
 │   ├── AttachTagToNoteHandlerTests
@@ -455,6 +471,9 @@ The application uses:
 * Argon2 password hashing
 * JWT validation
 * Centralized exception handling
+* Centralized user ID extraction from JWT claims
+* Rate limiting to restrict excessive requests
+* Friendship-aware authorization for protected notes
 
 ---
 
