@@ -16,13 +16,13 @@ namespace ToDoApp.WebApi.Extensions
                     ErrorType.Validation => Results.BadRequest(result.Error),
                     ErrorType.NotFound => Results.NotFound(result.Error),
                     ErrorType.Unauthorized => Results.Unauthorized(),
-                    ErrorType.Forbidden => Results.Json(result.Error, statusCode: 403),
+                    ErrorType.Forbidden => Results.Json(result.Error, statusCode: StatusCodes.Status403Forbidden),
                     ErrorType.Conflict => Results.Conflict(result.Error),
                     ErrorType.InternalServerError => Results.Problem(
                                                         detail: result.Error.Description,
-                                                        statusCode: 500),
+                                                        statusCode: StatusCodes.Status500InternalServerError),
 
-                    _ => Results.Problem(detail: result.Error.Description, statusCode: 500)
+                    _ => Results.Problem(detail: result.Error.Description, statusCode: StatusCodes.Status500InternalServerError)
                 };
             }
         }
