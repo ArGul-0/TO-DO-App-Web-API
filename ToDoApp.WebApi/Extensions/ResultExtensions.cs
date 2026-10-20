@@ -27,12 +27,15 @@ namespace ToDoApp.WebApi.Extensions
             }
         }
 
-        public static IResult ToHttpResult<T>(this ResultT<T> result)
+        extension<T>(ResultT<T> result)
         {
-            if (result.IsSuccess)
-                return Results.Ok(result.Value);
+            public IResult ToHttpResult()
+            {
+                if (result.IsSuccess)
+                    return Results.Ok(result.Value);
 
-            return ((Result)result).ToHttpResult();
+                return ((Result)result).ToHttpResult();
+            }
         }
     }
 }
