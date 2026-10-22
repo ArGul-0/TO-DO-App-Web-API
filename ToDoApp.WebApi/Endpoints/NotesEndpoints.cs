@@ -28,7 +28,7 @@ namespace ToDoApp.WebApi.Endpoints
 
         public static RouteGroupBuilder MapNotesEndpoints(this WebApplication app)
         {
-            var notesGroup = app.MapGroup("/Notes"); // Create A Group For /Notes Endpoints
+            var notesGroup = app.MapGroup("/Notes").WithTags("Notes"); // Create A Group For /Notes Endpoints
 
             notesGroup.MapGet("/", async (GetAllNotesHandler handler, HttpContext context) =>
             {

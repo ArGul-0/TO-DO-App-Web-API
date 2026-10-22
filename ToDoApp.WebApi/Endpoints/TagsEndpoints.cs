@@ -20,7 +20,7 @@ namespace ToDoApp.WebApi.Endpoints
 
         public static RouteGroupBuilder MapTagsEndpoints(this WebApplication app)
         {
-            var tagsGroup = app.MapGroup("/Tags"); // Create A Group For /Tags Endpoints
+            var tagsGroup = app.MapGroup("/Tags").WithTags("Tags"); // Create A Group For /Tags Endpoints
 
 
             tagsGroup.MapGet("/Me", async (GetAllMyTagsHandler handler, HttpContext context) =>

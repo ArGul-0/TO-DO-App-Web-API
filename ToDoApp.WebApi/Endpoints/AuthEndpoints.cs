@@ -14,7 +14,7 @@ namespace ToDoApp.WebApi.Endpoints
 
         public static RouteGroupBuilder MapAuthEndpoints(this WebApplication app)
         {
-            var authGroup = app.MapGroup("/Auth"); // Create A Group For /Auth Endpoints
+            var authGroup = app.MapGroup("/Auth").WithTags("Auth"); // Create A Group For /Auth Endpoints
 
 
 

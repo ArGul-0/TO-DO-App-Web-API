@@ -21,7 +21,7 @@ namespace ToDoApp.WebApi.Endpoints
 
         public static RouteGroupBuilder MapUsersEndpoints(this WebApplication app)
         {
-            var usersGroup = app.MapGroup("/Users"); // Create A Group For /Users Endpoints
+            var usersGroup = app.MapGroup("/Users").WithTags("Users"); // Create A Group For /Users Endpoints
 
             usersGroup.MapGet("/", async (GetAllUsersHandler handler) =>
             {
