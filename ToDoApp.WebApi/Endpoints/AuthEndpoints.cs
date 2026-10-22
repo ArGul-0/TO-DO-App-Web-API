@@ -1,4 +1,5 @@
-﻿using ToDoApp.Application.UseCases.Users.CreateUser;
+﻿using ToDoApp.Application.Common;
+using ToDoApp.Application.UseCases.Users.CreateUser;
 using ToDoApp.Application.UseCases.Users.LoginUser;
 using ToDoApp.WebApi.Extensions;
 
@@ -43,7 +44,9 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(RegisterEndpointName)
               .WithSummary("Register a new user and issue an authentication cookie.")
-              .RequireRateLimiting("AuthLimit");
+              .RequireRateLimiting("AuthLimit")
+              .Produces<CreateUserResponse>(StatusCodes.Status200OK)
+              .ProducesResultErrors(ErrorType.Conflict);
 
             authGroup.MapPost("/Login", async (
                 LoginUserRequest request,
