@@ -2,6 +2,7 @@
 using ToDoApp.Application.UseCases.Users.CreateUser;
 using ToDoApp.Application.UseCases.Users.LoginUser;
 using ToDoApp.WebApi.Extensions;
+using ToDoApp.WebApi.Middlewares;
 
 namespace ToDoApp.WebApi.Endpoints
 {
@@ -46,6 +47,9 @@ namespace ToDoApp.WebApi.Endpoints
               .WithSummary("Register a new user and issue an authentication cookie.")
               .RequireRateLimiting("AuthLimit")
               .Produces<CreateUserResponse>(StatusCodes.Status200OK)
+              .ProducesValidationProblem()
+              .Produces(StatusCodes.Status429TooManyRequests)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
               .ProducesResultErrors(ErrorType.Conflict);
 
             authGroup.MapPost("/Login", async (
@@ -74,7 +78,12 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(LoginEndpointName)
               .WithSummary("Authenticate a user and issue an authentication cookie.")
-              .RequireRateLimiting("AuthLimit");
+              .RequireRateLimiting("AuthLimit")
+              .Produces<LoginUserResponse>(StatusCodes.Status200OK)
+              .ProducesValidationProblem()
+              .Produces(StatusCodes.Status429TooManyRequests)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Unauthorized);
 
             authGroup.MapPost("/Logout", async (
                 HttpContext httpContext,
@@ -84,7 +93,9 @@ namespace ToDoApp.WebApi.Endpoints
                 
                 return Results.Ok();
             }).WithName(LogoutEndpointName)
-              .WithSummary("Log out the current user by deleting the authentication cookie.");
+              .WithSummary("Log out the current user by deleting the authentication cookie.")
+              .Produces(StatusCodes.Status200OK)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError);
 
             return authGroup;
         }

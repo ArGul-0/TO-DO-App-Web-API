@@ -29,14 +29,14 @@
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
 
-                var response = new
-                {
-                    error = "InternalServerError",
-                    message = "Something went wrong"
-                };
+                var response = new UnhandledExceptionResponse(
+                    "InternalServerError",
+                    "Something went wrong");
 
                 await context.Response.WriteAsJsonAsync(response);
             }
         }
     }
+
+    public sealed record UnhandledExceptionResponse(string Error, string Message);
 }

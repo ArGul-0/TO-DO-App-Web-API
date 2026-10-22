@@ -1,10 +1,13 @@
 ﻿using System.Security.Claims;
+using ToDoApp.Application.Common;
+using ToDoApp.Application.DTOs;
 using ToDoApp.Application.UseCases.Users.ChangeUserVisibility;
 using ToDoApp.Application.UseCases.Users.DeleteMyAccount;
 using ToDoApp.Application.UseCases.Users.GetAllUsers;
 using ToDoApp.Application.UseCases.Users.GetCurrentUser;
 using ToDoApp.Application.UseCases.Users.GetUserById;
 using ToDoApp.WebApi.Extensions;
+using ToDoApp.WebApi.Middlewares;
 
 namespace ToDoApp.WebApi.Endpoints
 {
@@ -29,7 +32,9 @@ namespace ToDoApp.WebApi.Endpoints
 
                 return Results.Ok(result.Value);
             }).WithName(GetAllUsersEndpointName)
-              .WithSummary("Get all users.");
+              .WithSummary("Get all users.")
+              .Produces<GetAllUsersResponse>(StatusCodes.Status200OK)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError);
 
             usersGroup.MapGet("/{id}", async (GetUserByIdHandler handler, int id) =>
             {
@@ -40,7 +45,10 @@ namespace ToDoApp.WebApi.Endpoints
 
                 return Results.Ok(result.Value);
             }).WithName(GetUserByIdEndpointName)
-              .WithSummary("Get a user by ID.");
+              .WithSummary("Get a user by ID.")
+              .Produces<UserDto>(StatusCodes.Status200OK)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound);
 
             usersGroup.MapGet("/Me", async (GetCurrentUserHandler handler, HttpContext context) =>
             {
@@ -54,7 +62,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetCurrentUserEndpointName)
               .WithSummary("Get the current user's profile.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces<UserDto>(StatusCodes.Status200OK)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound);
 
             usersGroup.MapPost("/Me/ChangeUserVisibility", async (ChangeUserVisibilityRequest request, ChangeUserVisibilityHandler handler, HttpContext context) =>
             {
@@ -69,7 +81,12 @@ namespace ToDoApp.WebApi.Endpoints
 
             }).WithName(ChangeUserVisibilityEndpointName)
               .WithSummary("Change the visibility setting for the current user's profile.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces(StatusCodes.Status200OK)
+              .ProducesValidationProblem()
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound);
 
             usersGroup.MapDelete("/Me", async (DeleteMyAccountHandler handler, IConfiguration configuration, HttpContext context) =>
             {
@@ -85,7 +102,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok();
             }).WithName(DeleteMyAccountEndpointName)
               .WithSummary("Delete the current user's account and clear the authentication cookie.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces(StatusCodes.Status200OK)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound);
 
             return usersGroup;
         }

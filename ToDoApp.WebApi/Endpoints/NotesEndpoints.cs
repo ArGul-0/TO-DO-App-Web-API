@@ -1,4 +1,6 @@
-﻿using ToDoApp.Application.UseCases.Notes.AttachTagToNote;
+﻿using ToDoApp.Application.Common;
+using ToDoApp.Application.DTOs;
+using ToDoApp.Application.UseCases.Notes.AttachTagToNote;
 using ToDoApp.Application.UseCases.Notes.CreateNewNote;
 using ToDoApp.Application.UseCases.Notes.DeleteUserNote;
 using ToDoApp.Application.UseCases.Notes.DetachTagFromNote;
@@ -8,6 +10,7 @@ using ToDoApp.Application.UseCases.Notes.GetNoteById;
 using ToDoApp.Application.UseCases.Notes.GetUserNotesByTag;
 using ToDoApp.Application.UseCases.Notes.UpdateUserNote;
 using ToDoApp.WebApi.Extensions;
+using ToDoApp.WebApi.Middlewares;
 
 namespace ToDoApp.WebApi.Endpoints
 {
@@ -39,13 +42,17 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetAllNotesEndpointName)
               .WithSummary("Get notes visible to the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces<List<NoteDto>>(StatusCodes.Status200OK)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound);
 
-            notesGroup.MapGet("/{id}", async (int id, GetNoteByIdHandler handler, HttpContext context) =>
+            notesGroup.MapGet("/{noteId}", async (int noteId, GetNoteByIdHandler handler, HttpContext context) =>
             {
                 var userId = context.User.GetUserId();
 
-                var result = await handler.Handle(id, userId);
+                var result = await handler.Handle(noteId, userId);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
@@ -53,7 +60,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetNoteByIdEndpointName)
               .WithSummary("Get a note by ID if it is visible to the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces<NoteDto>(StatusCodes.Status200OK)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Forbidden);
 
             notesGroup.MapGet("/Me", async (GetAllUserNotesHandler handler, HttpContext context) =>
             {
@@ -67,7 +78,10 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetAllUserNotesEndpointName)
               .WithSummary("Get all notes created by the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces<List<NoteDto>>(StatusCodes.Status200OK)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError);
 
             notesGroup.MapGet("/Me/Tags/{tagId}", async (int tagId, GetUserNotesByTagHandler handler, HttpContext context) =>
             {
@@ -81,7 +95,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetUserNotesByTagEndpointName)
               .WithSummary("Get the current user's notes associated with a tag.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces<List<NoteDto>>(StatusCodes.Status200OK)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Forbidden);
 
             notesGroup.MapPost("/", async (CreateNewNoteRequest request, CreateNewNoteHandler handler, HttpContext context) =>
             {
@@ -92,10 +110,15 @@ namespace ToDoApp.WebApi.Endpoints
                 if (result.IsFailure)
                     return result.ToHttpResult();
 
-                return Results.CreatedAtRoute(GetNoteByIdEndpointName, new { id = result.Value.Id }, result.Value);
+                return Results.CreatedAtRoute(GetNoteByIdEndpointName, new { noteId = result.Value.Id }, result.Value);
             }).WithName(CreateNewNoteEndpointName)
               .WithSummary("Create a note for the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces<NoteDto>(StatusCodes.Status201Created)
+              .ProducesValidationProblem()
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound);
 
             notesGroup.MapPut("/{noteId}", async (int noteId, UpdateUserNoteRequest request, UpdateUserNoteHandler handler, HttpContext context) =>
             {
@@ -109,7 +132,12 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.NoContent();
             }).WithName(UpdateUserNoteEndpointName)
               .WithSummary("Update a note owned by the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces(StatusCodes.Status204NoContent)
+              .ProducesValidationProblem()
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Forbidden);
 
             notesGroup.MapDelete("/{noteId}", async (int noteId, DeleteUserNoteHandler handler, HttpContext context) =>
             {
@@ -123,7 +151,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.NoContent();
             }).WithName(DeleteUserNoteEndpointName)
               .WithSummary("Delete a note owned by the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces(StatusCodes.Status204NoContent)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Forbidden);
 
             notesGroup.MapPost("/{noteId}/Tags/{tagId}", async ( int noteId, int tagId, AttachTagToNoteHandler handler, HttpContext context) =>
             {
@@ -137,7 +169,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.NoContent();
             }).WithName(AttachTagToNoteEndpointName)
               .WithSummary("Attach a tag to a note owned by the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces(StatusCodes.Status204NoContent)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Forbidden, ErrorType.Conflict);
 
             notesGroup.MapDelete("/{noteId}/Tags/{tagId}", async (int noteId, int tagId, DetachTagFromNoteHandler handler, HttpContext context) =>
             {
@@ -151,7 +187,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.NoContent();
             }).WithName(DetachTagFromNoteEndpointName)
               .WithSummary("Remove a tag from a note owned by the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces(StatusCodes.Status204NoContent)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Forbidden);
 
             return notesGroup;
         }

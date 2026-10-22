@@ -80,7 +80,9 @@ namespace ToDoApp.WebApi
 
             app.MapGet("/health", async () => Results.Ok("Healthy"))
                 .WithName("HealthCheck")
-                .WithSummary("Check whether the API is healthy."); // Health Check Endpoint
+                .WithSummary("Check whether the API is healthy.")
+                .Produces<string>(StatusCodes.Status200OK)
+                .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError); // Health Check Endpoint
 
             app.Run();
         }

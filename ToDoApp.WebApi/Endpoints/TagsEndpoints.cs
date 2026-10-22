@@ -1,9 +1,12 @@
-﻿using ToDoApp.Application.UseCases.Tags.CreateNewTag;
+﻿using ToDoApp.Application.Common;
+using ToDoApp.Application.DTOs;
+using ToDoApp.Application.UseCases.Tags.CreateNewTag;
 using ToDoApp.Application.UseCases.Tags.DeleteUserTag;
 using ToDoApp.Application.UseCases.Tags.GetAllMyTags;
 using ToDoApp.Application.UseCases.Tags.GetMyTagById;
 using ToDoApp.Application.UseCases.Tags.UpdateUserTag;
 using ToDoApp.WebApi.Extensions;
+using ToDoApp.WebApi.Middlewares;
 
 namespace ToDoApp.WebApi.Endpoints
 {
@@ -32,7 +35,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetAllMyTagsEndpointName)
               .WithSummary("Get all tags belonging to the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces<List<TagDto>>(StatusCodes.Status200OK)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound);
 
             tagsGroup.MapGet("/Me/{id}", async (int id, GetMyTagByIdHandler handler, HttpContext context) =>
             {
@@ -46,7 +53,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetMyTagByIdEndpointName)
               .WithSummary("Get a tag by ID belonging to the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces<TagDto>(StatusCodes.Status200OK)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Forbidden);
 
             tagsGroup.MapPost("/", async (CreateNewTagRequest request, CreateNewTagHandler handler, HttpContext context) =>
             {
@@ -60,7 +71,12 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.CreatedAtRoute(GetMyTagByIdEndpointName, new { id = result.Value.Id }, result.Value);
             }).WithName(CreateNewTagEndpointName)
               .WithSummary("Create a tag for the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces<TagDto>(StatusCodes.Status201Created)
+              .ProducesValidationProblem()
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound);
 
             tagsGroup.MapPut("/{tagId}", async (int tagId, UpdateUserTagRequest request, UpdateUserTagHandler handler, HttpContext context) =>
             {
@@ -74,7 +90,12 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.NoContent();
             }).WithName(UpdateUserTagEndpointName)
               .WithSummary("Update a tag belonging to the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces(StatusCodes.Status204NoContent)
+              .ProducesValidationProblem()
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Forbidden);
 
             tagsGroup.MapDelete("/{tagId}", async (int tagId, DeleteUserTagHandler handler, HttpContext context) =>
             {
@@ -88,7 +109,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.NoContent();
             }).WithName(DeleteUserTagEndpointName)
               .WithSummary("Delete a tag belonging to the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces(StatusCodes.Status204NoContent)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Forbidden);
 
             return tagsGroup;
         }

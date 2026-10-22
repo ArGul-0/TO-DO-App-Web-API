@@ -1,10 +1,13 @@
-﻿using ToDoApp.Application.UseCases.Friends.AcceptFriendRequest;
+﻿using ToDoApp.Application.Common;
+using ToDoApp.Application.DTOs;
+using ToDoApp.Application.UseCases.Friends.AcceptFriendRequest;
 using ToDoApp.Application.UseCases.Friends.GetAllMyFriendships;
 using ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests;
 using ToDoApp.Application.UseCases.Friends.RejectFriendRequest;
 using ToDoApp.Application.UseCases.Friends.RemoveFriendship;
 using ToDoApp.Application.UseCases.Friends.SendFriendRequest;
 using ToDoApp.WebApi.Extensions;
+using ToDoApp.WebApi.Middlewares;
 
 namespace ToDoApp.WebApi.Endpoints
 {
@@ -33,7 +36,10 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetAllMyFriendsEndpointName)
               .WithSummary("Get all friendships for the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces<List<FriendshipDto>>(StatusCodes.Status200OK)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError);
 
             friendsGroup.MapGet("/Incoming", async (GetIncomingFriendshipRequestsHandler handler, HttpContext context) =>
             {
@@ -47,7 +53,10 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok(result.Value);
             }).WithName(GetIncomingFriendshipRequestsEndpointName)
               .WithSummary("Get incoming friendship requests for the current user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces<List<FriendshipDto>>(StatusCodes.Status200OK)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError);
 
             friendsGroup.MapPost("/Requests/{friendId}", async (int friendId, SendFriendshipRequestHandler handler, HttpContext context) =>
             {
@@ -61,7 +70,11 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Created();
             }).WithName(SendFriendRequestEndpointName)
               .WithSummary("Send a friendship request to the specified user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces(StatusCodes.Status201Created)
+              .Produces(StatusCodes.Status401Unauthorized)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Conflict);
 
             friendsGroup.MapPost("/Requests/{friendId}/Accept", async (int friendId, AcceptFriendshipRequestHandler handler, HttpContext context) =>
             {
@@ -75,7 +88,10 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok();
             }).WithName(AcceptFriendRequestEndpointName)
               .WithSummary("Accept the friendship request from the specified user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces(StatusCodes.Status200OK)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Unauthorized);
 
             friendsGroup.MapPost("/Requests/{friendId}/Reject", async (int friendId, RejectFriendshipRequestHandler handler, HttpContext context) =>
             {
@@ -89,7 +105,10 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.Ok();
             }).WithName(RejectFriendRequestEndpointName)
               .WithSummary("Reject the friendship request from the specified user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces(StatusCodes.Status200OK)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Unauthorized);
 
             friendsGroup.MapDelete("/{friendId}", async (int friendId, DeleteFriendship handler, HttpContext context) =>
             {
@@ -103,7 +122,10 @@ namespace ToDoApp.WebApi.Endpoints
                 return Results.NoContent();
             }).WithName(RemoveFriendshipEndpointName)
               .WithSummary("Remove the friendship with the specified user.")
-              .RequireAuthorization();
+              .RequireAuthorization()
+              .Produces(StatusCodes.Status204NoContent)
+              .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
+              .ProducesResultErrors(ErrorType.NotFound, ErrorType.Conflict, ErrorType.Unauthorized);
 
             return friendsGroup;
         }
