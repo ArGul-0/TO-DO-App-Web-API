@@ -2,6 +2,7 @@
 using Moq;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.Security.Notes;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.Enums;
 using ToDoApp.Domain.ValueObjects;
@@ -18,7 +19,7 @@ namespace ToDoApp.Application.Tests.Security.Notes
 
             var notesAuthorizationService = new NotesAuthorizationService(friendshipRepository.Object);
 
-            var user = new User("John Doe", new Email("john@example.com"), "Example of hashed password");
+            var user = UserTestFactory.Create(id: 1);
 
             user.ChangeAccountVisibility(AccountVisibility.Private);
 

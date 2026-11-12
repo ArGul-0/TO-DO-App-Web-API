@@ -4,6 +4,7 @@ using Moq;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.Security.Notes;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Application.UseCases.Notes;
 using ToDoApp.Application.UseCases.Notes.AttachTagToNote;
 using ToDoApp.Application.UseCases.Notes.DetachTagFromNote;
@@ -247,11 +248,7 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<AttachTagToNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = new User(
-                "John Doe",
-                new Email("john.doe@example.com"),
-                "Example of hashed password"
-            );
+            var user = UserTestFactory.Create(id: 1);
 
             userRepository.Setup(repo => repo.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync((User?)user);
@@ -268,7 +265,7 @@ namespace ToDoApp.Application.Tests.Notes
 
             var tag = new Tag(
                 "Test Tag",
-                ownerId: 0
+                ownerId: 2
             );
 
             tagRepository.Setup(repo => repo.GetTagByIdAsync(It.IsAny<int>()))
@@ -316,11 +313,7 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<AttachTagToNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = new User(
-                "John Doe",
-                new Email("john.doe@example.com"),
-                "Example of hashed password"
-            );
+            var user = UserTestFactory.Create(id: 1);
 
             userRepository.Setup(repo => repo.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync((User?)user);
@@ -392,11 +385,7 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<AttachTagToNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = new User(
-                "John Doe",
-                new Email("john.doe@example.com"),
-                "Example of hashed password"
-            );
+            var user = UserTestFactory.Create(id: 1);
 
             userRepository.Setup(repo => repo.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync((User?)user);

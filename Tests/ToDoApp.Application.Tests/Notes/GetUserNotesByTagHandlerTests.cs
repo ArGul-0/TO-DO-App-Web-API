@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using ToDoApp.Application.Interfaces.Repositories;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Application.UseCases.Notes.GetUserNotesByTag;
 using ToDoApp.Application.UseCases.Tags;
 using ToDoApp.Application.UseCases.Users;
@@ -128,11 +129,7 @@ namespace ToDoApp.Application.Tests.Notes
             var noteRepository = new Mock<INoteRepository>();
             var logger = new Mock<ILogger<GetUserNotesByTagHandler>>();
 
-            var user = new User(
-                "John Doe",
-                new Email("john.doe@example.com"),
-                "Example of hashed password"
-            );
+            var user = UserTestFactory.Create(id: 1);
 
             var tag = new Tag("Test Tag", user.Id);
 

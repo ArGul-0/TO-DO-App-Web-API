@@ -4,6 +4,7 @@ using Moq;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Application.UseCases.Tags.CreateNewTag;
 using ToDoApp.Application.UseCases.Users;
 using ToDoApp.Domain.Entities;
@@ -56,11 +57,7 @@ namespace ToDoApp.Application.Tests.Tags
             var unitOfWork = new Mock<IUnitOfWork>();
             var logger = new Mock<ILogger<CreateNewTagHandler>>();
 
-            var user = new User(
-                "John Doe",
-                new Email("john.doe@example.com"),
-                "Example of hashed password"
-            );
+            var user = UserTestFactory.Create(id: 1);
 
             userRepository.Setup(r => r.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(user);
