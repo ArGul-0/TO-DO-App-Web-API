@@ -11,10 +11,12 @@ namespace ToDoApp.Application.Tests.Common.Factories
             string password = "Example of hashed password",
             int id = 1)
         {
-            var user = new User(
-                username,
-                new Email(email),
-                password);
+            return Create(username, new Email(email), password, id);
+        }
+
+        public static User Create(string username, Email email, string password, int id = 0)
+        {
+            var user = new User(username, email, password);
 
             typeof(User)
                 .GetProperty(nameof(User.Id))!

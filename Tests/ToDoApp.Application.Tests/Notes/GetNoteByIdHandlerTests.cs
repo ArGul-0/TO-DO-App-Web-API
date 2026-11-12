@@ -5,6 +5,7 @@ using ToDoApp.Application.Security.Notes;
 using ToDoApp.Application.UseCases.Notes.GetNoteById;
 using ToDoApp.Application.UseCases.Notes;
 using ToDoApp.Application.UseCases.Users;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.ValueObjects;
 
@@ -41,7 +42,7 @@ namespace ToDoApp.Application.Tests.Notes
             var userRepository = new Mock<IUserRepository>();
             var notesAuth = new Mock<INotesAuthorizationService>();
 
-            var user = new User("John", new Email("john@example.com"), "pwd");
+            var user = UserTestFactory.Create("John", new Email("john@example.com"), "pwd");
             userRepository.Setup(r => r.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(user);
 
@@ -66,7 +67,7 @@ namespace ToDoApp.Application.Tests.Notes
             var userRepository = new Mock<IUserRepository>();
             var notesAuth = new Mock<INotesAuthorizationService>();
 
-            var user = new User("John", new Email("john@example.com"), "Example of hashed password");
+            var user = UserTestFactory.Create("John", new Email("john@example.com"), "Example of hashed password");
             var note = new Note("Test Note", "This is a test note", false, userId: 2);
 
             userRepository.Setup(r => r.GetUserByIdAsync(It.IsAny<int>()))
@@ -95,7 +96,7 @@ namespace ToDoApp.Application.Tests.Notes
             var userRepository = new Mock<IUserRepository>();
             var notesAuth = new Mock<INotesAuthorizationService>();
 
-            var user = new User("John", new Email("john@example.com"), "Example of hashed password");
+            var user = UserTestFactory.Create("John", new Email("john@example.com"), "Example of hashed password");
             var note = new Note("Test Note", "This is a test note", true, userId: 1);
 
             userRepository.Setup(r => r.GetUserByIdAsync(It.IsAny<int>()))

@@ -3,6 +3,7 @@ using Moq;
 using System.Reflection;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.UseCases.Friends.GetAllMyFriendships;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.ValueObjects;
 
@@ -19,8 +20,8 @@ namespace ToDoApp.Application.Tests
             var f1 = new Friendship(1, 2);
             var f2 = new Friendship(3, 1);
 
-            var user1 = new User("John Doe", new Email("john.doe@example.com"), "Example of hashed password");
-            var user2 = new User("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password");
+            var user1 = UserTestFactory.Create("John Doe", new Email("john.doe@example.com"), "Example of hashed password");
+            var user2 = UserTestFactory.Create("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password");
 
             // set related users so mapping can access usernames
             typeof(Friendship).GetProperty("Requester", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)!

@@ -7,6 +7,7 @@ using ToDoApp.Application.Security.Notes;
 using ToDoApp.Application.UseCases.Notes;
 using ToDoApp.Application.UseCases.Notes.DetachTagFromNote;
 using ToDoApp.Application.UseCases.Users;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.ValueObjects;
 
@@ -64,7 +65,7 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<DetachTagFromNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"
@@ -116,7 +117,7 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<DetachTagFromNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"
@@ -181,7 +182,7 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<DetachTagFromNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"
@@ -241,7 +242,7 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<DetachTagFromNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"
@@ -308,7 +309,7 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<DetachTagFromNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"

@@ -4,6 +4,7 @@ using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.Security.Notes;
 using ToDoApp.Application.UseCases.Notes.GetAllNotes;
 using ToDoApp.Application.UseCases.Users;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.ValueObjects;
 
@@ -49,7 +50,7 @@ namespace ToDoApp.Application.Tests.Notes
             notesRepository.Setup(r => r.GetAllNotesWithOwnersAsync())
                 .ReturnsAsync(new List<Note> { note1, note2 });
 
-            var user = new User("John", new Email("john@example.com"), "Example of hashed password");
+            var user = UserTestFactory.Create("John", new Email("john@example.com"), "Example of hashed password");
             userRepository.Setup(r => r.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(user);
 

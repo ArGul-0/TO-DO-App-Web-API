@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using ToDoApp.Application.Common.Mappings;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.UseCases.Users.LoginUser;
@@ -21,7 +22,7 @@ namespace ToDoApp.Application.Tests.Users
             var passwordHasher = new Mock<IPasswordHasher>();
             var logger = new Mock<ILogger<LoginUserHandler>>();
 
-            var existedUser = new User(
+            var existedUser = UserTestFactory.Create(
                 "John Doe",
                 new Email("john@example.com"),
                 "Example of hashed password"
@@ -110,7 +111,7 @@ namespace ToDoApp.Application.Tests.Users
             var passwordHasher = new Mock<IPasswordHasher>();
             var logger = new Mock<ILogger<LoginUserHandler>>();
 
-            var existedUser = new User(
+            var existedUser = UserTestFactory.Create(
                 "John Doe",
                 new Email("john@example.com"),
                 "Example of hashed password"

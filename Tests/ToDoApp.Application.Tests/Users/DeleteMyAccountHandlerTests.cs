@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Application.UseCases.Users;
 using ToDoApp.Application.UseCases.Users.DeleteMyAccount;
 using ToDoApp.Domain.Entities;
@@ -67,7 +68,7 @@ namespace ToDoApp.Application.Tests.Users
             var unitOfWork = new Mock<IUnitOfWork>();
             var logger = new Mock<ILogger<DeleteMyAccountHandler>>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john@example.com"),
                 "Example of hashed password"
@@ -119,7 +120,7 @@ namespace ToDoApp.Application.Tests.Users
             var unitOfWork = new Mock<IUnitOfWork>();
             var logger = new Mock<ILogger<DeleteMyAccountHandler>>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john@example.com"),
                 "Example of hashed password"

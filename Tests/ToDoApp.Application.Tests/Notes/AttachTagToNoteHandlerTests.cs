@@ -75,7 +75,7 @@ namespace ToDoApp.Application.Tests.Notes
             noteRepository.Setup(repo => repo.GetNoteByIdWithTrackingIncludeNoteTagsAsync(It.IsAny<int>()))
                 .ReturnsAsync((Note?)null);
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"
@@ -123,7 +123,7 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<AttachTagToNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"
@@ -184,7 +184,7 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<AttachTagToNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"
@@ -248,7 +248,11 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<AttachTagToNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = UserTestFactory.Create(id: 1);
+            var user = UserTestFactory.Create(
+                username: "John Doe",
+                email: "john.doe@example.com",
+                password: "Example of hashed password",
+                id: 1);
 
             userRepository.Setup(repo => repo.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync((User?)user);
@@ -313,7 +317,11 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<AttachTagToNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = UserTestFactory.Create(id: 1);
+            var user = UserTestFactory.Create(
+                username: "John Doe",
+                email: "john.doe@example.com",
+                password: "Example of hashed password",
+                id: 1);
 
             userRepository.Setup(repo => repo.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync((User?)user);
@@ -385,7 +393,11 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<AttachTagToNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = UserTestFactory.Create(id: 1);
+            var user = UserTestFactory.Create(
+                username: "John Doe",
+                email: "john.doe@example.com",
+                password: "Example of hashed password",
+                id: 1);
 
             userRepository.Setup(repo => repo.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync((User?)user);

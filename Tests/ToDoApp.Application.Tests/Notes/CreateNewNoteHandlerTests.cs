@@ -56,7 +56,11 @@ namespace ToDoApp.Application.Tests.Notes
             var logger = new Mock<ILogger<CreateNewNoteHandler>>();
             var unitOfWork = new Mock<IUnitOfWork>();
 
-            var user = UserTestFactory.Create(id: 1);
+            var user = UserTestFactory.Create(
+                username: "John Doe",
+                email: "john.doe@example.com",
+                password: "Example of hashed password",
+                id: 1);
 
             userRepository.Setup(repo => repo.GetUserWithNotesAsync(It.IsAny<int>()))
                 .ReturnsAsync(user);

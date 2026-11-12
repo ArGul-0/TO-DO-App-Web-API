@@ -5,6 +5,7 @@ using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.UseCases.Friends;
 using ToDoApp.Application.UseCases.Friends.SendFriendRequest;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Application.UseCases.Users;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.ValueObjects;
@@ -80,7 +81,7 @@ namespace ToDoApp.Application.Tests
             var logger = new Mock<ILogger<SendFriendshipRequestHandler>>();
 
             userRepo.SetupSequence(r => r.GetUserByIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(new User("John Doe", new Email("john.doe@example.com"), "Example of hashed password"))
+                .ReturnsAsync(UserTestFactory.Create("John Doe", new Email("john.doe@example.com"), "Example of hashed password"))
                 .ReturnsAsync((User?)null);
 
             var handler = new SendFriendshipRequestHandler(
@@ -111,7 +112,7 @@ namespace ToDoApp.Application.Tests
             var logger = new Mock<ILogger<SendFriendshipRequestHandler>>();
 
             userRepo.Setup(r => r.GetUserByIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(new User("John Doe", new Email("john.doe@example.com"), "Example of hashed password"));
+                .ReturnsAsync(UserTestFactory.Create("John Doe", new Email("john.doe@example.com"), "Example of hashed password"));
 
             friendshipRepo.Setup(r => r.FriendshipExistsAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(true);
@@ -144,7 +145,7 @@ namespace ToDoApp.Application.Tests
             var logger = new Mock<ILogger<SendFriendshipRequestHandler>>();
 
             userRepo.Setup(r => r.GetUserByIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(new User("John Doe", new Email("john.doe@example.com"), "Example of hashed password"));
+                .ReturnsAsync(UserTestFactory.Create("John Doe", new Email("john.doe@example.com"), "Example of hashed password"));
 
             friendshipRepo.Setup(r => r.FriendshipExistsAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(false);

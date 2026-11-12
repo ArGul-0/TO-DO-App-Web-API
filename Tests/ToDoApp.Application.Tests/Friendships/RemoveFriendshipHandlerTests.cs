@@ -4,6 +4,7 @@ using Moq;
 using System.Reflection;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Application.UseCases.Friends;
 using ToDoApp.Application.UseCases.Friends.RemoveFriendship;
 using ToDoApp.Domain.Entities;
@@ -104,8 +105,8 @@ namespace ToDoApp.Application.Tests
             var friendship = new Friendship(1, 2);
             friendship.Accept();
 
-            var addressee = new User("John Doe", new Email("a@b.com"), "Example of hashed password");
-            var requester = new User("Jane Smith", new Email("b@c.com"), "Example of hashed password");
+            var addressee = UserTestFactory.Create("John Doe", new Email("a@b.com"), "Example of hashed password");
+            var requester = UserTestFactory.Create("Jane Smith", new Email("b@c.com"), "Example of hashed password");
 
             typeof(Friendship).GetProperty("Addressee", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)!
                 .SetValue(friendship, addressee);

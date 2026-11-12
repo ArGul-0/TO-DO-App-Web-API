@@ -6,6 +6,7 @@ using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.UseCases.Tags;
 using ToDoApp.Application.UseCases.Tags.DeleteUserTag;
 using ToDoApp.Application.UseCases.Users;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.ValueObjects;
 
@@ -53,7 +54,7 @@ namespace ToDoApp.Application.Tests.Tags
             var unitOfWork = new Mock<IUnitOfWork>();
             var logger = new Mock<ILogger<DeleteUserTagHandler>>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"
@@ -92,7 +93,7 @@ namespace ToDoApp.Application.Tests.Tags
             var unitOfWork = new Mock<IUnitOfWork>();
             var logger = new Mock<ILogger<DeleteUserTagHandler>>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"
@@ -136,7 +137,7 @@ namespace ToDoApp.Application.Tests.Tags
             var unitOfWork = new Mock<IUnitOfWork>();
             var logger = new Mock<ILogger<DeleteUserTagHandler>>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"

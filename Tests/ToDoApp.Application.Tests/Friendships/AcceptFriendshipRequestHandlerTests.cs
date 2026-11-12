@@ -6,6 +6,7 @@ using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.UseCases.Friends;
 using ToDoApp.Application.UseCases.Friends.AcceptFriendRequest;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.ValueObjects;
 
@@ -80,8 +81,8 @@ namespace ToDoApp.Application.Tests
             var friendship = new Friendship(1, 2);
 
             // set Addressee to user with Id 2
-            var addressee = new User("John Doe", new Email("john.doe@example.com"), "Example of hashed password");
-            var requester = new User("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password");
+            var addressee = UserTestFactory.Create("John Doe", new Email("john.doe@example.com"), "Example of hashed password");
+            var requester = UserTestFactory.Create("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password");
 
             typeof(Friendship).GetProperty("Addressee", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)!
                 .SetValue(friendship, addressee);

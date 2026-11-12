@@ -57,7 +57,11 @@ namespace ToDoApp.Application.Tests.Tags
             var unitOfWork = new Mock<IUnitOfWork>();
             var logger = new Mock<ILogger<CreateNewTagHandler>>();
 
-            var user = UserTestFactory.Create(id: 1);
+            var user = UserTestFactory.Create(
+                username: "John Doe",
+                email: "john.doe@example.com",
+                password: "Example of hashed password",
+                id: 1);
 
             userRepository.Setup(r => r.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(user);

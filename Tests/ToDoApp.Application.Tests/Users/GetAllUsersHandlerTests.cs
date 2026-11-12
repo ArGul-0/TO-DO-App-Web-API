@@ -3,6 +3,7 @@ using Moq;
 using ToDoApp.Application.Common.Mappings;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.UseCases.Users.GetAllUsers;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.ValueObjects;
 
@@ -18,8 +19,8 @@ namespace ToDoApp.Application.Tests.Users
 
             var users = new List<User>
             {
-                new User("John Doe", new Email("john@example.com"), "Example of hashed password"),
-                new User("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password")
+                UserTestFactory.Create("John Doe", new Email("john@example.com"), "Example of hashed password"),
+                UserTestFactory.Create("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password")
             };
             userRepository.Setup(repo => repo.GetAllUsersAsync()).ReturnsAsync(users);
 

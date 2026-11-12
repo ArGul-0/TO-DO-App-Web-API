@@ -5,6 +5,7 @@ using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.UseCases.Users;
 using ToDoApp.Application.UseCases.Users.ChangeUserVisibility;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.Enums;
 using ToDoApp.Domain.ValueObjects;
@@ -24,7 +25,7 @@ namespace ToDoApp.Application.Tests.Users
             var unitOfWork = new Mock<IUnitOfWork>();
             var logger = new Mock<ILogger<ChangeUserVisibilityHandler>>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john@example.com"),
                 "Example of hashed password");

@@ -19,7 +19,11 @@ namespace ToDoApp.Application.Tests.Security.Notes
 
             var notesAuthorizationService = new NotesAuthorizationService(friendshipRepository.Object);
 
-            var user = UserTestFactory.Create(id: 1);
+            var user = UserTestFactory.Create(
+                username: "John Doe",
+                email: "john.doe@example.com",
+                password: "Example of hashed password",
+                id: 1);
 
             user.ChangeAccountVisibility(AccountVisibility.Private);
 
@@ -46,11 +50,8 @@ namespace ToDoApp.Application.Tests.Security.Notes
 
             var notesAuthorizationService = new NotesAuthorizationService(friendshipRepository.Object);
 
-            var currentUser = new User("John Doe", new Email("john@example.com"), "Example of hashed password");
-            SetUserId(currentUser, 1);
-
-            var noteOwner = new User("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password");
-            SetUserId(noteOwner, 2);
+            var currentUser = UserTestFactory.Create("John Doe", "john@example.com", "Example of hashed password", id: 1);
+            var noteOwner = UserTestFactory.Create("Jane Smith", "jane.smith@example.com", "Example of hashed password", id: 2);
 
             noteOwner.ChangeAccountVisibility(AccountVisibility.Public);
 
@@ -79,11 +80,8 @@ namespace ToDoApp.Application.Tests.Security.Notes
 
             var notesAuthorizationService = new NotesAuthorizationService(friendshipRepository.Object);
 
-            var currentUser = new User("John Doe", new Email("john@example.com"), "Example of hashed password");
-            SetUserId(currentUser, 1);
-
-            var noteOwner = new User("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password");
-            SetUserId(noteOwner, 2);
+            var currentUser = UserTestFactory.Create("John Doe", "john@example.com", "Example of hashed password", id: 1);
+            var noteOwner = UserTestFactory.Create("Jane Smith", "jane.smith@example.com", "Example of hashed password", id: 2);
 
             noteOwner.ChangeAccountVisibility(AccountVisibility.Private);
 
@@ -112,11 +110,8 @@ namespace ToDoApp.Application.Tests.Security.Notes
 
             var notesAuthorizationService = new NotesAuthorizationService(friendshipRepository.Object);
 
-            var currentUser = new User("John Doe", new Email("john@example.com"), "Example of hashed password");
-            SetUserId(currentUser, 1);
-
-            var noteOwner = new User("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password");
-            SetUserId(noteOwner, 2);
+            var currentUser = UserTestFactory.Create("John Doe", "john@example.com", "Example of hashed password", id: 1);
+            var noteOwner = UserTestFactory.Create("Jane Smith", "jane.smith@example.com", "Example of hashed password", id: 2);
 
             noteOwner.ChangeAccountVisibility(AccountVisibility.OnlyForFriends);
 
@@ -157,11 +152,8 @@ namespace ToDoApp.Application.Tests.Security.Notes
 
             var notesAuthorizationService = new NotesAuthorizationService(friendshipRepository.Object);
 
-            var currentUser = new User("John Doe", new Email("john@example.com"), "Example of hashed password");
-            SetUserId(currentUser, 1);
-
-            var noteOwner = new User("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password");
-            SetUserId(noteOwner, 2);
+            var currentUser = UserTestFactory.Create("John Doe", "john@example.com", "Example of hashed password", id: 1);
+            var noteOwner = UserTestFactory.Create("Jane Smith", "jane.smith@example.com", "Example of hashed password", id: 2);
 
             noteOwner.ChangeAccountVisibility(AccountVisibility.OnlyForFriends);
 
@@ -200,11 +192,8 @@ namespace ToDoApp.Application.Tests.Security.Notes
 
             var notesAuthorizationService = new NotesAuthorizationService(friendshipRepository.Object);
 
-            var currentUser = new User("John Doe", new Email("john@example.com"), "Example of hashed password");
-            SetUserId(currentUser, 1);
-
-            var noteOwner = new User("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password");
-            SetUserId(noteOwner, 2);
+            var currentUser = UserTestFactory.Create("John Doe", "john@example.com", "Example of hashed password", id: 1);
+            var noteOwner = UserTestFactory.Create("Jane Smith", "jane.smith@example.com", "Example of hashed password", id: 2);
 
             noteOwner.ChangeAccountVisibility(AccountVisibility.OnlyForFriends);
 
@@ -245,11 +234,8 @@ namespace ToDoApp.Application.Tests.Security.Notes
 
             var notesAuthorizationService = new NotesAuthorizationService(friendshipRepository.Object);
 
-            var currentUser = new User("John Doe", new Email("john@example.com"), "Example of hashed password");
-            SetUserId(currentUser, 1);
-
-            var noteOwner = new User("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password");
-            SetUserId(noteOwner, 2);
+            var currentUser = UserTestFactory.Create("John Doe", "john@example.com", "Example of hashed password", id: 1);
+            var noteOwner = UserTestFactory.Create("Jane Smith", "jane.smith@example.com", "Example of hashed password", id: 2);
 
             noteOwner.ChangeAccountVisibility(AccountVisibility.OnlyForFriends);
 
@@ -284,12 +270,11 @@ namespace ToDoApp.Application.Tests.Security.Notes
 
             var notesAuthorizationService = new NotesAuthorizationService(friendshipRepository.Object);
 
-            var currentUser = new User(
+            var currentUser = UserTestFactory.Create(
                 "John Doe",
-                new Email("john@example.com"),
-                "Example of hashed password");
-
-            SetUserId(currentUser, 1);
+                "john@example.com",
+                "Example of hashed password",
+                id: 1);
 
             var ownNote = new Note(
                 "Own note",
@@ -297,12 +282,11 @@ namespace ToDoApp.Application.Tests.Security.Notes
                 false,
                 currentUser.Id);
 
-            var publicOwner = new User(
+            var publicOwner = UserTestFactory.Create(
                 "Jane Smith",
-                new Email("jane@example.com"),
-                "Example of hashed password");
-
-            SetUserId(publicOwner, 2);
+                "jane@example.com",
+                "Example of hashed password",
+                id: 2);
             publicOwner.ChangeAccountVisibility(AccountVisibility.Public);
 
             var publicNote = new Note(
@@ -313,12 +297,11 @@ namespace ToDoApp.Application.Tests.Security.Notes
 
             SetNoteUser(publicNote, publicOwner);
 
-            var privateOwner = new User(
+            var privateOwner = UserTestFactory.Create(
                 "Alex Brown",
-                new Email("alex@example.com"),
-                "Example of hashed password");
-
-            SetUserId(privateOwner, 3);
+                "alex@example.com",
+                "Example of hashed password",
+                id: 3);
             privateOwner.ChangeAccountVisibility(AccountVisibility.Private);
 
             var privateNote = new Note(
@@ -349,15 +332,6 @@ namespace ToDoApp.Application.Tests.Security.Notes
                     It.IsAny<int>(),
                     It.IsAny<int>()),
                 Times.Never);
-        }
-
-
-
-        private static void SetUserId(User user, int id)
-        {
-            typeof(User)
-                .GetProperty(nameof(User.Id))!
-                .SetValue(user, id);
         }
 
         private static void SetNoteUser(Note note, User user)

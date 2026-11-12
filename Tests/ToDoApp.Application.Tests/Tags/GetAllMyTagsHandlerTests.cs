@@ -5,6 +5,7 @@ using ToDoApp.Application.DTOs;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.UseCases.Tags.GetAllMyTags;
 using ToDoApp.Application.UseCases.Users;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.ValueObjects;
 
@@ -47,7 +48,7 @@ namespace ToDoApp.Application.Tests.Tags
             var userRepository = new Mock<IUserRepository>();
             var logger = new Mock<ILogger<GetAllMyTagsHandler>>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"

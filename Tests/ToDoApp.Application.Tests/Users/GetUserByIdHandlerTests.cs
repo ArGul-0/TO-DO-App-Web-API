@@ -4,6 +4,7 @@ using ToDoApp.Application.Common.Mappings;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.UseCases.Users;
 using ToDoApp.Application.UseCases.Users.GetUserById;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.ValueObjects;
 
@@ -17,7 +18,7 @@ namespace ToDoApp.Application.Tests.Users
             // Arrange
             var userRepository = new Mock<IUserRepository>();
 
-            var user = new User("John Doe", new Email("john@example.com"), "Example of hashed password");
+            var user = UserTestFactory.Create("John Doe", new Email("john@example.com"), "Example of hashed password");
             userRepository.Setup(repo => repo.GetUserByIdAsync(It.IsAny<int>())).ReturnsAsync(user);
 
             var userDto = user.ToDto();

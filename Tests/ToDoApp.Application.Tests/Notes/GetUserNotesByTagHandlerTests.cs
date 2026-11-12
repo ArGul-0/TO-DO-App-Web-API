@@ -51,7 +51,7 @@ namespace ToDoApp.Application.Tests.Notes
             var noteRepository = new Mock<INoteRepository>();
             var logger = new Mock<ILogger<GetUserNotesByTagHandler>>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"
@@ -89,7 +89,7 @@ namespace ToDoApp.Application.Tests.Notes
             var noteRepository = new Mock<INoteRepository>();
             var logger = new Mock<ILogger<GetUserNotesByTagHandler>>();
 
-            var user = new User(
+            var user = UserTestFactory.Create(
                 "John Doe",
                 new Email("john.doe@example.com"),
                 "Example of hashed password"
@@ -129,7 +129,11 @@ namespace ToDoApp.Application.Tests.Notes
             var noteRepository = new Mock<INoteRepository>();
             var logger = new Mock<ILogger<GetUserNotesByTagHandler>>();
 
-            var user = UserTestFactory.Create(id: 1);
+            var user = UserTestFactory.Create(
+                username: "John Doe",
+                email: "john.doe@example.com",
+                password: "Example of hashed password",
+                id: 1);
 
             var tag = new Tag("Test Tag", user.Id);
 

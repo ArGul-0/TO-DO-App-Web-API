@@ -3,6 +3,7 @@ using Moq;
 using ToDoApp.Domain.ValueObjects;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests;
+using ToDoApp.Application.Tests.Common.Factories;
 using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Application.Tests
@@ -18,9 +19,9 @@ namespace ToDoApp.Application.Tests
             var friendship1 = new Friendship(1, 2);
             var friendship2 = new Friendship(3, 2);
 
-            var requester1 = new User("John Doe", new Email("john.doe@example.com"), "Example of hashed password");
-            var requester2 = new User("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password");
-            var addressee = new User("Target User", new Email("target.user@example.com"), "Example of hashed password");
+            var requester1 = UserTestFactory.Create("John Doe", new Email("john.doe@example.com"), "Example of hashed password");
+            var requester2 = UserTestFactory.Create("Jane Smith", new Email("jane.smith@example.com"), "Example of hashed password");
+            var addressee = UserTestFactory.Create("Target User", new Email("target.user@example.com"), "Example of hashed password");
 
             typeof(Friendship).GetProperty("Requester", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic)!
                 .SetValue(friendship1, requester1);
