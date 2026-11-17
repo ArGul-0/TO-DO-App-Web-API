@@ -18,7 +18,13 @@ namespace ToDoApp.WebApi.Extensions
             /// <returns>The same instance of <see cref="WebApplicationBuilder"/> with Serilog logging configured.</returns>
             public WebApplicationBuilder AddSerilogLogging()
             {
-                var seqUrl = builder.Configuration["Serilog:SeqUrl"] ?? throw new NullReferenceException("Serilog:SeqUrl configuration is missing.");
+                var seqUrl = builder.Configuration["Serilog:SeqUrl"];
+
+                if (!Uri.TryCreate(seqUrl, UriKind.Absolute, out var seqUri) ||
+                    (seqUri.Scheme != Uri.UriSchemeHttp && seqUri.Scheme != Uri.UriSchemeHttps))
+                {
+                    throw new InvalidOperationException("Serilog:SeqUrl must be an absolute HTTP or HTTPS URL.");
+                }
 
                 Log.Logger = new LoggerConfiguration()
                     .MinimumLevel.Information()
