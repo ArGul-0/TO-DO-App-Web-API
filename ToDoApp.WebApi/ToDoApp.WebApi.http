@@ -1,6 +1,159 @@
-@ToDoApp.WebApi_HostAddress = http://localhost:5228
+@ToDoApp.WebApi_HostAddress = https://localhost:7091
+@userId = 1
+@friendId = 2
+@noteId = 1
+@tagId = 1
 
-GET {{ToDoApp.WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
+### Health
+GET {{ToDoApp.WebApi_HostAddress}}/health
 
-###
+### Register a user
+# @name register
+POST {{ToDoApp.WebApi_HostAddress}}/Auth/Register
+Content-Type: application/json
+
+{
+  "username": "alice",
+  "email": "alice@example.com",
+  "password": "Passw0rd!"
+}
+
+### Login (run this before requests that require authentication)
+# @name login
+POST {{ToDoApp.WebApi_HostAddress}}/Auth/Login
+Content-Type: application/json
+
+{
+  "email": "alice@example.com",
+  "password": "Passw0rd!"
+}
+
+### Logout
+POST {{ToDoApp.WebApi_HostAddress}}/Auth/Logout
+
+### Get all users
+GET {{ToDoApp.WebApi_HostAddress}}/Users/
+
+### Get user by ID
+GET {{ToDoApp.WebApi_HostAddress}}/Users/{{userId}}
+
+### Get current user
+GET {{ToDoApp.WebApi_HostAddress}}/Users/Me
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Change current user's visibility (0 = private, 1 = friends, 2 = public)
+POST {{ToDoApp.WebApi_HostAddress}}/Users/Me/ChangeUserVisibility
+Content-Type: application/json
+Cookie: JwtToken={{login.response.body.$.token}}
+
+{
+  "newVisibility": 2
+}
+
+### Delete current user's account
+DELETE {{ToDoApp.WebApi_HostAddress}}/Users/Me
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Get notes visible to the current user
+GET {{ToDoApp.WebApi_HostAddress}}/Notes/
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Get note by ID
+GET {{ToDoApp.WebApi_HostAddress}}/Notes/{{noteId}}
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Get current user's notes
+GET {{ToDoApp.WebApi_HostAddress}}/Notes/Me
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Get current user's notes by tag ID
+GET {{ToDoApp.WebApi_HostAddress}}/Notes/Me/Tags/{{tagId}}
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Create a note
+POST {{ToDoApp.WebApi_HostAddress}}/Notes/
+Content-Type: application/json
+Cookie: JwtToken={{login.response.body.$.token}}
+
+{
+  "title": "Example note",
+  "content": "Try the notes endpoints",
+  "isDone": false
+}
+
+### Update a note
+PUT {{ToDoApp.WebApi_HostAddress}}/Notes/{{noteId}}
+Content-Type: application/json
+Cookie: JwtToken={{login.response.body.$.token}}
+
+{
+  "title": "Updated example note",
+  "content": "The note was updated",
+  "isDone": true
+}
+
+### Delete a note
+DELETE {{ToDoApp.WebApi_HostAddress}}/Notes/{{noteId}}
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Attach a tag to a note
+POST {{ToDoApp.WebApi_HostAddress}}/Notes/{{noteId}}/Tags/{{tagId}}
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Detach a tag from a note
+DELETE {{ToDoApp.WebApi_HostAddress}}/Notes/{{noteId}}/Tags/{{tagId}}
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Get current user's tags
+GET {{ToDoApp.WebApi_HostAddress}}/Tags/Me
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Get current user's tag by ID
+GET {{ToDoApp.WebApi_HostAddress}}/Tags/Me/{{tagId}}
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Create a tag
+POST {{ToDoApp.WebApi_HostAddress}}/Tags/
+Content-Type: application/json
+Cookie: JwtToken={{login.response.body.$.token}}
+
+{
+  "name": "Example tag"
+}
+
+### Update a tag
+PUT {{ToDoApp.WebApi_HostAddress}}/Tags/{{tagId}}
+Content-Type: application/json
+Cookie: JwtToken={{login.response.body.$.token}}
+
+{
+  "name": "Updated example tag"
+}
+
+### Delete a tag
+DELETE {{ToDoApp.WebApi_HostAddress}}/Tags/{{tagId}}
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Get current user's friendships
+GET {{ToDoApp.WebApi_HostAddress}}/Friends/
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Get incoming friendship requests
+GET {{ToDoApp.WebApi_HostAddress}}/Friends/Incoming
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Send a friendship request
+POST {{ToDoApp.WebApi_HostAddress}}/Friends/Requests/{{friendId}}
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Accept a friendship request
+POST {{ToDoApp.WebApi_HostAddress}}/Friends/Requests/{{friendId}}/Accept
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Reject a friendship request
+POST {{ToDoApp.WebApi_HostAddress}}/Friends/Requests/{{friendId}}/Reject
+Cookie: JwtToken={{login.response.body.$.token}}
+
+### Remove a friendship
+DELETE {{ToDoApp.WebApi_HostAddress}}/Friends/{{friendId}}
+Cookie: JwtToken={{login.response.body.$.token}}
