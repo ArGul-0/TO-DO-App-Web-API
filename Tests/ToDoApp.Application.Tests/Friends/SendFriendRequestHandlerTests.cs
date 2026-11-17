@@ -12,7 +12,7 @@ using ToDoApp.Domain.ValueObjects;
 
 namespace ToDoApp.Application.Tests
 {
-    public sealed class SendFriendshipRequestHandlerTests
+    public sealed class SendFriendRequestHandlerTests
     {
         [Fact]
         public async Task Handle_ShouldReturnFailure_WhenUserTriesToFriendHimself()

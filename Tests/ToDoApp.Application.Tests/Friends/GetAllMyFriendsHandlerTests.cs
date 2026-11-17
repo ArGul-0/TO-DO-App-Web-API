@@ -9,7 +9,7 @@ using ToDoApp.Domain.ValueObjects;
 
 namespace ToDoApp.Application.Tests
 {
-    public sealed class GetAllMyFriendshipsHandlerTests
+    public sealed class GetAllMyFriendsHandlerTests
     {
         [Fact]
         public async Task Handle_ShouldReturnDtos_WhenFriendshipsExist()

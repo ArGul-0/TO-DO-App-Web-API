@@ -8,7 +8,7 @@ using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Application.Tests
 {
-    public sealed class GetIncomingFriendshipRequestsHandlerTests
+    public sealed class GetIncomingFriendRequestsHandlerTests
     {
         [Fact]
         public async Task Handle_ShouldReturnDtos_WhenFriendshipsExist()
