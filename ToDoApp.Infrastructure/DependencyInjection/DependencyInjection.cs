@@ -2,9 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Npgsql;
-using System.Text;
 using ToDoApp.Application.Interfaces;
 using ToDoApp.Application.Interfaces.Repositories;
 using ToDoApp.Infrastructure.Authentication.Jwt;
@@ -47,12 +45,7 @@ namespace ToDoApp.Infrastructure.DependencyInjection
 
             services.AddOptions<JwtOptions>()
                 .Bind(configuration.GetSection("JwtOptions"))
-                .Validate(options => !string.IsNullOrWhiteSpace(options.SecretKey), "JwtOptions:SecretKey is required.")
-                .Validate(options => Encoding.UTF8.GetByteCount(options.SecretKey ?? string.Empty) >= 32, "JwtOptions:SecretKey must be at least 32 bytes for HS256.")
-                .Validate(options => !string.IsNullOrWhiteSpace(options.Issuer), "JwtOptions:Issuer is required.")
-                .Validate(options => !string.IsNullOrWhiteSpace(options.Audience), "JwtOptions:Audience is required.")
-                .Validate(options => options.ExpirationHours > 0, "JwtOptions:ExpirationHours must be greater than zero.")
-                .Validate(options => !string.IsNullOrWhiteSpace(options.NameInCookies), "JwtOptions:NameInCookies is required.")
+                .ValidateDataAnnotations()
                 .ValidateOnStart();
 
             services.AddDbContext<AppDbContext>(options =>
