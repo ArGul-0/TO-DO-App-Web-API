@@ -12,7 +12,6 @@ namespace ToDoApp.Application.Common.Mappings
                 return new UserDto(
                     Id: user.Id,
                     Username: user.Username,
-                    Email: user.Email.Value,
                     Visibility: user.Visibility
                     );
             }

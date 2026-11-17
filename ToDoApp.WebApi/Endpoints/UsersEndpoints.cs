@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using ToDoApp.Application.Common;
+﻿using ToDoApp.Application.Common;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.UseCases.Users.ChangeUserVisibility;
 using ToDoApp.Application.UseCases.Users.DeleteMyAccount;

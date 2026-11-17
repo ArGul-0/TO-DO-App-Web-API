@@ -45,7 +45,6 @@ namespace ToDoApp.Application.Tests.Users
             var newUserDto = new UserDto(
                 Id: 0,
                 Username: request.Username,
-                Email: request.Email,
                 Visibility: AccountVisibility.Public
                 );
 
