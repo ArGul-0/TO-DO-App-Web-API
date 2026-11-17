@@ -37,7 +37,7 @@ namespace ToDoApp.WebApi.Endpoints
             }).WithName(GetAllMyFriendsEndpointName)
               .WithSummary("Get all friendships for the current user.")
               .RequireAuthorization()
-              .Produces<List<FriendshipDto>>(StatusCodes.Status200OK)
+              .Produces<List<FriendDto>>(StatusCodes.Status200OK)
               .Produces(StatusCodes.Status401Unauthorized)
               .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError);
 
@@ -54,7 +54,7 @@ namespace ToDoApp.WebApi.Endpoints
             }).WithName(GetIncomingFriendshipRequestsEndpointName)
               .WithSummary("Get incoming friendship requests for the current user.")
               .RequireAuthorization()
-              .Produces<List<FriendshipDto>>(StatusCodes.Status200OK)
+              .Produces<List<FriendDto>>(StatusCodes.Status200OK)
               .Produces(StatusCodes.Status401Unauthorized)
               .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError);
 

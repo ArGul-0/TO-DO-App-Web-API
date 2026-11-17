@@ -13,13 +13,13 @@ namespace ToDoApp.Application.UseCases.Friends.GetAllMyFriendships
             this.friendshipRepository = friendshipRepository;
         }
 
-        public async Task<ResultT<List<FriendshipDto>>> Handle(int userId)
+        public async Task<ResultT<List<FriendDto>>> Handle(int userId)
         {
             var friendships = await friendshipRepository.GetAllFriendshipsByUserIdAsync(userId);
 
             var friendshipDtos = friendships.Select(f => f.ToDto()).ToList();
 
-            return ResultT<List<FriendshipDto>>.Success(friendshipDtos);
+            return ResultT<List<FriendDto>>.Success(friendshipDtos);
         }
     }
 }

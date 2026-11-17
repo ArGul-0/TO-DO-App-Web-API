@@ -3,7 +3,7 @@ using ToDoApp.Domain.Enums;
 
 namespace ToDoApp.Application.DTOs
 {
-    public record FriendshipDto(
+    public record FriendDto(
         int Id,
         int RequesterId,
         string RequesterUsername,

@@ -7,9 +7,9 @@ namespace ToDoApp.Application.Common.Mappings
     {
         extension(Friendship friendship)
         {
-            public FriendshipDto ToDto()
+            public FriendDto ToDto()
             {
-                return new FriendshipDto(
+                return new FriendDto(
                     Id: friendship.Id,
                     RequesterId: friendship.RequesterId,
                     RequesterUsername: friendship.Requester.Username,
