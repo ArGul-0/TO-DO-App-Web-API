@@ -12,7 +12,7 @@ namespace ToDoApp.Infrastructure.Authentication.Jwt
     {
         private readonly JwtOptions options;
 
-        public JwtTokenGenerator(IOptions<JwtOptions> options) // Constructor For JwtTokenGenerator, Accepting IConfiguration To Access JWT Settings From Configuration
+        public JwtTokenGenerator(IOptions<JwtOptions> options)
         {
             this.options = options.Value;
         }

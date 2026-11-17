@@ -1,5 +1,7 @@
-﻿using ToDoApp.Application.Common;
+﻿using Microsoft.Extensions.Options;
+using ToDoApp.Application.Common;
 using ToDoApp.Application.DTOs;
+using ToDoApp.Infrastructure.Authentication.Jwt;
 using ToDoApp.Application.UseCases.Users.ChangeUserVisibility;
 using ToDoApp.Application.UseCases.Users.DeleteMyAccount;
 using ToDoApp.Application.UseCases.Users.GetAllUsers;
@@ -87,7 +89,7 @@ namespace ToDoApp.WebApi.Endpoints
               .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
               .ProducesResultErrors(ErrorType.NotFound);
 
-            usersGroup.MapDelete("/Me", async (DeleteMyAccountHandler handler, IConfiguration configuration, HttpContext context) =>
+            usersGroup.MapDelete("/Me", async (DeleteMyAccountHandler handler, IOptions<JwtOptions> jwtOptionsAccessor, HttpContext context) =>
             {
                 var userId = context.User.GetUserId();
 
@@ -96,7 +98,7 @@ namespace ToDoApp.WebApi.Endpoints
                 if (result.IsFailure)
                     return result.ToHttpResult();
 
-                context.Response.Cookies.Delete(configuration["JwtOptions:NameInCookies"] ?? throw new InvalidOperationException("Jwt cookie name not configured"));
+                context.Response.Cookies.Delete(jwtOptionsAccessor.Value.NameInCookies);
 
                 return Results.Ok();
             }).WithName(DeleteMyAccountEndpointName)

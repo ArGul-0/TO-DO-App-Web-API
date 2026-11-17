@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ToDoApp.Infrastructure.Authentication.Jwt;
@@ -12,9 +13,13 @@ namespace ToDoApp.WebApi.Extensions
             public WebApplicationBuilder AddAuth()
             {
                 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+                    .AddJwtBearer();
+
+                builder.Services
+                    .AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme)
+                    .Configure<IOptions<JwtOptions>>((options, jwtOptionsAccessor) =>
                     {
-                        var jwtOptions = builder.Configuration.GetSection("JwtOptions").Get<JwtOptions>() ?? throw new InvalidOperationException("JwtOptions configuration is missing.");
+                        var jwtOptions = jwtOptionsAccessor.Value;
 
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
@@ -25,15 +30,14 @@ namespace ToDoApp.WebApi.Extensions
                             ValidateLifetime = true,
                             ClockSkew = TimeSpan.Zero,
                             ValidateIssuerSigningKey = true,
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                                jwtOptions.SecretKey!)),
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey)),
                         };
 
                         options.Events = new JwtBearerEvents
                         {
                             OnMessageReceived = context =>
                             {
-                                var token = context.Request.Cookies[jwtOptions.NameInCookies!];
+                                var token = context.Request.Cookies[jwtOptions.NameInCookies];
 
                                 if (!string.IsNullOrEmpty(token))
                                 {

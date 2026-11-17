@@ -1,6 +1,8 @@
-﻿using ToDoApp.Application.Common;
+﻿using Microsoft.Extensions.Options;
+using ToDoApp.Application.Common;
 using ToDoApp.Application.UseCases.Users.CreateUser;
 using ToDoApp.Application.UseCases.Users.LoginUser;
+using ToDoApp.Infrastructure.Authentication.Jwt;
 using ToDoApp.WebApi.Extensions;
 using ToDoApp.WebApi.Middlewares;
 
@@ -22,18 +24,18 @@ namespace ToDoApp.WebApi.Endpoints
                 CreateUserRequest request,
                 CreateUserHandler createUserHandler,
                 HttpContext httpContext,
-                IConfiguration configuration) =>
+                IOptions<JwtOptions> jwtOptionsAccessor) =>
             {
                 var result = await createUserHandler.Handle(request);
 
                 if (result.IsFailure)
                     return result.ToHttpResult();
 
-                var jwtExpires = DateTimeOffset.UtcNow.AddHours(
-                    configuration.GetValue<int>("JwtOptions:ExpirationHours"));
+                var jwtOptions = jwtOptionsAccessor.Value;
+                var jwtExpires = DateTimeOffset.UtcNow.AddHours(jwtOptions.ExpirationHours);
 
                 httpContext.Response.Cookies
-                .Append(configuration["JwtOptions:NameInCookies"] ?? throw new InvalidOperationException("Jwt cookie name not configured"),
+                .Append(jwtOptions.NameInCookies,
                 result.Value.Token, new CookieOptions
                 {
                     HttpOnly = true,
@@ -56,17 +58,17 @@ namespace ToDoApp.WebApi.Endpoints
                 LoginUserRequest request,
                 LoginUserHandler loginUserHandler,
                 HttpContext httpContext,
-                IConfiguration configuration) =>
+                IOptions<JwtOptions> jwtOptionsAccessor) =>
             {
                 var result = await loginUserHandler.Handle(request);
                 if (result.IsFailure)
                     return result.ToHttpResult();
 
-                var jwtExpires = DateTimeOffset.UtcNow.AddHours(
-                    configuration.GetValue<int>("JwtOptions:ExpirationHours"));
+                var jwtOptions = jwtOptionsAccessor.Value;
+                var jwtExpires = DateTimeOffset.UtcNow.AddHours(jwtOptions.ExpirationHours);
 
                 httpContext.Response.Cookies
-                .Append(configuration["JwtOptions:NameInCookies"] ?? throw new InvalidOperationException("Jwt cookie name not configured"),
+                .Append(jwtOptions.NameInCookies,
                 result.Value.Token, new CookieOptions
                 {
                     HttpOnly = true,
@@ -87,9 +89,9 @@ namespace ToDoApp.WebApi.Endpoints
 
             authGroup.MapPost("/Logout", async (
                 HttpContext httpContext,
-                IConfiguration configuration) =>
+                IOptions<JwtOptions> jwtOptionsAccessor) =>
             {
-                httpContext.Response.Cookies.Delete(configuration["JwtOptions:NameInCookies"] ?? throw new InvalidOperationException("Jwt cookie name not configured"));
+                httpContext.Response.Cookies.Delete(jwtOptionsAccessor.Value.NameInCookies);
                 
                 return Results.Ok();
             }).WithName(LogoutEndpointName)
