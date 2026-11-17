@@ -7,17 +7,17 @@ using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
 {
-    public class SendFriendshipRequestHandler
+    public class SendFriendRequestHandler
     {
         private readonly IFriendshipRepository friendshipRepository;
         private readonly IUserRepository userRepository;
         private readonly IUnitOfWork unitOfWork;
-        private readonly ILogger<SendFriendshipRequestHandler> logger;
-        public SendFriendshipRequestHandler(
+        private readonly ILogger<SendFriendRequestHandler> logger;
+        public SendFriendRequestHandler(
             IFriendshipRepository friendshipRepository,
             IUserRepository userRepository,
             IUnitOfWork unitOfWork,
-            ILogger<SendFriendshipRequestHandler> logger)
+            ILogger<SendFriendRequestHandler> logger)
         {
             this.friendshipRepository = friendshipRepository;
             this.userRepository = userRepository;
@@ -29,7 +29,7 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
         {
             if (userId == friendId)
             {
-                return Result.Failure(SendFriendshipRequestErrors.CannotFriendYourself);
+                return Result.Failure(SendFriendRequestErrors.CannotFriendYourself);
             }
 
             var user = await userRepository.GetUserByIdAsync(userId);
@@ -38,11 +38,11 @@ namespace ToDoApp.Application.UseCases.Friends.SendFriendRequest
             if (user is null)
                 return Result.Failure(UsersErrors.UserNotFound);
             if (friend is null)
-                return Result.Failure(FriendshipErrors.FriendNotFound);
+                return Result.Failure(FriendsErrors.FriendNotFound);
 
             var existingFriendship = await friendshipRepository.FriendshipExistsAsync(userId, friendId);
             if (existingFriendship)
-                return Result.Failure(FriendshipErrors.FriendshipAlreadyExists);
+                return Result.Failure(FriendsErrors.FriendshipAlreadyExists);
 
             var newFriendship = new Friendship(userId, friendId);
 

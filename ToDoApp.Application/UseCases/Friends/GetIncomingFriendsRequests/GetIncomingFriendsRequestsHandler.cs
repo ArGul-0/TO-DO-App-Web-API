@@ -5,10 +5,10 @@ using ToDoApp.Application.Interfaces.Repositories;
 
 namespace ToDoApp.Application.UseCases.Friends.GetIncomingFriendshipRequests
 {
-    public class GetIncomingFriendshipRequestsHandler
+    public class GetIncomingFriendsRequestsHandler
     {
         private readonly IFriendshipRepository friendshipRepository;
-        public GetIncomingFriendshipRequestsHandler(IFriendshipRepository friendshipRepository)
+        public GetIncomingFriendsRequestsHandler(IFriendshipRepository friendshipRepository)
         {
             this.friendshipRepository = friendshipRepository;
         }

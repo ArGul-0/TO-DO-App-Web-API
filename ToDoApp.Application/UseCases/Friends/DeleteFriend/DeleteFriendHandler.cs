@@ -6,15 +6,15 @@ using ToDoApp.Domain.Enums;
 
 namespace ToDoApp.Application.UseCases.Friends.RemoveFriendship
 {
-    public class DeleteFriendship
+    public class DeleteFriendHandler
     {
         private readonly IFriendshipRepository friendshipRepository;
         private readonly IUnitOfWork unitOfWork;
-        private readonly ILogger<DeleteFriendship> logger;
-        public DeleteFriendship(
+        private readonly ILogger<DeleteFriendHandler> logger;
+        public DeleteFriendHandler(
             IFriendshipRepository friendshipRepository,
             IUnitOfWork unitOfWork,
-            ILogger<DeleteFriendship> logger)
+            ILogger<DeleteFriendHandler> logger)
         {
             this.friendshipRepository = friendshipRepository;
             this.unitOfWork = unitOfWork;
@@ -26,13 +26,13 @@ namespace ToDoApp.Application.UseCases.Friends.RemoveFriendship
             var friendship = await friendshipRepository.GetFriendshipAsync(userId, friendId);
 
             if (friendship is null)
-                return Result.Failure(FriendshipErrors.FriendshipNotExists);
+                return Result.Failure(FriendsErrors.FriendshipNotExists);
 
             if (friendship.Status != FriendshipStatus.Accepted)
-                return Result.Failure(FriendshipErrors.FriendshipIsNotAccepted);
+                return Result.Failure(FriendsErrors.FriendshipIsNotAccepted);
 
             if (friendship.AddresseeId != userId && friendship.RequesterId != userId)
-                return Result.Failure(FriendshipErrors.NotAllowedToManageThisFriendsipRequest);
+                return Result.Failure(FriendsErrors.NotAllowedToManageThisFriendsipRequest);
 
             await friendshipRepository.DeleteFriendshipAsync(friendship);
 

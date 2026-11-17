@@ -36,7 +36,7 @@ namespace ToDoApp.Application.Tests
             friendshipRepo.Setup(r => r.GetIncomingFriendshipRequestsAsync(It.IsAny<int>()))
                 .ReturnsAsync(new List<Friendship> { friendship1, friendship2 });
 
-            var handler = new GetIncomingFriendshipRequestsHandler(friendshipRepo.Object);
+            var handler = new GetIncomingFriendsRequestsHandler(friendshipRepo.Object);
 
             // Act
             var result = await handler.Handle(2);

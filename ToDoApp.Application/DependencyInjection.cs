@@ -59,12 +59,12 @@ namespace ToDoApp.Application
             services.AddScoped<UpdateUserTagHandler>();
             services.AddScoped<DeleteUserTagHandler>();
 
-            services.AddScoped<SendFriendshipRequestHandler>();
-            services.AddScoped<AcceptFriendshipRequestHandler>();
-            services.AddScoped<RejectFriendshipRequestHandler>();
-            services.AddScoped<DeleteFriendship>();
-            services.AddScoped<GetIncomingFriendshipRequestsHandler>();
-            services.AddScoped<GetAllMyFriendshipsHandler>();
+            services.AddScoped<SendFriendRequestHandler>();
+            services.AddScoped<AcceptFriendRequestHandler>();
+            services.AddScoped<RejectFriendRequestHandler>();
+            services.AddScoped<DeleteFriendHandler>();
+            services.AddScoped<GetIncomingFriendsRequestsHandler>();
+            services.AddScoped<GetAllMyFriendsHandler>();
 
             services.AddScoped<INotesAuthorizationService, NotesAuthorizationService>();
 

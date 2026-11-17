@@ -21,9 +21,9 @@ namespace ToDoApp.Application.Tests
             var friendshipRepo = new Mock<IFriendshipRepository>();
             var userRepo = new Mock<IUserRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var logger = new Mock<ILogger<SendFriendshipRequestHandler>>();
+            var logger = new Mock<ILogger<SendFriendRequestHandler>>();
 
-            var handler = new SendFriendshipRequestHandler(
+            var handler = new SendFriendRequestHandler(
                 friendshipRepo.Object,
                 userRepo.Object,
                 unitOfWork.Object,
@@ -35,7 +35,7 @@ namespace ToDoApp.Application.Tests
 
             // Assert
             result.IsFailure.Should().BeTrue();
-            result.Error.Should().Be(SendFriendshipRequestErrors.CannotFriendYourself);
+            result.Error.Should().Be(SendFriendRequestErrors.CannotFriendYourself);
 
             friendshipRepo.Verify(r => r.AddFriendshipAsync(It.IsAny<Friendship>()), Times.Never);
             unitOfWork.Verify(u => u.SaveChangesAsync(), Times.Never);
@@ -48,12 +48,12 @@ namespace ToDoApp.Application.Tests
             var friendshipRepo = new Mock<IFriendshipRepository>();
             var userRepo = new Mock<IUserRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var logger = new Mock<ILogger<SendFriendshipRequestHandler>>();
+            var logger = new Mock<ILogger<SendFriendRequestHandler>>();
 
             userRepo.Setup(r => r.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync((User?)null);
 
-            var handler = new SendFriendshipRequestHandler(
+            var handler = new SendFriendRequestHandler(
                 friendshipRepo.Object,
                 userRepo.Object,
                 unitOfWork.Object,
@@ -78,13 +78,13 @@ namespace ToDoApp.Application.Tests
             var friendshipRepo = new Mock<IFriendshipRepository>();
             var userRepo = new Mock<IUserRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var logger = new Mock<ILogger<SendFriendshipRequestHandler>>();
+            var logger = new Mock<ILogger<SendFriendRequestHandler>>();
 
             userRepo.SetupSequence(r => r.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(UserTestFactory.Create("John Doe", new Email("john.doe@example.com"), "Example of hashed password"))
                 .ReturnsAsync((User?)null);
 
-            var handler = new SendFriendshipRequestHandler(
+            var handler = new SendFriendRequestHandler(
                 friendshipRepo.Object,
                 userRepo.Object,
                 unitOfWork.Object,
@@ -96,7 +96,7 @@ namespace ToDoApp.Application.Tests
 
             // Assert
             result.IsFailure.Should().BeTrue();
-            result.Error.Should().Be(FriendshipErrors.FriendNotFound);
+            result.Error.Should().Be(FriendsErrors.FriendNotFound);
 
             friendshipRepo.Verify(r => r.AddFriendshipAsync(It.IsAny<Friendship>()), Times.Never);
             unitOfWork.Verify(u => u.SaveChangesAsync(), Times.Never);
@@ -109,7 +109,7 @@ namespace ToDoApp.Application.Tests
             var friendshipRepo = new Mock<IFriendshipRepository>();
             var userRepo = new Mock<IUserRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var logger = new Mock<ILogger<SendFriendshipRequestHandler>>();
+            var logger = new Mock<ILogger<SendFriendRequestHandler>>();
 
             userRepo.Setup(r => r.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(UserTestFactory.Create("John Doe", new Email("john.doe@example.com"), "Example of hashed password"));
@@ -117,7 +117,7 @@ namespace ToDoApp.Application.Tests
             friendshipRepo.Setup(r => r.FriendshipExistsAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(true);
 
-            var handler = new SendFriendshipRequestHandler(
+            var handler = new SendFriendRequestHandler(
                 friendshipRepo.Object,
                 userRepo.Object,
                 unitOfWork.Object,
@@ -129,7 +129,7 @@ namespace ToDoApp.Application.Tests
 
             // Assert
             result.IsFailure.Should().BeTrue();
-            result.Error.Should().Be(FriendshipErrors.FriendshipAlreadyExists);
+            result.Error.Should().Be(FriendsErrors.FriendshipAlreadyExists);
 
             friendshipRepo.Verify(r => r.AddFriendshipAsync(It.IsAny<Friendship>()), Times.Never);
             unitOfWork.Verify(u => u.SaveChangesAsync(), Times.Never);
@@ -142,7 +142,7 @@ namespace ToDoApp.Application.Tests
             var friendshipRepo = new Mock<IFriendshipRepository>();
             var userRepo = new Mock<IUserRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var logger = new Mock<ILogger<SendFriendshipRequestHandler>>();
+            var logger = new Mock<ILogger<SendFriendRequestHandler>>();
 
             userRepo.Setup(r => r.GetUserByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(UserTestFactory.Create("John Doe", new Email("john.doe@example.com"), "Example of hashed password"));
@@ -150,7 +150,7 @@ namespace ToDoApp.Application.Tests
             friendshipRepo.Setup(r => r.FriendshipExistsAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(false);
 
-            var handler = new SendFriendshipRequestHandler(
+            var handler = new SendFriendRequestHandler(
                 friendshipRepo.Object,
                 userRepo.Object,
                 unitOfWork.Object,

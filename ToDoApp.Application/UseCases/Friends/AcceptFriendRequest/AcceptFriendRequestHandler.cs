@@ -5,15 +5,15 @@ using ToDoApp.Application.Interfaces.Repositories;
 
 namespace ToDoApp.Application.UseCases.Friends.AcceptFriendRequest
 {
-    public class AcceptFriendshipRequestHandler
+    public class AcceptFriendRequestHandler
     {
         private readonly IFriendshipRepository friendshipRepository;
         private readonly IUnitOfWork unitOfWork;
-        private readonly ILogger<AcceptFriendshipRequestHandler> logger;
-        public AcceptFriendshipRequestHandler(
+        private readonly ILogger<AcceptFriendRequestHandler> logger;
+        public AcceptFriendRequestHandler(
             IFriendshipRepository friendshipRepository,
             IUnitOfWork unitOfWork,
-            ILogger<AcceptFriendshipRequestHandler> logger)
+            ILogger<AcceptFriendRequestHandler> logger)
         {
             this.friendshipRepository = friendshipRepository;
             this.unitOfWork = unitOfWork;
@@ -25,10 +25,10 @@ namespace ToDoApp.Application.UseCases.Friends.AcceptFriendRequest
             var friendship = await friendshipRepository.GetFriendshipAsync(userId, friendId);
 
             if(friendship is null)
-                return Result.Failure(FriendshipErrors.FriendshipNotExists);
+                return Result.Failure(FriendsErrors.FriendshipNotExists);
 
             if (friendship.AddresseeId != userId)
-                return Result.Failure(FriendshipErrors.NotAllowedToManageThisFriendsipRequest);
+                return Result.Failure(FriendsErrors.NotAllowedToManageThisFriendsipRequest);
 
             friendship.Accept();
 

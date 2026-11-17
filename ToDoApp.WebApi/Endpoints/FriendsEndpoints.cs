@@ -24,7 +24,7 @@ namespace ToDoApp.WebApi.Endpoints
         {
             var friendsGroup = app.MapGroup("/Friends").WithTags("Friends"); // Create A Group For /Friends Endpoints
 
-            friendsGroup.MapGet("/", async (GetAllMyFriendshipsHandler handler, HttpContext context) =>
+            friendsGroup.MapGet("/", async (GetAllMyFriendsHandler handler, HttpContext context) =>
             {
                 var userId = context.User.GetUserId();
 
@@ -41,7 +41,7 @@ namespace ToDoApp.WebApi.Endpoints
               .Produces(StatusCodes.Status401Unauthorized)
               .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError);
 
-            friendsGroup.MapGet("/Incoming", async (GetIncomingFriendshipRequestsHandler handler, HttpContext context) =>
+            friendsGroup.MapGet("/Incoming", async (GetIncomingFriendsRequestsHandler handler, HttpContext context) =>
             {
                 var userId = context.User.GetUserId();
 
@@ -58,7 +58,7 @@ namespace ToDoApp.WebApi.Endpoints
               .Produces(StatusCodes.Status401Unauthorized)
               .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError);
 
-            friendsGroup.MapPost("/Requests/{friendId}", async (int friendId, SendFriendshipRequestHandler handler, HttpContext context) =>
+            friendsGroup.MapPost("/Requests/{friendId}", async (int friendId, SendFriendRequestHandler handler, HttpContext context) =>
             {
                 var userId = context.User.GetUserId();
 
@@ -76,7 +76,7 @@ namespace ToDoApp.WebApi.Endpoints
               .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
               .ProducesResultErrors(ErrorType.NotFound, ErrorType.Conflict);
 
-            friendsGroup.MapPost("/Requests/{friendId}/Accept", async (int friendId, AcceptFriendshipRequestHandler handler, HttpContext context) =>
+            friendsGroup.MapPost("/Requests/{friendId}/Accept", async (int friendId, AcceptFriendRequestHandler handler, HttpContext context) =>
             {
                 var userId = context.User.GetUserId();
 
@@ -93,7 +93,7 @@ namespace ToDoApp.WebApi.Endpoints
               .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
               .ProducesResultErrors(ErrorType.NotFound, ErrorType.Unauthorized);
 
-            friendsGroup.MapPost("/Requests/{friendId}/Reject", async (int friendId, RejectFriendshipRequestHandler handler, HttpContext context) =>
+            friendsGroup.MapPost("/Requests/{friendId}/Reject", async (int friendId, RejectFriendRequestHandler handler, HttpContext context) =>
             {
                 var userId = context.User.GetUserId();
 
@@ -110,7 +110,7 @@ namespace ToDoApp.WebApi.Endpoints
               .Produces<UnhandledExceptionResponse>(StatusCodes.Status500InternalServerError)
               .ProducesResultErrors(ErrorType.NotFound, ErrorType.Unauthorized);
 
-            friendsGroup.MapDelete("/{friendId}", async (int friendId, DeleteFriendship handler, HttpContext context) =>
+            friendsGroup.MapDelete("/{friendId}", async (int friendId, DeleteFriendHandler handler, HttpContext context) =>
             {
                 var userId = context.User.GetUserId();
 

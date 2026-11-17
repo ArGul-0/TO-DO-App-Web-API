@@ -20,12 +20,12 @@ namespace ToDoApp.Application.Tests
             // Arrange
             var friendshipRepo = new Mock<IFriendshipRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var logger = new Mock<ILogger<AcceptFriendshipRequestHandler>>();
+            var logger = new Mock<ILogger<AcceptFriendRequestHandler>>();
 
             friendshipRepo.Setup(r => r.GetFriendshipAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync((Friendship?)null);
 
-            var handler = new AcceptFriendshipRequestHandler(
+            var handler = new AcceptFriendRequestHandler(
                 friendshipRepo.Object,
                 unitOfWork.Object,
                 logger.Object
@@ -36,7 +36,7 @@ namespace ToDoApp.Application.Tests
 
             // Assert
             result.IsFailure.Should().BeTrue();
-            result.Error.Should().Be(FriendshipErrors.FriendshipNotExists);
+            result.Error.Should().Be(FriendsErrors.FriendshipNotExists);
 
             unitOfWork.Verify(u => u.SaveChangesAsync(), Times.Never);
         }
@@ -47,14 +47,14 @@ namespace ToDoApp.Application.Tests
             // Arrange
             var friendshipRepo = new Mock<IFriendshipRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var logger = new Mock<ILogger<AcceptFriendshipRequestHandler>>();
+            var logger = new Mock<ILogger<AcceptFriendRequestHandler>>();
 
             var friendship = new Friendship(1, 2);
 
             friendshipRepo.Setup(r => r.GetFriendshipAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(friendship);
 
-            var handler = new AcceptFriendshipRequestHandler(
+            var handler = new AcceptFriendRequestHandler(
                 friendshipRepo.Object,
                 unitOfWork.Object,
                 logger.Object
@@ -65,7 +65,7 @@ namespace ToDoApp.Application.Tests
 
             // Assert
             result.IsFailure.Should().BeTrue();
-            result.Error.Should().Be(FriendshipErrors.NotAllowedToManageThisFriendsipRequest);
+            result.Error.Should().Be(FriendsErrors.NotAllowedToManageThisFriendsipRequest);
 
             unitOfWork.Verify(u => u.SaveChangesAsync(), Times.Never);
         }
@@ -76,7 +76,7 @@ namespace ToDoApp.Application.Tests
             // Arrange
             var friendshipRepo = new Mock<IFriendshipRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
-            var logger = new Mock<ILogger<AcceptFriendshipRequestHandler>>();
+            var logger = new Mock<ILogger<AcceptFriendRequestHandler>>();
 
             var friendship = new Friendship(1, 2);
 
@@ -92,7 +92,7 @@ namespace ToDoApp.Application.Tests
             friendshipRepo.Setup(r => r.GetFriendshipAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(friendship);
 
-            var handler = new AcceptFriendshipRequestHandler(
+            var handler = new AcceptFriendRequestHandler(
                 friendshipRepo.Object,
                 unitOfWork.Object,
                 logger.Object
