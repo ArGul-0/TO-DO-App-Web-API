@@ -95,6 +95,10 @@ namespace ToDoApp.Infrastructure
                 .WithOne(t => t.Owner)
                 .HasForeignKey(t => t.OwnerId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Tag>()
+                .HasIndex(t => new { t.OwnerId, t.Name })
+                .IsUnique();
         }
     }
 }
